@@ -1,7 +1,11 @@
 
 import * as express from 'express'
+import { getFarceResult } from 'found/lib/server'
 import * as http from 'http'
 import * as logger from 'morgan'
+import * as ReactDOMServer from 'react-dom/server'
+
+import { renderConfig, routeConfig } from './App'
 
 import * as createDebug from 'debug'
 const debug = createDebug('server')
@@ -10,14 +14,36 @@ const debug = createDebug('server')
 const server = express()
 server.use(logger('dev'))
 
-const router = express.Router()
-// placeholder route handler
-router.get('/', (req, res, next) => {
-	res.json({
-		message: 'Hello, World!'
+server.use(express.static('build/public'))
+
+server.use(async (req, res) => {
+	const { redirect, status, element } = await getFarceResult({
+		url: req.url,
+		routeConfig,
+		render: renderConfig,
 	})
+
+	if (redirect) {
+		res.redirect(302, redirect.url)
+		return
+	}
+
+	console.debug('element', element)
+
+	res.status(status).send(`
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RTM Owl</title>
+</head>
+<body>
+	<div id="root">${ReactDOMServer.renderToString(element)}</div>
+	<script src="/bundle.js"></script>
+</body>
+</html>
+	`)
 })
-server.use('/', router)
 
 const port = normalizePort(process.env.PORT || 3001)
 server.set('port', port)

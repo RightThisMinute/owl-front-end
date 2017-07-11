@@ -26,7 +26,7 @@ const server = {
 
 	output: {
 		filename: 'server.js',
-		path: path.resolve(__dirname, 'dist')
+		path: path.resolve(__dirname, 'build')
 	},
 
 	devtool: 'source-map',
@@ -63,8 +63,8 @@ const browser = {
 	},
 
 	output: {
-		filename: 'browser.js',
-		path: path.resolve(__dirname, 'dist')
+		filename: 'bundle.js',
+		path: path.resolve(__dirname, 'build/public')
 	},
 
 	devtool: 'source-map',
