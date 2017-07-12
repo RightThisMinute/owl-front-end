@@ -11,7 +11,7 @@
     "rootDir": "src",
     "outDir": "dist",
     "sourceMap": true,
-    
+
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -23,7 +23,9 @@
     "typeRoots": [
       "./@types",
       "./node_modules/@types"
-    ]
+    ],
+
+    "pretty": true
   },
   "include": [
     "src/**/*.ts"

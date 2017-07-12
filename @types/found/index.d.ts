@@ -1,21 +1,29 @@
 
 declare module 'found/lib/createRender' {
 
-	interface StateObject {
-		elements?: any[]
-	}
+	function createRender(options: createRender.CreateRenderOptions): any
 
-	interface ErrorStateObject extends StateObject {
-		error: {status: number, data: any}
-	}
+	namespace createRender {
 
-	interface CreateRenderOptions {
-		renderPending?: (state: StateObject) => void
-		renderReady?: (state: StateObject) => void
-		renderError?: (state: ErrorStateObject) => void
-	}
+		interface Error {
+			status: number,
+			data: any,
+		}
 
-	function createRender(options: CreateRenderOptions): any
+		interface StateObject {
+			elements?: any[]
+		}
+
+		interface ErrorStateObject extends StateObject {
+			error: Error
+		}
+
+		interface CreateRenderOptions {
+			renderPending?: (state: StateObject) => void
+			renderReady?: (state: StateObject) => void
+			renderError?: (state: ErrorStateObject) => void
+		}
+	}
 
 	export = createRender
 }

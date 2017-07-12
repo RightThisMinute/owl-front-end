@@ -4,28 +4,30 @@ import makeRouteConfig = require('found/lib/makeRouteConfig')
 import Route = require('found/lib/Route')
 import * as React from 'react'
 
+import RouteComponentProps from './props/RouteComponentProps'
+import AppHead from './components/AppHead'
+import Main from './components/Main'
+import ErrorPage from './components/ErrorPage'
 
-export class App {
 
-	private _serverSide: Boolean
-	public get serverSide() { return this._serverSide }
+export class AppFrame extends React.Component<RouteComponentProps, any> {
 
-	constructor(serverSide: boolean) {
-		this._serverSide = serverSide
-	}
+	render() { return (
+		<html>
+			<AppHead/>
+			<body>
+				<div id="root">
+					<Main>
+						{ this.props.children }
+					</Main>
+				</div>
+				<script src="/bundle.js" />
+			</body>
+		</html>
+	) }
 
 }
 
-console.debug('route', Route)
-
-function AppFrame({ children }: {children: any}) {
-	return (
-		<div>
-			<h1>Home</h1>
-			<div>{children}</div>
-		</div>
-	)
-}
 
 export const routeConfig = makeRouteConfig(
 	<Route path="/" Component={AppFrame}>
@@ -35,10 +37,10 @@ export const routeConfig = makeRouteConfig(
 )
 
 export const renderConfig = createRender({
-	renderError: ({ error }) => (
-		<div>
-			{ error.status === 404 ? 'Not found' : 'Error' }
-		</div>
-	)
+	renderError: ({ error }) => { return (
+		<AppFrame>
+			<ErrorPage error={error}/>
+		</AppFrame>
+	) }
 })
 

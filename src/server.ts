@@ -32,16 +32,7 @@ server.use(async (req, res) => {
 
 	res.status(status).send(`
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>RTM Owl</title>
-</head>
-<body>
-	<div id="root">${ReactDOMServer.renderToString(element)}</div>
-	<script src="/bundle.js"></script>
-</body>
-</html>
+${ReactDOMServer.renderToString(element)}</div>
 	`)
 })
 
