@@ -1,4 +1,7 @@
 
+declare module 'found/lib/createInitialBrowserRouter'
+
+
 declare module 'found/lib/createRender' {
 
 	function createRender(options: createRender.CreateRenderOptions): any

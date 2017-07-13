@@ -28,12 +28,20 @@ server.use(async (req, res) => {
 		return
 	}
 
-	console.debug('element', element)
-
 	res.status(status).send(`
 <!DOCTYPE html>
-${ReactDOMServer.renderToString(element)}</div>
-	`)
+<html lang="en-us">
+<head>
+	<meta charset="utf-8">
+	<title>RTM Owl</title>
+</head>
+<body>
+<div id="root">${ReactDOMServer.renderToString(element)}</div>
+
+<script src="/bundle.js"></script>
+</body>
+</html>
+	`.trim())
 })
 
 const port = normalizePort(process.env.PORT || 3001)

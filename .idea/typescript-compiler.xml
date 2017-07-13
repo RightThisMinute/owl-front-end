@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="TypeScriptCompiler">
+    <option name="typeScriptCompilerParams" value="--lib DOM,ES6,DOM.Iterable,ScriptHost --jsx react" />
+    <option name="useConfig" value="true" />
+  </component>
+</project>

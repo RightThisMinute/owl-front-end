@@ -1,6 +1,7 @@
 
 const { CheckerPlugin } = require('awesome-typescript-loader')
 const path = require('path')
+const webpack = require('webpack')
 
 const babelPresetEnvExclude = require('./config/babel-preset-env.exclude')
 
@@ -81,9 +82,14 @@ const browser = {
 	devtool: 'source-map',
 
 	plugins: [
-		new CheckerPlugin
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+		}),
+		new CheckerPlugin,
 	]
 
 }
 
-module.exports = [server, browser]
+console.log('NODE_ENV', JSON.stringify(process.env.NODE_ENV || 'development'))
+
+module.exports = [browser, server]
