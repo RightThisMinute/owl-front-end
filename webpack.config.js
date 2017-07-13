@@ -22,7 +22,7 @@ const server = {
 				use: [{
 					loader: 'awesome-typescript-loader',
 				}],
-			}
+			},
 		]
 	},
 

@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack",
     "start": "node build/server.js",
-    "watch": "npm run build && concurrently --kill-others 'nodemon build/server.js' 'webpack --progress --watch'"
+    "watch": "concurrently --kill-others 'nodemon build/server.js' 'webpack --watch'"
   },
   "devDependencies": {
     "@types/debug": "^0.0.29",
