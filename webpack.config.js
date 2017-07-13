@@ -2,6 +2,8 @@
 const { CheckerPlugin } = require('awesome-typescript-loader')
 const path = require('path')
 
+const babelPresetEnvExclude = require('./config/babel-preset-env.exclude')
+
 
 const server = {
 
@@ -18,7 +20,6 @@ const server = {
 				test: /\.tsx?$/,
 				use: [{
 					loader: 'awesome-typescript-loader',
-					// options: {},
 				}],
 			}
 		]
@@ -40,7 +41,7 @@ const server = {
 const browser = {
 
 	target: 'web',
-	entry: './src/browser.ts',
+	entry: './src/browser.tsx',
 
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js', '.jsx'],
@@ -53,8 +54,18 @@ const browser = {
 				use: [{
 					loader: 'awesome-typescript-loader',
 					options: {
-						useBabel: true,
 						useCache: true,
+						useBabel: true,
+						babelOptions: {
+							presets: [
+								['env', {
+									debug: true,
+									useBuiltIns: true,
+									targets: { browsers: ['last 2 versions'] },
+									exclude: babelPresetEnvExclude
+								}]
+							]
+						}
 					},
 				}],
 				// exclude: /node_modules/,
