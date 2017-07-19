@@ -1,26 +1,27 @@
 
-const { CheckerPlugin } = require('awesome-typescript-loader')
 const path = require('path')
 const webpack = require('webpack')
-
 const babelPresetEnvExclude = require('./config/babel-preset-env.exclude')
 
 
 const server = {
 
 	target: 'node',
-	entry: './src/server.ts',
+	entry: './build/unbundled/server.js',
 
 	resolve: {
-		extensions: ['.tsx', '.ts', '.js', '.jsx'],
+		extensions: ['.js', '.jsx'],
 	},
 
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
+				test: /\.jsx?$/,
+				exclude: /(node_modules|bower_components)/,
 				use: [{
-					loader: 'awesome-typescript-loader',
+					loader: 'babel-loader',
+					options: {
+					},
 				}],
 			},
 		]
@@ -34,7 +35,9 @@ const server = {
 	devtool: 'source-map',
 
 	plugins: [
-		new CheckerPlugin
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+		}),
 	]
 }
 
@@ -42,34 +45,30 @@ const server = {
 const browser = {
 
 	target: 'web',
-	entry: './src/browser.tsx',
+	entry: './build/unbundled/browser.js',
 
 	resolve: {
-		extensions: ['.tsx', '.ts', '.js', '.jsx'],
+		extensions: ['.js', '.jsx'],
 	},
 
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
+				test: /\.jsx?$/,
+				exclude: /(node_modules|bower_components)/,
 				use: [{
-					loader: 'awesome-typescript-loader',
+					loader: 'babel-loader',
 					options: {
-						useCache: true,
-						useBabel: true,
-						babelOptions: {
-							presets: [
-								['env', {
-									debug: true,
-									useBuiltIns: true,
-									targets: { browsers: ['last 2 versions'] },
-									exclude: babelPresetEnvExclude
-								}]
-							]
-						}
+						presets: [
+							['env', {
+								debug: true,
+								useBuiltIns: true,
+								targets: { browsers: ['last 2 versions'] },
+								exclude: babelPresetEnvExclude
+							}]
+						],
 					},
 				}],
-				// exclude: /node_modules/,
 			}
 		]
 	},
@@ -85,7 +84,6 @@ const browser = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 		}),
-		new CheckerPlugin,
 	]
 
 }
