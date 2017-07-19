@@ -3,6 +3,8 @@ const path = require('path')
 const webpack = require('webpack')
 const babelPresetEnvExclude = require('./config/babel-preset-env.exclude')
 
+const babelPluginRelay = ['relay', { schema: 'data/schema.graphqls', }]
+
 
 const server = {
 
@@ -21,6 +23,7 @@ const server = {
 				use: [{
 					loader: 'babel-loader',
 					options: {
+						plugins: [babelPluginRelay],
 					},
 				}],
 			},
@@ -67,6 +70,7 @@ const browser = {
 								exclude: babelPresetEnvExclude
 							}]
 						],
+						plugins: [babelPluginRelay],
 					},
 				}],
 			}

@@ -4,8 +4,10 @@ import { getFarceResult } from 'found/lib/server'
 import * as http from 'http'
 import * as logger from 'morgan'
 import * as ReactDOMServer from 'react-dom/server'
+import * as serialize from 'serialize-javascript'
 
-import { renderConfig, routeConfig } from './App'
+import { createResolver, renderConfig, routeConfig } from './App'
+import { ServerFetcher } from './fetcher'
 
 import * as createDebug from 'debug'
 const debug = createDebug('server')
@@ -17,9 +19,12 @@ server.use(logger('dev'))
 server.use(express.static('build/public'))
 
 server.use(async (req, res) => {
+	const fetcher = new ServerFetcher(`http://localhost:3000/graphql`)
+
 	const { redirect, status, element } = await getFarceResult({
 		url: req.url,
 		routeConfig,
+		resolver: createResolver(fetcher),
 		render: renderConfig,
 	})
 
@@ -38,6 +43,9 @@ server.use(async (req, res) => {
 <body>
 <div id="root">${ReactDOMServer.renderToString(element)}</div>
 
+<script>
+	window.__RELAY_PAYLOADS__ = ${serialize(fetcher, { isJSON: true })}
+</script>
 <script src="/bundle.js"></script>
 </body>
 </html>
