@@ -15,14 +15,16 @@ interface VideoProps {
 	}
 }
 
-
 class Video extends React.Component<VideoProps, any> {
+
+	public static propTypes: object
+	public static contextTypes: object
 
 	render() {
 		const { id } = this.props.video
 		const {
-			title='[Unknown]',
-			thumbnailURL='https://www.fillmurray.com/1920/1080'
+			title = '[Unknown]',
+			thumbnailURL = 'https://www.fillmurray.com/1920/1080'
 		} = this.props.video.details || {}
 
 		return (
@@ -36,7 +38,6 @@ class Video extends React.Component<VideoProps, any> {
 	}
 
 }
-
 
 export default Relay.createFragmentContainer(Video, graphql`
 	fragment Video_video on Video {

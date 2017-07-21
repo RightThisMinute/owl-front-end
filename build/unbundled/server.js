@@ -22,9 +22,10 @@ const server = express();
 server.use(logger('dev'));
 server.use(express.static('build/public'));
 server.use((req, res) => __awaiter(this, void 0, void 0, function* () {
-    const fetcher = new fetcher_1.ServerFetcher(`http://localhost:3000/graphql`);
+    const fetcher = new fetcher_1.ServerFetcher('http://localhost:3000/graphql');
     const { redirect, status, element } = yield server_1.getFarceResult({
         url: req.url,
+        historyMiddlewares: App_1.historyMiddlewares,
         routeConfig: App_1.routeConfig,
         resolver: App_1.createResolver(fetcher),
         render: App_1.renderConfig,

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = require("react");
 const Relay = require("react-relay");
-const graphql = Relay.graphql;
+const { createFragmentContainer, graphql } = Relay;
 const Video_1 = require("./Video");
 class VideoList extends React.Component {
     render() {
@@ -12,7 +12,7 @@ class VideoList extends React.Component {
         return (React.createElement("section", { className: "video-list" }, videos));
     }
 }
-exports.default = Relay.createFragmentContainer(VideoList, graphql `
+exports.default = createFragmentContainer(VideoList, graphql `
 	fragment VideoList_activeVideos on Video @relay(plural: true) {
 		id
 		...Video_video

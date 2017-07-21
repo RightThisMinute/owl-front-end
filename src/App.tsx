@@ -1,9 +1,10 @@
 
+import queryMiddleware = require('farce/lib/queryMiddleware')
 import createRender = require('found/lib/createRender')
 import makeRouteConfig = require('found/lib/makeRouteConfig')
 import Route = require('found/lib/Route')
 import * as React from 'react'
-const graphql = require('react-relay').graphql
+const { graphql } = require('react-relay')
 import { Resolver } from 'found-relay'
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 
@@ -13,10 +14,7 @@ import VideoList from './components/VideoList'
 import ErrorPage from './components/ErrorPage'
 
 
-
-
-
-export class AppFrame extends React.Component<RouteComponentProps, any> {
+class AppFrame extends React.Component<RouteComponentProps, any> {
 
 	render() { return (
 		<Main>
@@ -25,6 +23,9 @@ export class AppFrame extends React.Component<RouteComponentProps, any> {
 	)}
 
 }
+
+
+export const historyMiddlewares = [queryMiddleware]
 
 
 export function createResolver(fetcher) {

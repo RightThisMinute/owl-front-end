@@ -1,15 +1,15 @@
 
 import * as React from 'react'
 import * as Relay from 'react-relay'
-const graphql = Relay.graphql
+const { createFragmentContainer, graphql } = Relay
 
 import Video from './Video'
+
 
 
 interface VideoListProps {
 	activeVideos: any[]
 }
-
 
 class VideoList extends React.Component<VideoListProps, any> {
 
@@ -28,7 +28,7 @@ class VideoList extends React.Component<VideoListProps, any> {
 }
 
 
-export default Relay.createFragmentContainer(VideoList, graphql`
+export default createFragmentContainer(VideoList, graphql`
 	fragment VideoList_activeVideos on Video @relay(plural: true) {
 		id
 		...Video_video

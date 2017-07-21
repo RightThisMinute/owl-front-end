@@ -6,7 +6,8 @@ import * as logger from 'morgan'
 import * as ReactDOMServer from 'react-dom/server'
 import * as serialize from 'serialize-javascript'
 
-import { createResolver, renderConfig, routeConfig } from './App'
+import { createResolver, historyMiddlewares, renderConfig, routeConfig }
+	from './App'
 import { ServerFetcher } from './fetcher'
 
 import * as createDebug from 'debug'
@@ -19,10 +20,11 @@ server.use(logger('dev'))
 server.use(express.static('build/public'))
 
 server.use(async (req, res) => {
-	const fetcher = new ServerFetcher(`http://localhost:3000/graphql`)
+	const fetcher = new ServerFetcher('http://localhost:3000/graphql')
 
 	const { redirect, status, element } = await getFarceResult({
 		url: req.url,
+		historyMiddlewares,
 		routeConfig,
 		resolver: createResolver(fetcher),
 		render: renderConfig,

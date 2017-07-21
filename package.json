@@ -38,6 +38,7 @@
   "dependencies": {
     "debug": "^2.6.8",
     "express": "^4.15.3",
+    "farce": "^0.2.1",
     "found": "^0.3.1",
     "found-relay": "^0.3.0-alpha.4",
     "morgan": "^1.8.2",

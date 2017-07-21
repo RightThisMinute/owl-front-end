@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const queryMiddleware = require("farce/lib/queryMiddleware");
 const createRender = require("found/lib/createRender");
 const makeRouteConfig = require("found/lib/makeRouteConfig");
 const Route = require("found/lib/Route");
 const React = require("react");
-const graphql = require('react-relay').graphql;
+const { graphql } = require('react-relay');
 const found_relay_1 = require("found-relay");
 const relay_runtime_1 = require("relay-runtime");
 const Main_1 = require("./components/Main");
@@ -15,7 +16,7 @@ class AppFrame extends React.Component {
         return (React.createElement(Main_1.default, null, this.props.children));
     }
 }
-exports.AppFrame = AppFrame;
+exports.historyMiddlewares = [queryMiddleware];
 function createResolver(fetcher) {
     const environment = new relay_runtime_1.Environment({
         network: relay_runtime_1.Network.create((...args) => fetcher.fetch(...args)),
