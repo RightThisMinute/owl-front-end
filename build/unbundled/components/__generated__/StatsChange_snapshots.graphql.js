@@ -8,7 +8,7 @@
 
 /*::
 import type {ConcreteFragment} from 'relay-runtime';
-export type StatsChart_snapshots = $ReadOnlyArray<{|
+export type StatsChange_snapshots = $ReadOnlyArray<{|
   +views: string;
   +likes: string;
   +dislikes: string;
@@ -24,7 +24,7 @@ const fragment /*: ConcreteFragment*/ = {
   "metadata": {
     "plural": true
   },
-  "name": "StatsChart_snapshots",
+  "name": "StatsChange_snapshots",
   "selections": [
     {
       "kind": "ScalarField",

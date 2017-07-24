@@ -67,7 +67,6 @@ class StatsChart extends React.Component {
 }
 exports.default = createFragmentContainer(StatsChart, graphql `
 	fragment StatsChart_snapshots on VideoStats @relay(plural: true) {
-		recordedAt
 		views
 		likes
 		dislikes

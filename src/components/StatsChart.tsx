@@ -8,7 +8,6 @@ const { createFragmentContainer, graphql } = require('react-relay')
 
 interface StatsChartProps {
 	snapshots: {
-		recordedAt: string,
 		views: string,
 		likes: string,
 		dislikes: string,
@@ -89,7 +88,6 @@ class StatsChart extends React.Component<StatsChartProps, any> {
 
 export default createFragmentContainer(StatsChart, graphql`
 	fragment StatsChart_snapshots on VideoStats @relay(plural: true) {
-		recordedAt
 		views
 		likes
 		dislikes

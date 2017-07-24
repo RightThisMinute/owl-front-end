@@ -76,6 +76,11 @@ const fragment /*: ConcreteFragment*/ = {
           "kind": "FragmentSpread",
           "name": "StatsChart_snapshots",
           "args": null
+        },
+        {
+          "kind": "FragmentSpread",
+          "name": "StatsChange_snapshots",
+          "args": null
         }
       ],
       "storageKey": "statsByAge{\"seconds\":86400}"

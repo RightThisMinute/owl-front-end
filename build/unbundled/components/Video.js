@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = require("react");
 const { createFragmentContainer, graphql } = require('react-relay');
+const StatsChange_1 = require("./StatsChange");
 const StatsChart_1 = require("./StatsChart");
 class Video extends React.Component {
     render() {
@@ -11,7 +12,8 @@ class Video extends React.Component {
             React.createElement("a", { href: `https://youtu.be/${id}` },
                 React.createElement("h1", null, title),
                 React.createElement("img", { src: thumbnailURL, alt: title }),
-                React.createElement(StatsChart_1.default, { snapshots: snapshots }))));
+                React.createElement(StatsChart_1.default, { snapshots: snapshots }),
+                React.createElement(StatsChange_1.default, { snapshots: snapshots }))));
     }
 }
 exports.default = createFragmentContainer(Video, graphql `
@@ -23,7 +25,7 @@ exports.default = createFragmentContainer(Video, graphql `
 		}
 		snapshots: statsByAge(seconds: 86400) {
       ...StatsChart_snapshots
-      #		...SnapshotChange_video
+			...StatsChange_snapshots
 		}
 	}
 `);

@@ -2,6 +2,7 @@
 import * as React from 'react'
 const { createFragmentContainer, graphql } = require('react-relay')
 
+import StatsChange from './StatsChange'
 import StatsChart from './StatsChart'
 
 
@@ -30,7 +31,7 @@ class Video extends React.Component<VideoProps, any> {
 				<h1>{title}</h1>
 				<img src={thumbnailURL} alt={title} />
 				<StatsChart snapshots={snapshots} />
-				{/*<SnapshotChange snapshots={vid.snapshots} />*/}
+				<StatsChange snapshots={snapshots} />
 			</a></article>
 		)
 	}
@@ -46,7 +47,7 @@ export default createFragmentContainer(Video, graphql`
 		}
 		snapshots: statsByAge(seconds: 86400) {
       ...StatsChart_snapshots
-      #		...SnapshotChange_video
+			...StatsChange_snapshots
 		}
 	}
 `)
