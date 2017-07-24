@@ -1,7 +1,8 @@
 
 import * as React from 'react'
-import * as Relay from 'react-relay'
-const graphql = Relay.graphql
+const { createFragmentContainer, graphql } = require('react-relay')
+
+import StatsChart from './StatsChart'
 
 
 interface VideoProps {
@@ -11,17 +12,14 @@ interface VideoProps {
 			title: string,
 			thumbnailURL: string,
 		},
-		// snapshots: any[]
+		snapshots: any[]
 	}
 }
 
 class Video extends React.Component<VideoProps, any> {
 
-	public static propTypes: object
-	public static contextTypes: object
-
 	render() {
-		const { id } = this.props.video
+		const { id, snapshots = [] } = this.props.video
 		const {
 			title = '[Unknown]',
 			thumbnailURL = 'https://www.fillmurray.com/1920/1080'
@@ -31,7 +29,7 @@ class Video extends React.Component<VideoProps, any> {
 			<article id={`video-${id}`}><a href={`https://youtu.be/${id}`}>
 				<h1>{title}</h1>
 				<img src={thumbnailURL} alt={title} />
-				{/*<SnapshotGraph snapshots={vid.snapshots} />*/}
+				<StatsChart snapshots={snapshots} />
 				{/*<SnapshotChange snapshots={vid.snapshots} />*/}
 			</a></article>
 		)
@@ -39,12 +37,16 @@ class Video extends React.Component<VideoProps, any> {
 
 }
 
-export default Relay.createFragmentContainer(Video, graphql`
+export default createFragmentContainer(Video, graphql`
 	fragment Video_video on Video {
 		id	
 		details {
 			title
 			thumbnailURL
+		}
+		snapshots: statsByAge(seconds: 86400) {
+      ...StatsChart_snapshots
+      #		...SnapshotChange_video
 		}
 	}
 `)

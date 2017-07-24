@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash c5b7fa6323b4f6f59edffa2a588ece6d
+ * @relayHash 8be3daf13e6c063e87ef774056ade898
  */
 
 /* eslint-disable */
@@ -34,6 +34,18 @@ fragment Video_video on Video {
     title
     thumbnailURL
   }
+  snapshots: statsByAge(seconds: 86400) {
+    ...StatsChart_snapshots
+  }
+}
+
+fragment StatsChart_snapshots on VideoStats {
+  recordedAt
+  views
+  likes
+  dislikes
+  favorites
+  comments
 }
 */
 
@@ -116,6 +128,72 @@ const batch /*: ConcreteBatch*/ = {
                   }
                 ],
                 "storageKey": null
+              },
+              {
+                "kind": "LinkedField",
+                "alias": "snapshots",
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "name": "seconds",
+                    "value": 86400,
+                    "type": "Int!"
+                  }
+                ],
+                "concreteType": "VideoStats",
+                "name": "statsByAge",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "InlineFragment",
+                    "type": "VideoStats",
+                    "selections": [
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "recordedAt",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "views",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "likes",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "dislikes",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "favorites",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "comments",
+                        "storageKey": null
+                      }
+                    ]
+                  }
+                ],
+                "storageKey": "statsByAge{\"seconds\":86400}"
               }
             ]
           }
@@ -124,7 +202,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query App_ActiveVideos_Query {\n  activeVideos {\n    ...VideoList_activeVideos\n    id\n  }\n}\n\nfragment VideoList_activeVideos on Video {\n  id\n  ...Video_video\n}\n\nfragment Video_video on Video {\n  id\n  details {\n    title\n    thumbnailURL\n  }\n}\n"
+  "text": "query App_ActiveVideos_Query {\n  activeVideos {\n    ...VideoList_activeVideos\n    id\n  }\n}\n\nfragment VideoList_activeVideos on Video {\n  id\n  ...Video_video\n}\n\nfragment Video_video on Video {\n  id\n  details {\n    title\n    thumbnailURL\n  }\n  snapshots: statsByAge(seconds: 86400) {\n    ...StatsChart_snapshots\n  }\n}\n\nfragment StatsChart_snapshots on VideoStats {\n  recordedAt\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n"
 };
 
 module.exports = batch;

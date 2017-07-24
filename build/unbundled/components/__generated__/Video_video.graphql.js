@@ -14,6 +14,7 @@ export type Video_video = {|
     +title: string;
     +thumbnailURL: string;
   |};
+  +snapshots: $ReadOnlyArray<?{| |}>;
 |};
 */
 
@@ -55,6 +56,29 @@ const fragment /*: ConcreteFragment*/ = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": "snapshots",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "seconds",
+          "value": 86400,
+          "type": "Int!"
+        }
+      ],
+      "concreteType": "VideoStats",
+      "name": "statsByAge",
+      "plural": true,
+      "selections": [
+        {
+          "kind": "FragmentSpread",
+          "name": "StatsChart_snapshots",
+          "args": null
+        }
+      ],
+      "storageKey": "statsByAge{\"seconds\":86400}"
     }
   ],
   "type": "Video"
