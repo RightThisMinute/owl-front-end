@@ -19,6 +19,19 @@ interface StatsChartProps {
 
 const CHART_OPTS: ChartOptions = {
 	responsive: true,
+	legend: { display: false },
+	// elements: { point: { radius: 0 } },
+	scales: {
+		xAxes: [{
+			gridLines: { display: false },
+		}],
+		yAxes: [{
+			stacked: true,
+			ticks: { display: false },
+			gridLines: { display: false },
+		}],
+		gridLines: { display: false },
+	},
 }
 
 class StatsChart extends React.Component<StatsChartProps, any> {

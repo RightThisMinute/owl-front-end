@@ -5,6 +5,19 @@ const react_chartjs_2_1 = require("react-chartjs-2");
 const { createFragmentContainer, graphql } = require('react-relay');
 const CHART_OPTS = {
     responsive: true,
+    legend: { display: false },
+    // elements: { point: { radius: 0 } },
+    scales: {
+        xAxes: [{
+                gridLines: { display: false },
+            }],
+        yAxes: [{
+                stacked: true,
+                ticks: { display: false },
+                gridLines: { display: false },
+            }],
+        gridLines: { display: false },
+    },
 };
 class StatsChart extends React.Component {
     render() {
