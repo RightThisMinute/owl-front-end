@@ -11,7 +11,7 @@ const { createFragmentContainer, graphql } = require('react-relay')
 
 
 
-interface StatsChartProps {
+export interface StatsChangeProps {
 	snapshots: {
 		views: string,
 		likes: string,
@@ -21,7 +21,7 @@ interface StatsChartProps {
 	}[]
 }
 
-class StatsChange extends React.Component<StatsChartProps, any> {
+class StatsChange extends React.Component<StatsChangeProps, any> {
 
 	render() {
 		const start = first(this.props.snapshots)

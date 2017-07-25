@@ -6,7 +6,7 @@ import { Line } from 'react-chartjs-2'
 const { createFragmentContainer, graphql } = require('react-relay')
 
 
-interface StatsChartProps {
+export interface StatsChartProps {
 	snapshots: {
 		views: string,
 		likes: string,

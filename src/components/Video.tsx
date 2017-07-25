@@ -2,22 +2,25 @@
 import * as React from 'react'
 const { createFragmentContainer, graphql } = require('react-relay')
 
-import StatsChange from './StatsChange'
-import StatsChart from './StatsChart'
+import StatsChange, { StatsChangeProps } from './StatsChange'
+import StatsChart, { StatsChartProps } from './StatsChart'
 
 
-interface VideoProps {
-	video: {
-		id: string,
-		details: {
-			title: string,
-			thumbnailURL: string,
-		},
-		snapshots: any[]
-	}
+interface SnapshotProps extends StatsChartProps, StatsChangeProps {}
+
+export interface VideoProps extends SnapshotProps {
+	id: string,
+	details: {
+		title: string,
+		thumbnailURL: string,
+	},
 }
 
-class Video extends React.Component<VideoProps, any> {
+interface Props {
+	video: VideoProps
+}
+
+class Video extends React.Component<Props, any> {
 
 	render() {
 		const { id, snapshots = [] } = this.props.video
