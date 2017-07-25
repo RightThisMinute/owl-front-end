@@ -16344,6 +16344,8 @@ var QuerySubscription = function () {
   };
 
   QuerySubscription.prototype.dispose = function dispose() {
+    this.fetchPromise = null;
+
     if (this.selectionReference) {
       this.selectionReference.dispose();
     }
@@ -24432,11 +24434,11 @@ var childContextTypes = {
   relay: _RelayPropTypes2.default.Relay
 };
 
-var SnapshotRenderer = function (_React$Component) {
-  (0, _inherits3.default)(SnapshotRenderer, _React$Component);
+var ReadyStateRenderer = function (_React$Component) {
+  (0, _inherits3.default)(ReadyStateRenderer, _React$Component);
 
-  function SnapshotRenderer(props, context) {
-    (0, _classCallCheck3.default)(this, SnapshotRenderer);
+  function ReadyStateRenderer(props, context) {
+    (0, _classCallCheck3.default)(this, ReadyStateRenderer);
 
     var _this = (0, _possibleConstructorReturn3.default)(this, _React$Component.call(this, props, context));
 
@@ -24455,17 +24457,17 @@ var SnapshotRenderer = function (_React$Component) {
     return _this;
   }
 
-  SnapshotRenderer.prototype.getChildContext = function getChildContext() {
+  ReadyStateRenderer.prototype.getChildContext = function getChildContext() {
     return {
       relay: this.props.querySubscription.relayContext
     };
   };
 
-  SnapshotRenderer.prototype.componentDidMount = function componentDidMount() {
+  ReadyStateRenderer.prototype.componentDidMount = function componentDidMount() {
     this.subscribe(this.props.querySubscription);
   };
 
-  SnapshotRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+  ReadyStateRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var querySubscription = nextProps.querySubscription;
     var readyState = querySubscription.readyState;
 
@@ -24482,15 +24484,15 @@ var SnapshotRenderer = function (_React$Component) {
     }
   };
 
-  SnapshotRenderer.prototype.componentWillUnmount = function componentWillUnmount() {
+  ReadyStateRenderer.prototype.componentWillUnmount = function componentWillUnmount() {
     this.selectionReference.dispose();
   };
 
-  SnapshotRenderer.prototype.subscribe = function subscribe(querySubscription) {
+  ReadyStateRenderer.prototype.subscribe = function subscribe(querySubscription) {
     querySubscription.subscribe(this.onUpdate);
   };
 
-  SnapshotRenderer.prototype.render = function render() {
+  ReadyStateRenderer.prototype.render = function render() {
     var _props = this.props,
         match = _props.match,
         Component = _props.Component,
@@ -24505,7 +24507,15 @@ var SnapshotRenderer = function (_React$Component) {
 
 
     if (!route.render) {
-       true ? (0, _warning2.default)(hasComponent, 'Route with query %s has no render method or component.', route.query().name) : void 0;
+      if ("development" !== 'production' && !hasComponent) {
+        var query = route.query;
+
+        if (query.modern) {
+          query = query.modern;
+        }
+
+         true ? (0, _warning2.default)(false, 'Route with query %s has no render method or component.', typeof query === 'function' ? query().name : 'UNKNOWN') : void 0;
+      }
 
       if (!Component || !props) {
         return null;
@@ -24522,13 +24532,13 @@ var SnapshotRenderer = function (_React$Component) {
     }));
   };
 
-  return SnapshotRenderer;
+  return ReadyStateRenderer;
 }(_react2.default.Component);
 
-SnapshotRenderer.propTypes = propTypes;
-SnapshotRenderer.childContextTypes = childContextTypes;
+ReadyStateRenderer.propTypes = propTypes;
+ReadyStateRenderer.childContextTypes = childContextTypes;
 
-exports.default = SnapshotRenderer;
+exports.default = ReadyStateRenderer;
 module.exports = exports['default'];
 
 /***/ }),
