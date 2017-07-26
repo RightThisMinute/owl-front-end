@@ -10,7 +10,8 @@
 
     "rootDir": "src",
     "outDir": "build/unbundled",
-    "sourceMap": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
 
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,

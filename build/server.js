@@ -41427,7 +41427,6 @@ function onListening() {
     let bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
     debug(`Listening on ${bind}`);
 }
-//# sourceMappingURL=server.js.map
 
 /***/ }),
 /* 416 */
@@ -71311,7 +71310,6 @@ const ActiveVideosQuery = function () {
     return __webpack_require__(876);
 };
 exports.routeConfig = makeRouteConfig(React.createElement(Route, { path: "/", Component: AppFrame }, React.createElement(Route, { Component: VideoList_1.default, query: ActiveVideosQuery }), React.createElement(Route, { path: "videos/forms/set_active", Component: SetActiveVideosPage_1.default, query: ActiveVideosQuery })));
-//# sourceMappingURL=App.js.map
 
 /***/ }),
 /* 738 */
@@ -77186,7 +77184,6 @@ class Main extends React.Component {
     }
 }
 exports.default = Main;
-//# sourceMappingURL=Main.js.map
 
 /***/ }),
 /* 805 */
@@ -77491,7 +77488,6 @@ exports.default = createFragmentContainer(VideoList, {
         return __webpack_require__(870);
     }
 });
-//# sourceMappingURL=VideoList.js.map
 
 /***/ }),
 /* 812 */
@@ -77546,7 +77542,6 @@ exports.default = createFragmentContainer(Video, {
     return __webpack_require__(869);
   }
 });
-//# sourceMappingURL=Video.js.map
 
 /***/ }),
 /* 814 */
@@ -77587,7 +77582,6 @@ exports.default = createFragmentContainer(StatsChange, {
         return __webpack_require__(815);
     }
 });
-//# sourceMappingURL=StatsChange.js.map
 
 /***/ }),
 /* 815 */
@@ -77727,7 +77721,6 @@ exports.default = createFragmentContainer(StatsChart, {
         return __webpack_require__(868);
     }
 });
-//# sourceMappingURL=StatsChart.js.map
 
 /***/ }),
 /* 817 */
@@ -95598,7 +95591,6 @@ exports.default = createFragmentContainer(SetActiveVideosPage, {
         return __webpack_require__(874);
     }
 });
-//# sourceMappingURL=SetActiveVideosPage.js.map
 
 /***/ }),
 /* 872 */
@@ -95624,7 +95616,6 @@ function commit(environment, ids) {
     });
 }
 exports.default = { commit };
-//# sourceMappingURL=SetActiveVideos.js.map
 
 /***/ }),
 /* 873 */
@@ -95795,7 +95786,6 @@ class ErrorPage extends React.Component {
     }
 }
 exports.default = ErrorPage;
-//# sourceMappingURL=ErrorPage.js.map
 
 /***/ }),
 /* 876 */
@@ -96084,7 +96074,6 @@ class ClientFetcher extends FetcherBase {
     }
 }
 exports.ClientFetcher = ClientFetcher;
-//# sourceMappingURL=fetcher.js.map
 
 /***/ }),
 /* 878 */

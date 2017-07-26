@@ -36334,7 +36334,6 @@ var fetcher_1 = __webpack_require__(817);
         }, _callee, this);
     }));
 })();
-//# sourceMappingURL=browser.js.map
 
 /***/ }),
 /* 393 */
@@ -56376,7 +56375,6 @@ var ActiveVideosQuery = function ActiveVideosQuery() {
     return __webpack_require__(816);
 };
 exports.routeConfig = makeRouteConfig(React.createElement(Route, { path: "/", Component: AppFrame }, React.createElement(Route, { Component: VideoList_1.default, query: ActiveVideosQuery }), React.createElement(Route, { path: "videos/forms/set_active", Component: SetActiveVideosPage_1.default, query: ActiveVideosQuery })));
-//# sourceMappingURL=App.js.map
 
 /***/ }),
 /* 677 */
@@ -62286,7 +62284,6 @@ var Main = function (_React$Component) {
 }(React.Component);
 
 exports.default = Main;
-//# sourceMappingURL=Main.js.map
 
 /***/ }),
 /* 745 */
@@ -62633,7 +62630,6 @@ exports.default = createFragmentContainer(VideoList, {
         return __webpack_require__(810);
     }
 });
-//# sourceMappingURL=VideoList.js.map
 
 /***/ }),
 /* 752 */
@@ -62724,7 +62720,6 @@ exports.default = createFragmentContainer(Video, {
     return __webpack_require__(809);
   }
 });
-//# sourceMappingURL=Video.js.map
 
 /***/ }),
 /* 754 */
@@ -62797,7 +62792,6 @@ exports.default = createFragmentContainer(StatsChange, {
         return __webpack_require__(755);
     }
 });
-//# sourceMappingURL=StatsChange.js.map
 
 /***/ }),
 /* 755 */
@@ -62971,7 +62965,6 @@ exports.default = createFragmentContainer(StatsChart, {
         return __webpack_require__(808);
     }
 });
-//# sourceMappingURL=StatsChart.js.map
 
 /***/ }),
 /* 757 */
@@ -80877,7 +80870,6 @@ exports.default = createFragmentContainer(SetActiveVideosPage, {
         return __webpack_require__(814);
     }
 });
-//# sourceMappingURL=SetActiveVideosPage.js.map
 
 /***/ }),
 /* 812 */
@@ -80907,7 +80899,6 @@ function commit(environment, ids) {
     });
 }
 exports.default = { commit: commit };
-//# sourceMappingURL=SetActiveVideos.js.map
 
 /***/ }),
 /* 813 */
@@ -81101,7 +81092,6 @@ var ErrorPage = function (_React$Component) {
 }(React.Component);
 
 exports.default = ErrorPage;
-//# sourceMappingURL=ErrorPage.js.map
 
 /***/ }),
 /* 816 */
@@ -81507,7 +81497,6 @@ var ClientFetcher = function (_FetcherBase2) {
 }(FetcherBase);
 
 exports.ClientFetcher = ClientFetcher;
-//# sourceMappingURL=fetcher.js.map
 
 /***/ }),
 /* 818 */
