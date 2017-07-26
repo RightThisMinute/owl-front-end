@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 911d5746e6a40d83e5f214a6332d2734
+ * @relayHash 502705d85a56643f27ab64e4c4a968cf
  */
 
 /* eslint-disable */
@@ -18,9 +18,14 @@ export type App_ActiveVideos_QueryResponse = {|
 /*
 query App_ActiveVideos_Query {
   activeVideos {
+    ...SetActiveVideosPage_activeVideos
     ...VideoList_activeVideos
     id
   }
+}
+
+fragment SetActiveVideosPage_activeVideos on Video {
+  id
 }
 
 fragment VideoList_activeVideos on Video {
@@ -72,6 +77,11 @@ const batch /*: ConcreteBatch*/ = {
         "name": "activeVideos",
         "plural": true,
         "selections": [
+          {
+            "kind": "FragmentSpread",
+            "name": "SetActiveVideosPage_activeVideos",
+            "args": null
+          },
           {
             "kind": "FragmentSpread",
             "name": "VideoList_activeVideos",
@@ -203,7 +213,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query App_ActiveVideos_Query {\n  activeVideos {\n    ...VideoList_activeVideos\n    id\n  }\n}\n\nfragment VideoList_activeVideos on Video {\n  id\n  ...Video_video\n}\n\nfragment Video_video on Video {\n  id\n  details {\n    title\n    thumbnailURL\n  }\n  snapshots: statsByAge(seconds: 86400) {\n    ...StatsChart_snapshots\n    ...StatsChange_snapshots\n  }\n}\n\nfragment StatsChart_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n\nfragment StatsChange_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n"
+  "text": "query App_ActiveVideos_Query {\n  activeVideos {\n    ...SetActiveVideosPage_activeVideos\n    ...VideoList_activeVideos\n    id\n  }\n}\n\nfragment SetActiveVideosPage_activeVideos on Video {\n  id\n}\n\nfragment VideoList_activeVideos on Video {\n  id\n  ...Video_video\n}\n\nfragment Video_video on Video {\n  id\n  details {\n    title\n    thumbnailURL\n  }\n  snapshots: statsByAge(seconds: 86400) {\n    ...StatsChart_snapshots\n    ...StatsChange_snapshots\n  }\n}\n\nfragment StatsChart_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n\nfragment StatsChange_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n"
 };
 
 module.exports = batch;

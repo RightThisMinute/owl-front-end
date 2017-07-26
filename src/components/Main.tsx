@@ -2,7 +2,7 @@
 import * as React from 'react'
 import Link = require('found/lib/Link')
 
-import RouteComponentProps from '../props/RouteComponentProps'
+import RouteComponentProps from '../props/RouteComponent'
 
 
 export default class Main extends React.Component<RouteComponentProps, any> {
@@ -16,7 +16,7 @@ export default class Main extends React.Component<RouteComponentProps, any> {
 						<li><Link to="/" activeClassName="active">
 							Home
 						</Link></li>
-						<li><Link to="/videos/forms/replace" activeClassName="active">
+						<li><Link to="/videos/forms/set_active" activeClassName="active">
 							Set Videos
 						</Link></li>
 					</ul>

@@ -13,7 +13,7 @@ class Main extends React.Component {
                         React.createElement("li", null,
                             React.createElement(Link, { to: "/", activeClassName: "active" }, "Home")),
                         React.createElement("li", null,
-                            React.createElement(Link, { to: "/videos/forms/replace", activeClassName: "active" }, "Set Videos"))))),
+                            React.createElement(Link, { to: "/videos/forms/set_active", activeClassName: "active" }, "Set Videos"))))),
             React.createElement("section", { className: "page" }, this.props.children)));
     }
 }

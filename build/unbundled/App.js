@@ -10,6 +10,7 @@ const found_relay_1 = require("found-relay");
 const relay_runtime_1 = require("relay-runtime");
 const Main_1 = require("./components/Main");
 const VideoList_1 = require("./components/VideoList");
+const SetActiveVideosPage_1 = require("./components/SetActiveVideosPage");
 const ErrorPage_1 = require("./components/ErrorPage");
 class AppFrame extends React.Component {
     render() {
@@ -34,12 +35,12 @@ exports.renderConfig = createRender({
 const ActiveVideosQuery = graphql `
 	query App_ActiveVideos_Query {
 		activeVideos {
+			...SetActiveVideosPage_activeVideos
 			...VideoList_activeVideos
 		}
 	}
 `;
 exports.routeConfig = makeRouteConfig(React.createElement(Route, { path: "/", Component: AppFrame },
     React.createElement(Route, { Component: VideoList_1.default, query: ActiveVideosQuery }),
-    React.createElement(Route, { path: "videos/forms/replace", Component: () => React.createElement("h2", null, "Form") }),
-    React.createElement(Route, { path: "goomba", Component: () => React.createElement("h2", null, "Goomba") })));
+    React.createElement(Route, { path: "videos/forms/set_active", Component: SetActiveVideosPage_1.default, query: ActiveVideosQuery })));
 //# sourceMappingURL=App.js.map

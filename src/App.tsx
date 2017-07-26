@@ -8,9 +8,10 @@ const { graphql } = require('react-relay')
 import { Resolver } from 'found-relay'
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 
-import RouteComponentProps from './props/RouteComponentProps'
+import RouteComponentProps from './props/RouteComponent'
 import Main from './components/Main'
 import VideoList from './components/VideoList'
+import SetActiveVideosPage from './components/SetActiveVideosPage'
 import ErrorPage from './components/ErrorPage'
 
 
@@ -50,6 +51,7 @@ export const renderConfig = createRender({
 const ActiveVideosQuery = graphql`
 	query App_ActiveVideos_Query {
 		activeVideos {
+			...SetActiveVideosPage_activeVideos
 			...VideoList_activeVideos
 		}
 	}
@@ -58,8 +60,7 @@ const ActiveVideosQuery = graphql`
 export const routeConfig = makeRouteConfig(
 	<Route path="/" Component={AppFrame}>
 		<Route Component={VideoList} query={ActiveVideosQuery} />
-		{/*<Route Component={() => <h2>Video List</h2>} />*/}
-		<Route path="videos/forms/replace" Component={() => <h2>Form</h2>} />
-		<Route path="goomba" Component={() => <h2>Goomba</h2>} />
-	</Route>,
+		<Route path="videos/forms/set_active"
+		       Component={SetActiveVideosPage} query={ActiveVideosQuery} />
+	</Route>
 )
