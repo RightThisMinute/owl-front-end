@@ -1,38 +1,37 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    
-    "target": "es6",
-//    "lib": ["es6", "dom"],
-    "allowJs": true,
-    "jsx": "react",
+	"compilerOptions": {
+		"module": "commonjs",
+		"moduleResolution": "node",
 
-    "rootDir": "src",
-    "outDir": "build/unbundled",
-    "inlineSourceMap": true,
-    "inlineSources": true,
+		"target": "es6",
+		"allowJs": true,
+		"jsx": "react",
 
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": false,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
+		"rootDir": "src",
+		"outDir": "build/unbundled",
+		"inlineSourceMap": true,
+		"inlineSources": true,
+
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noImplicitAny": false,
+		"strictNullChecks": true,
+		"suppressImplicitAnyIndexErrors": true,
 //    "noUnusedLocals": true,
 
-    "typeRoots": [
-      "./@types",
-      "./node_modules/@types"
-    ],
+		"typeRoots": [
+			"./@types",
+			"./node_modules/@types"
+		],
 
-    "pretty": true
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+		"pretty": true
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }
