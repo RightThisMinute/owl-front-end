@@ -8,8 +8,7 @@ import * as logger from 'morgan'
 import * as React from 'react'
 import { Provider } from 'react-redux'
 
-import { createResolver, renderConfig }
-	from './App'
+import { createResolver, renderConfig } from './App'
 import { ServerFetcher } from './fetcher'
 import renderTemplate from './html.template'
 import genStore from './genStore'
