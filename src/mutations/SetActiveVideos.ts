@@ -18,9 +18,9 @@ function commit(environment, ids: string[]) {
 	return commitMutation(environment, {
 		mutation,
 		variables: { input: { ids, clientMutationId } },
-		onComplete: (response: object) => {
+		onCompleted: (response: object) => {
 			console.debug('mutation completed', response)
-		}
+		},
 	})
 }
 

@@ -80858,7 +80858,7 @@ var SetActiveVideosPage = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            return React.createElement("section", { className: "set-active-videos" }, React.createElement("form", { onSubmit: this.handleSubmit }, React.createElement("p", null, "Put each URL on a separate line."), React.createElement("textarea", { name: "ids", value: this.state.ids, onChange: this.handleInputChange }), React.createElement("button", null, "Replace Active Videos")));
+            return React.createElement("section", { className: "set-active-videos" }, React.createElement("form", { onSubmit: this.handleSubmit }, React.createElement("p", null, "Put each URL on a separate line."), React.createElement("textarea", { name: "ids", value: this.state.ids, rows: 32, cols: 75, onChange: this.handleInputChange }), React.createElement("button", null, "Replace Active Videos")));
         }
     }]);
 
@@ -80893,7 +80893,7 @@ function commit(environment, ids) {
     return commitMutation(environment, {
         mutation: mutation,
         variables: { input: { ids: ids, clientMutationId: clientMutationId } },
-        onComplete: function onComplete(response) {
+        onCompleted: function onCompleted(response) {
             console.debug('mutation completed', response);
         }
     });

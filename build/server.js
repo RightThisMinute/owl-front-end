@@ -95583,7 +95583,7 @@ class SetActiveVideosPage extends React.Component {
         SetActiveVideos_1.default.commit(this.props.relay.environment, ids);
     }
     render() {
-        return React.createElement("section", { className: "set-active-videos" }, React.createElement("form", { onSubmit: this.handleSubmit }, React.createElement("p", null, "Put each URL on a separate line."), React.createElement("textarea", { name: "ids", value: this.state.ids, onChange: this.handleInputChange }), React.createElement("button", null, "Replace Active Videos")));
+        return React.createElement("section", { className: "set-active-videos" }, React.createElement("form", { onSubmit: this.handleSubmit }, React.createElement("p", null, "Put each URL on a separate line."), React.createElement("textarea", { name: "ids", value: this.state.ids, rows: 32, cols: 75, onChange: this.handleInputChange }), React.createElement("button", null, "Replace Active Videos")));
     }
 }
 exports.default = createFragmentContainer(SetActiveVideosPage, {
@@ -95610,7 +95610,7 @@ function commit(environment, ids) {
     return commitMutation(environment, {
         mutation,
         variables: { input: { ids, clientMutationId } },
-        onComplete: response => {
+        onCompleted: response => {
             console.debug('mutation completed', response);
         }
     });

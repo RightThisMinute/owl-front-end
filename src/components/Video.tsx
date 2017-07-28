@@ -23,9 +23,9 @@ interface Props {
 class Video extends React.Component<Props, any> {
 
 	render() {
-		const { id, snapshots = [] } = this.props.video
+		const { id, snapshots=[] } = this.props.video
 		const {
-			title = '[Unknown]',
+			title = `[${id}]`,
 			thumbnailURL = 'https://www.fillmurray.com/1920/1080'
 		} = this.props.video.details || {}
 

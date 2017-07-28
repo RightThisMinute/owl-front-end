@@ -61,7 +61,7 @@ class SetActiveVideosPage extends React.Component<Props, State> {
 			<section className="set-active-videos">
 				<form onSubmit={this.handleSubmit}>
 					<p>Put each URL on a separate line.</p>
-					<textarea name="ids" value={this.state.ids}
+					<textarea name="ids" value={this.state.ids} rows={32} cols={75}
 					          onChange={this.handleInputChange}
 					/>
 					<button>Replace Active Videos</button>
