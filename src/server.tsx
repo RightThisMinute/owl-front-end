@@ -1,14 +1,18 @@
 
 import * as express from 'express'
-import { getFarceResult } from 'found/lib/server'
+const { Actions: FarceActions, ServerProtocol } = require('farce')
+const { getStoreRenderArgs, RedirectException } = require('found')
+const { RouterProvider } = require('found/lib/server')
 import * as http from 'http'
 import * as logger from 'morgan'
-import * as ReactDOMServer from 'react-dom/server'
-import * as serialize from 'serialize-javascript'
+import * as React from 'react'
+import { Provider } from 'react-redux'
 
-import { createResolver, historyMiddlewares, renderConfig, routeConfig }
+import { createResolver, renderConfig }
 	from './App'
 import { ServerFetcher } from './fetcher'
+import renderTemplate from './html.template'
+import genStore from './genStore'
 
 import * as createDebug from 'debug'
 const debug = createDebug('server')
@@ -20,38 +24,40 @@ server.use(logger('dev'))
 server.use(express.static('build/public'))
 
 server.use(async (req, res) => {
+	const store = genStore(new ServerProtocol(req.url))
+	store.dispatch(FarceActions.init())
+	const matchContext = { store }
 	const fetcher = new ServerFetcher('http://localhost:3000/graphql')
 
-	const { redirect, status, element } = await getFarceResult({
-		url: req.url,
-		historyMiddlewares,
-		routeConfig,
-		resolver: createResolver(fetcher),
-		render: renderConfig,
-	})
+	let renderArgs
 
-	if (redirect) {
-		res.redirect(302, redirect.url)
-		return
+	try {
+		renderArgs = await getStoreRenderArgs({
+			store,
+			matchContext,
+			resolver: createResolver(fetcher),
+		})
+	}
+	catch (exception) {
+		if (exception instanceof RedirectException) {
+			res.redirect(302, store.farce.createHref(exception.location))
+			return
+		}
+
+		throw exception
 	}
 
-	res.status(status).send(`
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-	<meta charset="utf-8">
-	<title>RTM Owl</title>
-</head>
-<body>
-<div id="root">${ReactDOMServer.renderToString(element)}</div>
-
-<script>
-	window.__RELAY_PAYLOADS__ = ${serialize(fetcher, { isJSON: true })}
-</script>
-<script src="/bundle.js"></script>
-</body>
-</html>
-	`.trim())
+	res
+		.status(renderArgs.error ? renderArgs.error.status : 200)
+		.send(renderTemplate(
+			<Provider store={store}>
+					<RouterProvider router={renderArgs.router}>
+						{renderConfig(renderArgs)}
+					</RouterProvider>
+				</Provider>,
+			store.getState(),
+			fetcher,
+		))
 })
 
 const port = normalizePort(process.env.PORT || 3001)

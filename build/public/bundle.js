@@ -62704,7 +62704,7 @@ var Video = function (_React$Component) {
 
       var _ref = this.props.video.details || {},
           _ref$title = _ref.title,
-          title = _ref$title === undefined ? '[Unknown]' : _ref$title,
+          title = _ref$title === undefined ? "[" + id + "]" : _ref$title,
           _ref$thumbnailURL = _ref.thumbnailURL,
           thumbnailURL = _ref$thumbnailURL === undefined ? 'https://www.fillmurray.com/1920/1080' : _ref$thumbnailURL;
 
