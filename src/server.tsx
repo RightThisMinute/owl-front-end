@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 import { createResolver, renderConfig } from './App'
 import { ServerFetcher } from './fetcher'
 import renderTemplate from './html.template'
-import genStore from './genStore'
+import { genStore } from './store'
 
 import * as createDebug from 'debug'
 const debug = createDebug('server')

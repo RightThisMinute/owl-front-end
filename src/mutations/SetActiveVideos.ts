@@ -1,6 +1,9 @@
 
 const { commitMutation, graphql } = require('react-relay')
 
+import { Action } from '../reducer'
+import { store } from '../store'
+
 
 const mutation = graphql`
 	mutation SetActiveVideosMutation($input: SetActiveVideosInput!) {
@@ -18,9 +21,12 @@ function commit(environment, ids: string[]) {
 	return commitMutation(environment, {
 		mutation,
 		variables: { input: { ids, clientMutationId } },
-		onCompleted: (response: object) => {
-			console.debug('mutation completed', response)
+		onCompleted: () => {
+			console.debug('completed mutation')
+			store.dispatch({ type: Action.ResetRelayEnvironment })
 		},
+		// updater: () => {
+		// },
 	})
 }
 
