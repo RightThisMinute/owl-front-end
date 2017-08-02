@@ -1,14 +1,26 @@
 
 import * as React from 'react'
+import { connect } from 'react-redux'
 const { createFragmentContainer, graphql } = require('react-relay')
 
+import { store, StoreState } from '../store'
+import { Action } from '../reducer'
 import SetActiveVideosMutation from '../mutations/SetActiveVideos'
 
-
-interface Props {
+interface OwnProps {
 	activeVideos: { id: string }[]
 	relay: { environment: any }
 }
+
+interface StateProps {
+	saved: boolean,
+	saving: boolean,
+	error: Error|null
+}
+
+interface DispatchProps {}
+
+type Props = OwnProps & StateProps & DispatchProps
 
 interface State {
 	ids: string
@@ -56,15 +68,45 @@ class SetActiveVideosPage extends React.Component<Props, State> {
 		SetActiveVideosMutation.commit(this.props.relay.environment, ids)
 	}
 
+	componentWillUnmount(): void {
+		store.dispatch({ type: Action.ResetSetActiveVideosFlags })
+	}
+
 	render() {
+		let message: string|React.ReactNode|null = null
+		let messageClass: string = ''
+		let buttonText: string|null = null
+		let disabled = false
+
+		if (this.props.saved) {
+			messageClass = 'success'
+			message = 'Set active videos successfully.'
+		}
+		else if (this.props.saving) {
+			disabled = true
+			buttonText = 'Saving...'
+		}
+		else if (this.props.error) {
+			messageClass = 'error'
+			message = `Failed setting active videos (${this.props.error.message}).`
+		}
+
+		if (message)
+			message = (
+				<p className={messageClass}>{message}</p>
+			)
+
 		return (
 			<section className="set-active-videos">
 				<form onSubmit={this.handleSubmit}>
 					<p>Put each URL on a separate line.</p>
+					{message}
 					<textarea name="ids" value={this.state.ids} rows={32} cols={75}
-					          onChange={this.handleInputChange}
+					          onChange={this.handleInputChange} disabled={disabled}
 					/>
-					<button>Replace Active Videos</button>
+					<button disabled={disabled}>{
+						buttonText || 'Replace Active Videos'
+					}</button>
 				</form>
 			</section>
 		)
@@ -73,7 +115,23 @@ class SetActiveVideosPage extends React.Component<Props, State> {
 }
 
 
-export default  createFragmentContainer(SetActiveVideosPage, graphql`
+function mapStateToProps(storeState: StoreState, props: Props): StateProps {
+	const { rtmOwl: { setActiveVideos: state } } = storeState
+
+	return Object.assign({}, props,{
+		saved: state.setSuccessfully,
+		saving: state.currentlyBeingSet,
+		error: state.error,
+	})
+}
+
+
+const ReduxSetActiveVideosPage = connect<StateProps, DispatchProps, OwnProps>(
+	mapStateToProps
+)(SetActiveVideosPage)
+
+
+export default  createFragmentContainer(ReduxSetActiveVideosPage, graphql`
 	fragment SetActiveVideosPage_activeVideos on Video @relay(plural: true) {
 		id
 	}

@@ -18,15 +18,19 @@ let nextClientMutationId = 0
 function commit(environment, ids: string[]) {
 	const clientMutationId = nextClientMutationId++
 
+	store.dispatch({ type: Action.SettingActiveVideos })
+
 	return commitMutation(environment, {
 		mutation,
 		variables: { input: { ids, clientMutationId } },
 		onCompleted: () => {
-			console.debug('completed mutation')
 			store.dispatch({ type: Action.ResetRelayEnvironment })
+			store.dispatch({ type: Action.SetActiveVideosSucceeded })
 		},
-		// updater: () => {
-		// },
+		onError: (error: Error) => {
+			store.dispatch({ type: Action.SetActiveVideosFailed, error })
+			console.error('Failed setting active videos.', error)
+		},
 	})
 }
 

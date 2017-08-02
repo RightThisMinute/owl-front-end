@@ -15,13 +15,18 @@ interface Store<S> extends ReduxStore<S> {
 	farce: any // Added by `createHistoryEnhancer()`
 }
 
-interface StoreState {
+export interface StoreState {
 	rtmOwl: RTMOwlStoreState,
 	found?: any,
 }
 
 export interface RTMOwlStoreState {
 	relayStateRebuildCount: number,
+	setActiveVideos: {
+		setSuccessfully: boolean,
+		currentlyBeingSet: boolean,
+		error: Error|null,
+	}
 }
 
 

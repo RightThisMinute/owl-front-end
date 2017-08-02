@@ -6,12 +6,19 @@ import { RTMOwlStoreState } from './store'
 
 export enum Action {
 	ResetRelayEnvironment = 'reset Relay environment',
-	// SettingActiveVideos = 'currently setting active videos',
-	// SetActiveVideosFailed = 'failed setting active videos'
+	SetActiveVideosSucceeded = 'succeeded setting active Videos',
+	SettingActiveVideos = 'currently setting active videos',
+	SetActiveVideosFailed = 'failed setting active videos',
+	ResetSetActiveVideosFlags = 'reset flags related to set active videos page',
 }
 
 const defaultState: RTMOwlStoreState = {
-	relayStateRebuildCount: 0
+	relayStateRebuildCount: 0,
+	setActiveVideos: {
+		setSuccessfully: false,
+		currentlyBeingSet: false,
+		error: null,
+	},
 }
 
 export const reducer: Reducer<RTMOwlStoreState> = (prevState, action) => {
@@ -22,9 +29,45 @@ export const reducer: Reducer<RTMOwlStoreState> = (prevState, action) => {
 
 		case Action.ResetRelayEnvironment:
 			return Object.assign({}, prevState, {
-				relayStateRebuildCount: prevState.relayStateRebuildCount + 1
+				relayStateRebuildCount: prevState.relayStateRebuildCount + 1,
 			})
-		
+
+		case Action.SettingActiveVideos:
+			return Object.assign({}, prevState, {
+				setActiveVideos: {
+					setSuccessfully: false,
+					currentlyBeingSet: true,
+					error: false,
+				},
+			})
+
+		case Action.SetActiveVideosSucceeded:
+			return Object.assign({}, prevState, {
+				setActiveVideos: {
+					setSuccessfully: true,
+					currentlyBeingSet: false,
+					error: false,
+				},
+			})
+
+		case Action.SetActiveVideosFailed:
+			return Object.assign({}, prevState, {
+				setActiveVideos: {
+					setSuccessfully: false,
+					currentlyBeingSet: false,
+					error: action.error,
+				},
+			})
+
+		case Action.ResetSetActiveVideosFlags:
+			return Object.assign({}, prevState, {
+				setActiveVideos: {
+					setSuccessfully: false,
+					currentlyBeingSet: prevState.setActiveVideos.currentlyBeingSet,
+					error: null,
+				},
+			})
+
 	}
 
 	return prevState
