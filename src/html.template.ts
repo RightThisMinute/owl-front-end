@@ -10,6 +10,8 @@ export default function render(element, state, fetcher): string {
 <head>
 	<meta charset="utf-8">
 	<title>RTM Owl</title>
+	<link rel="stylesheet" type="text/css" href="/main.css">
+	<link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
 </head>
 
 <body>

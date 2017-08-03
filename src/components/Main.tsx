@@ -4,6 +4,8 @@ import Link = require('found/lib/Link')
 
 import RouteComponentProps from '../props/RouteComponent'
 
+import '../../../src/components/style.css'
+
 
 export default class Main extends React.Component<RouteComponentProps, any> {
 
