@@ -2,9 +2,14 @@
 import * as React from 'react'
 import Link = require('found/lib/Link')
 
-import RouteComponentProps from '../props/RouteComponent'
+import RouteComponentProps from '../../props/RouteComponent'
 
-import '../../../src/components/style.css'
+// Relative to [PROJECT_ROOT/build/unbundled] since we compile TypeScript
+// directly with `tsc` instead of working through Webpack. Unfortunately,
+// we need this setup to support relay-compiler.
+import '../../../../src/components/main/general.pcss'
+import '../../../../src/components/main/frame.pcss'
+import '../../../../src/components/main/header.pcss'
 
 
 export default class Main extends React.Component<RouteComponentProps, any> {
@@ -12,7 +17,7 @@ export default class Main extends React.Component<RouteComponentProps, any> {
 	render() { return (
 		<section className="doc">
 			<header>
-				<h1><a href="/">RTM Owl</a></h1>
+				<h1><Link to="/" activeClassName="active">RTM Owl</Link></h1>
 				<nav>
 					<ul>
 						<li><Link to="/" activeClassName="active">
@@ -25,7 +30,7 @@ export default class Main extends React.Component<RouteComponentProps, any> {
 				</nav>
 			</header>
 			<section className="page">
-				{ this.props.children }
+				{this.props.children}
 			</section>
 		</section>
 	) }

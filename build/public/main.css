@@ -1,5 +1,18 @@
+* {
+	margin: 0; padding: 0;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
 html, body {
 	background: black;
+	font-family: Rubik, Helvetica, Arial, sans-serif;
+	color: #fff;
+}
+
+.doc > header {
+	border-bottom: 2px solid #57bdea;
+	background: url(ac0a16e01bead92aaca4e946c96bb78c.svg) repeat-x;
 }
 
 /*# sourceMappingURL=main.css.map*/

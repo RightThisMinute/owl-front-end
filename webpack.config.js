@@ -23,6 +23,11 @@ const styleRules = {
 	}),
 }
 
+const fileRules = {
+	test: /\.((pn|sv|jpe?)g|gif)$/,
+	use: ['file-loader'],
+}
+
 const server = {
 
 	target: 'node',
@@ -50,6 +55,7 @@ const server = {
 				}],
 			},
 			styleRules,
+			fileRules,
 		]
 	},
 
@@ -104,6 +110,7 @@ const browser = {
 				}],
 			},
 			styleRules,
+			fileRules,
 		]
 	},
 
