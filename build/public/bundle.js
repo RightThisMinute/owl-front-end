@@ -16315,10 +16315,10 @@ function isPromise(obj) {
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var createHistoryEnhancer = __webpack_require__(807);
-var createMatchEnhancer = __webpack_require__(812);
-var foundReducer = __webpack_require__(813);
-var Matcher = __webpack_require__(814);
+var createHistoryEnhancer = __webpack_require__(809);
+var createMatchEnhancer = __webpack_require__(814);
+var foundReducer = __webpack_require__(815);
+var Matcher = __webpack_require__(816);
 var redux_1 = __webpack_require__(65);
 var App_1 = __webpack_require__(262);
 var reducer_1 = __webpack_require__(176);
@@ -23088,8 +23088,8 @@ var found_relay_1 = __webpack_require__(728);
 var relay_runtime_1 = __webpack_require__(161);
 var Main_1 = __webpack_require__(736);
 var VideoList_1 = __webpack_require__(746);
-var SetActiveVideosPage_1 = __webpack_require__(806);
-var ErrorPage_1 = __webpack_require__(824);
+var SetActiveVideosPage_1 = __webpack_require__(808);
+var ErrorPage_1 = __webpack_require__(826);
 
 var AppFrame = function (_React$Component) {
     _inherits(AppFrame, _React$Component);
@@ -23129,7 +23129,7 @@ exports.renderConfig = createRender({
     }
 });
 var ActiveVideosQuery = function ActiveVideosQuery() {
-    return __webpack_require__(825);
+    return __webpack_require__(827);
 };
 exports.routeConfig = makeRouteConfig(React.createElement(Route, { path: "/", Component: AppFrame }, React.createElement(Route, { Component: VideoList_1.default, query: ActiveVideosQuery }), React.createElement(Route, { path: "videos/forms/set_active", Component: SetActiveVideosPage_1.default, query: ActiveVideosQuery })));
 
@@ -36452,7 +36452,7 @@ var React = __webpack_require__(4);
 var ReactDOM = __webpack_require__(575);
 var Provider_1 = __webpack_require__(661);
 var App_1 = __webpack_require__(262);
-var fetcher_1 = __webpack_require__(826);
+var fetcher_1 = __webpack_require__(828);
 var store_1 = __webpack_require__(175);
 var store = store_1.genStore(new BrowserProtocol(), window['__PRELOADED_STATE__']);
 var matchContext = { store: store };
@@ -61497,6 +61497,7 @@ var createFragmentContainer = Relay.createFragmentContainer,
     graphql = Relay.graphql;
 
 var Video_1 = __webpack_require__(748);
+__webpack_require__(806);
 var SortField;
 (function (SortField) {
     SortField["TheOwl"] = "score";
@@ -61567,7 +61568,7 @@ var VideoList = function (_React$Component) {
 
 exports.default = createFragmentContainer(VideoList, {
     activeVideos: function activeVideos() {
-        return __webpack_require__(805);
+        return __webpack_require__(807);
     }
 });
 
@@ -61624,6 +61625,7 @@ var _require = __webpack_require__(46),
 
 var StatsChange_1 = __webpack_require__(749);
 var StatsChart_1 = __webpack_require__(751);
+__webpack_require__(804);
 
 var Video = function (_React$Component) {
   _inherits(Video, _React$Component);
@@ -61648,7 +61650,7 @@ var Video = function (_React$Component) {
           _ref$thumbnailURL = _ref.thumbnailURL,
           thumbnailURL = _ref$thumbnailURL === undefined ? 'https://www.fillmurray.com/1920/1080' : _ref$thumbnailURL;
 
-      return React.createElement("article", { id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots }), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+      return React.createElement("article", { className: "video", id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots }), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
     }
   }]);
 
@@ -61657,7 +61659,7 @@ var Video = function (_React$Component) {
 
 exports.default = createFragmentContainer(Video, {
   video: function video() {
-    return __webpack_require__(804);
+    return __webpack_require__(805);
   }
 });
 
@@ -61715,7 +61717,7 @@ var StatsChange = function (_React$Component) {
             var signClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'none';
             var f = formatNumber;
             var className = "stats-change " + signClass;
-            return React.createElement("div", { className: className }, React.createElement("span", { className: "start-end" }, React.createElement("span", { className: "start" }, f(startCount)), React.createElement("span", { className: "separator" }, ">"), React.createElement("span", { className: "end" }, f(endCount))), React.createElement("span", { className: "diff" }, React.createElement("span", { className: "sign" }, sign), React.createElement("span", { className: "count" }, f(diff)), React.createElement("span", { className: "separator" }, "/"), React.createElement("span", { className: "percent" }, React.createElement("em", null, f(percent)), "%")));
+            return React.createElement("div", { className: className }, React.createElement("span", { className: "start-end" }, React.createElement("span", { className: "start" }, f(startCount)), React.createElement("span", { className: "separator" }, "\u25BA"), React.createElement("span", { className: "end" }, f(endCount))), React.createElement("span", { className: "diff" }, React.createElement("span", { className: "sign" }, sign), React.createElement("span", { className: "count" }, f(diff)), React.createElement("span", { className: "separator" }, "/"), React.createElement("span", { className: "percent" }, React.createElement("em", null, f(percent)), "%")));
         }
     }]);
 
@@ -79604,6 +79606,12 @@ module.exports = fragment;
 
 /***/ }),
 /* 804 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 805 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79688,7 +79696,13 @@ var fragment /*: ConcreteFragment*/ = {
 module.exports = fragment;
 
 /***/ }),
-/* 805 */
+/* 806 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 807 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79731,7 +79745,7 @@ var fragment /*: ConcreteFragment*/ = {
 module.exports = fragment;
 
 /***/ }),
-/* 806 */
+/* 808 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79757,7 +79771,7 @@ var _require = __webpack_require__(46),
 
 var store_1 = __webpack_require__(175);
 var reducer_1 = __webpack_require__(176);
-var SetActiveVideos_1 = __webpack_require__(821);
+var SetActiveVideos_1 = __webpack_require__(823);
 
 var SetActiveVideosPage = function (_React$Component) {
     _inherits(SetActiveVideosPage, _React$Component);
@@ -79840,12 +79854,12 @@ function mapStateToProps(storeState, props) {
 var ReduxSetActiveVideosPage = react_redux_1.connect(mapStateToProps)(SetActiveVideosPage);
 exports.default = createFragmentContainer(ReduxSetActiveVideosPage, {
     activeVideos: function activeVideos() {
-        return __webpack_require__(823);
+        return __webpack_require__(825);
     }
 });
 
 /***/ }),
-/* 807 */
+/* 809 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79863,15 +79877,15 @@ var _ActionTypes = __webpack_require__(44);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
-var _createHistoryMiddleware = __webpack_require__(808);
+var _createHistoryMiddleware = __webpack_require__(810);
 
 var _createHistoryMiddleware2 = _interopRequireDefault(_createHistoryMiddleware);
 
-var _createTransitionHookMiddleware = __webpack_require__(809);
+var _createTransitionHookMiddleware = __webpack_require__(811);
 
 var _createTransitionHookMiddleware2 = _interopRequireDefault(_createTransitionHookMiddleware);
 
-var _ensureLocationMiddleware = __webpack_require__(810);
+var _ensureLocationMiddleware = __webpack_require__(812);
 
 var _ensureLocationMiddleware2 = _interopRequireDefault(_ensureLocationMiddleware);
 
@@ -79919,7 +79933,7 @@ function createHistoryEnhancer(_ref) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 808 */
+/* 810 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79978,7 +79992,7 @@ function createHistoryMiddleware(protocol) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 809 */
+/* 811 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80237,7 +80251,7 @@ function createTransitionHookMiddleware(_ref) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 810 */
+/* 812 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80253,7 +80267,7 @@ var _ActionTypes = __webpack_require__(44);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
-var _ensureLocation = __webpack_require__(811);
+var _ensureLocation = __webpack_require__(813);
 
 var _ensureLocation2 = _interopRequireDefault(_ensureLocation);
 
@@ -80292,7 +80306,7 @@ function ensureLocationMiddleware() {
 module.exports = exports['default'];
 
 /***/ }),
-/* 811 */
+/* 813 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80343,7 +80357,7 @@ function ensureLocation(location) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 812 */
+/* 814 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80407,7 +80421,7 @@ function createMatchEnhancer(matcher) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 813 */
+/* 815 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80451,7 +80465,7 @@ function foundReducer() {
 module.exports = exports['default'];
 
 /***/ }),
-/* 814 */
+/* 816 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80471,7 +80485,7 @@ var _assign = __webpack_require__(115);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _keys = __webpack_require__(815);
+var _keys = __webpack_require__(817);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -80495,7 +80509,7 @@ var _isEqual = __webpack_require__(140);
 
 var _isEqual2 = _interopRequireDefault(_isEqual);
 
-var _pathToRegexp = __webpack_require__(819);
+var _pathToRegexp = __webpack_require__(821);
 
 var _pathToRegexp2 = _interopRequireDefault(_pathToRegexp);
 
@@ -80782,34 +80796,34 @@ exports.default = Matcher;
 module.exports = exports['default'];
 
 /***/ }),
-/* 815 */
+/* 817 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(816), __esModule: true };
+module.exports = { "default": __webpack_require__(818), __esModule: true };
 
 /***/ }),
-/* 816 */
+/* 818 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(817);
+__webpack_require__(819);
 module.exports = __webpack_require__(12).Object.keys;
 
 /***/ }),
-/* 817 */
+/* 819 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 Object.keys(O)
 var toObject = __webpack_require__(83)
   , $keys    = __webpack_require__(39);
 
-__webpack_require__(818)('keys', function(){
+__webpack_require__(820)('keys', function(){
   return function keys(it){
     return $keys(toObject(it));
   };
 });
 
 /***/ }),
-/* 818 */
+/* 820 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // most Object methods by ES6 should accept primitives
@@ -80824,10 +80838,10 @@ module.exports = function(KEY, exec){
 };
 
 /***/ }),
-/* 819 */
+/* 821 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(820)
+var isarray = __webpack_require__(822)
 
 /**
  * Expose `pathToRegexp`.
@@ -81256,7 +81270,7 @@ function pathToRegexp (path, keys, options) {
 
 
 /***/ }),
-/* 820 */
+/* 822 */
 /***/ (function(module, exports) {
 
 module.exports = Array.isArray || function (arr) {
@@ -81265,7 +81279,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 821 */
+/* 823 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81280,7 +81294,7 @@ var _require = __webpack_require__(46),
 var reducer_1 = __webpack_require__(176);
 var store_1 = __webpack_require__(175);
 var mutation = function mutation() {
-    return __webpack_require__(822);
+    return __webpack_require__(824);
 };
 var nextClientMutationId = 0;
 function commit(environment, ids) {
@@ -81302,7 +81316,7 @@ function commit(environment, ids) {
 exports.default = { commit: commit };
 
 /***/ }),
-/* 822 */
+/* 824 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81417,7 +81431,7 @@ var batch /*: ConcreteBatch*/ = {
 module.exports = batch;
 
 /***/ }),
-/* 823 */
+/* 825 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81456,7 +81470,7 @@ var fragment /*: ConcreteFragment*/ = {
 module.exports = fragment;
 
 /***/ }),
-/* 824 */
+/* 826 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81495,7 +81509,7 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 825 */
+/* 827 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81693,7 +81707,7 @@ var batch /*: ConcreteBatch*/ = {
 module.exports = batch;
 
 /***/ }),
-/* 826 */
+/* 828 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81734,7 +81748,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(827);
+__webpack_require__(829);
 // TODO: Update this when someone releases a real, production-quality solution
 // for handling universal rendering with Relay Modern. For now, this is just
 // enough to get things working.
@@ -81900,19 +81914,19 @@ var ClientFetcher = function (_FetcherBase2) {
 exports.ClientFetcher = ClientFetcher;
 
 /***/ }),
-/* 827 */
+/* 829 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // the whatwg-fetch polyfill installs the fetch() function
 // on the global object (window or self)
 //
 // Return that as the export for use in Webpack, Browserify etc.
-__webpack_require__(828);
+__webpack_require__(830);
 module.exports = self.fetch.bind(self);
 
 
 /***/ }),
-/* 828 */
+/* 830 */
 /***/ (function(module, exports) {
 
 (function(self) {

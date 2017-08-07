@@ -50,7 +50,7 @@ class StatsChange extends React.Component<StatsChangeProps, any> {
 			<div className={className}>
 				<span className="start-end">
 					<span className="start">{f(startCount as number)}</span>
-					<span className="separator">&gt;</span>
+					<span className="separator">►</span>
 					<span className="end">{f(endCount as number)}</span>
 				</span>
 				<span className="diff">

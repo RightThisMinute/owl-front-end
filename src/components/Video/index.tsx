@@ -5,6 +5,8 @@ const { createFragmentContainer, graphql } = require('react-relay')
 import StatsChange, { StatsChangeProps } from '../StatsChange'
 import StatsChart, { StatsChartProps } from '../StatsChart'
 
+import '../../../../src/components/Video/style.pcss'
+
 
 interface SnapshotProps extends StatsChartProps, StatsChangeProps {}
 
@@ -30,12 +32,14 @@ class Video extends React.Component<Props, any> {
 		} = this.props.video.details || {}
 
 		return (
-			<article id={`video-${id}`}><a href={`https://youtu.be/${id}`}>
-				<h1>{title}</h1>
-				<img src={thumbnailURL} alt={title} />
-				<StatsChart snapshots={snapshots} />
-				<StatsChange snapshots={snapshots} />
-			</a></article>
+			<article className="video" id={`video-${id}`}>
+				<a href={`https://youtu.be/${id}`}>
+					<h1>{title}</h1>
+					<img src={thumbnailURL} alt={title} />
+					<StatsChart snapshots={snapshots} />
+					<StatsChange snapshots={snapshots} />
+				</a>
+			</article>
 		)
 	}
 
