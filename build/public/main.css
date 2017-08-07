@@ -18,7 +18,8 @@ html, body {
 	padding-bottom: 2px;
 	background:
 		linear-gradient(125deg,
-			#333, #333 110px, transparent 111px
+			#333, #333 110px, #57bdea 110px,
+			transparent 111px
 		),
 		repeating-linear-gradient(125deg,
 			#faa71b, #faa71b 3px,
