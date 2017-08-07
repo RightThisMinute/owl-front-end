@@ -16,13 +16,23 @@ html, body {
 
 	height: calc(58px + 2px);
 	padding-bottom: 2px;
-	background: url(569b34da351b4c66be83721ba7a4a625.png) repeat;
-	background-size: calc(56px/3) calc(83px/3);
+	background:
+		linear-gradient(125deg,
+			#333, #333 110px, transparent 111px
+		),
+		repeating-linear-gradient(125deg,
+			#faa71b, #faa71b 3px,
+			#ff7bb2 4px, #ff7bb2 7px,
+			#57bdea 8px, #57bdea 11px,
+			#0080c5 12px, #0080c5 16px,
+			#faa71b 17px
+		);
 
 	overflow: hidden;
 }
 
 .doc > header::before {
+		display: none;
 		content: ' ';
 		position: absolute; z-index: 1;
 		top: -60px; left: -150px;

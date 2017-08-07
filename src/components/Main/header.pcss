@@ -11,12 +11,23 @@
 
 	height: calc(var(--logo-height) + 2px);
 	padding-bottom: var(--border-bottom-height);
-	background: url('slanted-bg.png') repeat;
-	background-size: calc(56px/3) calc(83px/3);
+	background:
+		linear-gradient(125deg,
+			var(--dark-gray), var(--dark-gray) 110px, transparent 111px
+		),
+		repeating-linear-gradient(125deg,
+			var(--rtm-orange), var(--rtm-orange) 3px,
+			var(--rtm-pink) 4px, var(--rtm-pink) 7px,
+			var(--rtm-light-blue) 8px, var(--rtm-light-blue) 11px,
+			var(--rtm-blue) 12px, var(--rtm-blue) 16px,
+			var(--rtm-orange) 17px
+		)
+	;
 
 	overflow: hidden;
 
 	&::before {
+		display: none;
 		content: ' ';
 		position: absolute; z-index: 1;
 		top: -60px; left: -150px;
