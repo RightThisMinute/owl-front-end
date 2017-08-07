@@ -66,9 +66,9 @@ html, body {
 
 .doc > header nav {
 		position: absolute; z-index: 2;
-		padding: 2px 6px 2px 14px;
-		bottom: 0; right: 0;
-		background: linear-gradient(125deg, rgba(0,0,0,0) 0.9em, #57bdea 1em);
+		padding: 2px 4px 2px 17px;
+		bottom: -1px; right: 0;
+		background: url(a89120dbcd6f2b13f94490be78579c78.svg) left bottom no-repeat;
 
 	}
 
@@ -84,8 +84,10 @@ html, body {
 .doc > header nav a {
 			color: #fff;
 			font-size: 14px;
-			font-weight: 400;
+			font-weight: 700;
+			text-transform: uppercase;
 			text-decoration: none;
+			text-shadow: #333 0 0 4px;
 		}
 
 .doc > header nav a:hover {
