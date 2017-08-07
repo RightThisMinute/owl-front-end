@@ -11,8 +11,75 @@ html, body {
 }
 
 .doc > header {
-	border-bottom: 2px solid #57bdea;
-	background: url(470f9af36161976c5e09ba6025a67eab.svg) repeat-x;
+
+	position: relative;
+
+	height: calc(58px + 2px);
+	padding-bottom: 2px;
+	background: url(569b34da351b4c66be83721ba7a4a625.png) repeat;
+	background-size: calc(56px/3) calc(83px/3);
+
+	overflow: hidden;
 }
+
+.doc > header::before {
+		content: ' ';
+		position: absolute; z-index: 1;
+		top: -60px; left: -150px;
+		width: 330px; height: 163px;
+		background-color: #333;
+		-webkit-transform: rotate(-56deg);
+		        transform: rotate(-56deg);
+	}
+
+.doc > header::after {
+		content: ' ';
+		position: absolute; z-index: 1;
+		bottom: 0; left: 0;
+		width: 100%; height: 2px;
+		background-color: #57bdea;
+	}
+
+.doc > header h1 {
+		position: relative; z-index: 2;
+		bottom: -2px; left: 5px;
+		width: 118px; height: 58px;
+		background: url(8b7537b2a118de5564ce7e7a4993505c.svg) no-repeat left top;
+	}
+
+.doc > header h1 a {
+			position: absolute;
+			width: 100%; height: 100%;
+			overflow: hidden;
+			opacity: 0;
+		}
+
+.doc > header nav {
+		position: absolute; z-index: 2;
+		padding: 2px 6px 2px 14px;
+		bottom: 0; right: 0;
+		background: linear-gradient(125deg, rgba(0,0,0,0) 0.9em, #57bdea 1em);
+
+	}
+
+.doc > header nav ul {
+			list-style: none;
+		}
+
+.doc > header nav li {
+			display: inline-block;
+			margin: 0 6px;
+		}
+
+.doc > header nav a {
+			color: #fff;
+			font-size: 14px;
+			font-weight: 400;
+			text-decoration: none;
+		}
+
+.doc > header nav a:hover {
+				text-decoration: underline;
+			}
 
 /*# sourceMappingURL=main.css.map*/

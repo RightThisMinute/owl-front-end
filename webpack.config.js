@@ -2,6 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const Visualizer = require('webpack-visualizer-plugin')
 
 const babelPresetEnvExclude = require('./config/babel-preset-env.exclude')
 
@@ -62,6 +63,7 @@ const server = {
 	devtool: 'source-map',
 
 	plugins: [
+		new Visualizer(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 		}),
@@ -117,6 +119,7 @@ const browser = {
 	devtool: 'source-map',
 
 	plugins: [
+		new Visualizer(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 		}),
