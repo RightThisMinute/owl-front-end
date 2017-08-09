@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 
-// Typescript wont let use just grab individual lodash modules using a
+// Typescript wont let us just grab individual lodash modules using a
 // normal `import first from 'lodash/first'` statement, but this works
 // to avoid bloat.
 import first = require('lodash/first')
