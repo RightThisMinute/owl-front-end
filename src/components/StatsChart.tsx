@@ -1,8 +1,6 @@
 
 import * as React from 'react'
 import { ChartData, ChartDataSets, ChartOptions } from 'chart.js'
-import first = require('lodash/first')
-import last = require('lodash/last')
 import { Line } from 'react-chartjs-2'
 
 const { createFragmentContainer, graphql } = require('react-relay')
@@ -41,11 +39,19 @@ class StatsChart extends React.Component<StatsChartProps, any> {
 	render() {
 		const { data } = this
 
-		const { min, max }  = data.datasets!.reduce((accl, { data }) => {
-			accl.min += first(data as number[]) || 0
-			accl.max += last(data as number[]) || 0
+		const totals  = data.datasets!.reduce((accl: number[], { data }) => {
+			(data as number[]).forEach((value, index) => {
+				accl[index] = (accl[index] || 0) + value
+			})
 			return accl
-		}, { min: 0, max: 0 })
+		}, [])
+
+		const min = Math.min(...totals)
+		  let max = Math.max(...totals)
+
+		// Prevent small changes appearing the same as big changes.
+		if (max < 2*min)
+			max = (2*min)
 
 		const yAxes = CHART_OPTS.scales!.yAxes!.map(axis => {
 			return Object.assign({}, axis, {
@@ -73,33 +79,17 @@ class StatsChart extends React.Component<StatsChartProps, any> {
 		const labels: string[] = []
 
 		let datasets: ChartDataSets[] = [
-			{
-				label: 'views',
-				borderColor: 'rgb(214, 214, 214)',
-			},
-			{
-				label: 'dislikes',
-				borderColor: 'rgb(255, 126, 121)',
-			},
-			{
-				label: 'likes',
-				borderColor: 'rgb(212, 251, 121)',
-			},
-			{
-				label: 'favorites',
-				borderColor: 'rgb(215, 131, 255)',
-			},
-			{
-				label: 'comments',
-				borderColor: 'rgb(118, 214, 255)',
-			},
+			{ label: 'views',     borderColor: '#bbb', },
+			{ label: 'dislikes',  borderColor: '#999', },
+			{ label: 'likes',     borderColor: '#777', },
+			{ label: 'comments',  borderColor: '#555', },
+			{ label: 'favorites', borderColor: '#333', },
 		]
 
 		datasets = datasets.map(dataset => {
 			dataset.backgroundColor = dataset.borderColor
 			dataset.data = []
 			dataset.pointRadius = 0
-			// dataset.fill = false
 
 			return dataset
 		})

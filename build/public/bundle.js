@@ -62116,6 +62116,8 @@ module.exports = fragment;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -62124,8 +62126,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(4);
-var first = __webpack_require__(176);
-var last = __webpack_require__(177);
 var react_chartjs_2_1 = __webpack_require__(760);
 
 var _require = __webpack_require__(46),
@@ -62164,16 +62164,18 @@ var StatsChart = function (_React$Component) {
         value: function render() {
             var data = this.data;
 
-            var _data$datasets$reduce = data.datasets.reduce(function (accl, _ref) {
+            var totals = data.datasets.reduce(function (accl, _ref) {
                 var data = _ref.data;
 
-                accl.min += first(data) || 0;
-                accl.max += last(data) || 0;
+                data.forEach(function (value, index) {
+                    accl[index] = (accl[index] || 0) + value;
+                });
                 return accl;
-            }, { min: 0, max: 0 }),
-                min = _data$datasets$reduce.min,
-                max = _data$datasets$reduce.max;
-
+            }, []);
+            var min = Math.min.apply(Math, _toConsumableArray(totals));
+            var max = Math.max.apply(Math, _toConsumableArray(totals));
+            // Prevent small changes appearing the same as big changes.
+            if (max < 2 * min) max = 2 * min;
             var yAxes = CHART_OPTS.scales.yAxes.map(function (axis) {
                 return Object.assign({}, axis, {
                     ticks: {
@@ -62192,27 +62194,11 @@ var StatsChart = function (_React$Component) {
         key: "data",
         get: function get() {
             var labels = [];
-            var datasets = [{
-                label: 'views',
-                borderColor: 'rgb(214, 214, 214)'
-            }, {
-                label: 'dislikes',
-                borderColor: 'rgb(255, 126, 121)'
-            }, {
-                label: 'likes',
-                borderColor: 'rgb(212, 251, 121)'
-            }, {
-                label: 'favorites',
-                borderColor: 'rgb(215, 131, 255)'
-            }, {
-                label: 'comments',
-                borderColor: 'rgb(118, 214, 255)'
-            }];
+            var datasets = [{ label: 'views', borderColor: '#bbb' }, { label: 'dislikes', borderColor: '#999' }, { label: 'likes', borderColor: '#777' }, { label: 'comments', borderColor: '#555' }, { label: 'favorites', borderColor: '#333' }];
             datasets = datasets.map(function (dataset) {
                 dataset.backgroundColor = dataset.borderColor;
                 dataset.data = [];
                 dataset.pointRadius = 0;
-                // dataset.fill = false
                 return dataset;
             });
             var count = 0;
