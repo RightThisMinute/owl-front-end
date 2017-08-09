@@ -52,7 +52,7 @@ class VideoList extends React.Component<Props, any> {
 
 			return {
 				video: vid,
-				score: change * ratio,
+				score: change * (ratio-1)**2,
 				percent: (ratio * 100) - 100,
 				change,
 			}
@@ -86,5 +86,12 @@ export default createFragmentContainer(VideoList, graphql`
 	fragment VideoList_activeVideos on Video @relay(plural: true) {
 		id
 		...Video_video
+		snapshots: statsByAge(seconds: $statsAge) {
+			views
+			likes
+			dislikes
+			favorites
+			comments
+    }
 	}
 `)

@@ -49,7 +49,7 @@ export const renderConfig = createRender({
 
 
 const ActiveVideosQuery = graphql`
-	query App_ActiveVideos_Query {
+	query App_ActiveVideos_Query($statsAge: Int!) {
 		activeVideos {
 			...SetActiveVideosPage_activeVideos
 			...VideoList_activeVideos
@@ -57,10 +57,14 @@ const ActiveVideosQuery = graphql`
 	}
 `
 
+const aDay = 24 * 60 * 60
+
 export const routeConfig = makeRouteConfig(
 	<Route path="/" Component={AppFrame}>
-		<Route Component={VideoList} query={ActiveVideosQuery} />
+		<Route Component={VideoList} query={ActiveVideosQuery}
+		       prepareVariables={params => ({ ...params, statsAge: aDay })} />
 		<Route path="videos/forms/set_active"
-		       Component={SetActiveVideosPage} query={ActiveVideosQuery} />
+		       Component={SetActiveVideosPage} query={ActiveVideosQuery}
+		       prepareVariables={params => ({ ...params, statsAge: aDay })} />
 	</Route>
 )

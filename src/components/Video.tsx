@@ -52,7 +52,7 @@ export default createFragmentContainer(Video, graphql`
 			title
 			thumbnailURL
 		}
-		snapshots: statsByAge(seconds: 86400) {
+		snapshots: statsByAge(seconds: $statsAge) {
       ...StatsChart_snapshots
 			...StatsChange_snapshots
 		}

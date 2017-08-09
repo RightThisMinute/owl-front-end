@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 502705d85a56643f27ab64e4c4a968cf
+ * @relayHash 7470ae465485371ddb16350c6683977f
  */
 
 /* eslint-disable */
@@ -16,7 +16,9 @@ export type App_ActiveVideos_QueryResponse = {|
 
 
 /*
-query App_ActiveVideos_Query {
+query App_ActiveVideos_Query(
+  $statsAge: Int!
+) {
   activeVideos {
     ...SetActiveVideosPage_activeVideos
     ...VideoList_activeVideos
@@ -31,6 +33,13 @@ fragment SetActiveVideosPage_activeVideos on Video {
 fragment VideoList_activeVideos on Video {
   id
   ...Video_video
+  snapshots: statsByAge(seconds: $statsAge) {
+    views
+    likes
+    dislikes
+    favorites
+    comments
+  }
 }
 
 fragment Video_video on Video {
@@ -39,7 +48,7 @@ fragment Video_video on Video {
     title
     thumbnailURL
   }
-  snapshots: statsByAge(seconds: 86400) {
+  snapshots: statsByAge(seconds: $statsAge) {
     ...StatsChart_snapshots
     ...StatsChange_snapshots
   }
@@ -64,7 +73,14 @@ fragment StatsChange_snapshots on VideoStats {
 
 const batch /*: ConcreteBatch*/ = {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": [
+      {
+        "kind": "LocalArgument",
+        "name": "statsAge",
+        "type": "Int!",
+        "defaultValue": null
+      }
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "App_ActiveVideos_Query",
@@ -98,7 +114,14 @@ const batch /*: ConcreteBatch*/ = {
   "metadata": {},
   "name": "App_ActiveVideos_Query",
   "query": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": [
+      {
+        "kind": "LocalArgument",
+        "name": "statsAge",
+        "type": "Int!",
+        "defaultValue": null
+      }
+    ],
     "kind": "Root",
     "name": "App_ActiveVideos_Query",
     "operation": "query",
@@ -152,9 +175,9 @@ const batch /*: ConcreteBatch*/ = {
                 "alias": "snapshots",
                 "args": [
                   {
-                    "kind": "Literal",
+                    "kind": "Variable",
                     "name": "seconds",
-                    "value": 86400,
+                    "variableName": "statsAge",
                     "type": "Int!"
                   }
                 ],
@@ -163,48 +186,42 @@ const batch /*: ConcreteBatch*/ = {
                 "plural": true,
                 "selections": [
                   {
-                    "kind": "InlineFragment",
-                    "type": "VideoStats",
-                    "selections": [
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "views",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "likes",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "dislikes",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "favorites",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "comments",
-                        "storageKey": null
-                      }
-                    ]
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "views",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "likes",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "dislikes",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "favorites",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "args": null,
+                    "name": "comments",
+                    "storageKey": null
                   }
                 ],
-                "storageKey": "statsByAge{\"seconds\":86400}"
+                "storageKey": null
               }
             ]
           }
@@ -213,7 +230,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query App_ActiveVideos_Query {\n  activeVideos {\n    ...SetActiveVideosPage_activeVideos\n    ...VideoList_activeVideos\n    id\n  }\n}\n\nfragment SetActiveVideosPage_activeVideos on Video {\n  id\n}\n\nfragment VideoList_activeVideos on Video {\n  id\n  ...Video_video\n}\n\nfragment Video_video on Video {\n  id\n  details {\n    title\n    thumbnailURL\n  }\n  snapshots: statsByAge(seconds: 86400) {\n    ...StatsChart_snapshots\n    ...StatsChange_snapshots\n  }\n}\n\nfragment StatsChart_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n\nfragment StatsChange_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n"
+  "text": "query App_ActiveVideos_Query(\n  $statsAge: Int!\n) {\n  activeVideos {\n    ...SetActiveVideosPage_activeVideos\n    ...VideoList_activeVideos\n    id\n  }\n}\n\nfragment SetActiveVideosPage_activeVideos on Video {\n  id\n}\n\nfragment VideoList_activeVideos on Video {\n  id\n  ...Video_video\n  snapshots: statsByAge(seconds: $statsAge) {\n    views\n    likes\n    dislikes\n    favorites\n    comments\n  }\n}\n\nfragment Video_video on Video {\n  id\n  details {\n    title\n    thumbnailURL\n  }\n  snapshots: statsByAge(seconds: $statsAge) {\n    ...StatsChart_snapshots\n    ...StatsChange_snapshots\n  }\n}\n\nfragment StatsChart_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n\nfragment StatsChange_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n"
 };
 
 module.exports = batch;

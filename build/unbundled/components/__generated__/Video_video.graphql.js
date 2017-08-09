@@ -20,7 +20,13 @@ export type Video_video = {|
 
 
 const fragment /*: ConcreteFragment*/ = {
-  "argumentDefinitions": [],
+  "argumentDefinitions": [
+    {
+      "kind": "RootArgument",
+      "name": "statsAge",
+      "type": "Int!"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "Video_video",
@@ -62,9 +68,9 @@ const fragment /*: ConcreteFragment*/ = {
       "alias": "snapshots",
       "args": [
         {
-          "kind": "Literal",
+          "kind": "Variable",
           "name": "seconds",
-          "value": 86400,
+          "variableName": "statsAge",
           "type": "Int!"
         }
       ],
@@ -83,7 +89,7 @@ const fragment /*: ConcreteFragment*/ = {
           "args": null
         }
       ],
-      "storageKey": "statsByAge{\"seconds\":86400}"
+      "storageKey": null
     }
   ],
   "type": "Video"
