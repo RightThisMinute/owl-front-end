@@ -61898,8 +61898,10 @@ var VideoList = function (_React$Component) {
                     _ref3 = _slicedToArray(_ref2, 2),
                     a = _ref3[0],
                     b = _ref3[1];
+                // Field values can be NaN. Prevents items without stats sorting weirdly.
 
-                return a[field] - b[field];
+
+                return (a[field] || 0) - (b[field] || 0);
             });
             var videos = sorted.map(function (vid) {
                 return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video });

@@ -69984,7 +69984,8 @@ class VideoList extends React.Component {
         const sorted = scored.sort((vid1, vid2) => {
             const { field = SortField.TheOwl, direction = SortDirection.Descending } = this.props.sort || {};
             const [a, b] = direction === SortDirection.Descending ? [vid2, vid1] : [vid1, vid2];
-            return a[field] - b[field];
+            // Field values can be NaN. Prevents items without stats sorting weirdly.
+            return (a[field] || 0) - (b[field] || 0);
         });
         const videos = sorted.map(vid => {
             return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video });

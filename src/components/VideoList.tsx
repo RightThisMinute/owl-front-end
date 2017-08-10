@@ -65,7 +65,8 @@ class VideoList extends React.Component<Props, any> {
 			const [a, b] = direction === SortDirection.Descending
 				? [vid2, vid1] : [vid1, vid2]
 
-			return a[field] - b[field]
+			// Field values can be NaN. Prevents items without stats sorting weirdly.
+			return (a[field] || 0) - (b[field] || 0)
 		})
 
 		const videos = sorted.map(vid => { return (
