@@ -68,12 +68,7 @@ const server = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 		}),
-		// Overwrites the same file created by the browser webpack config. A loader
-		// needs to be specified to take care of the import statements and it wont
-		// work without also outputting a file. There has to be a better way to
-		// handle this, but I want to focus on other parts for now.
-		// @todo: make this less bad.
-		new ExtractTextPlugin('public/main.css'),
+		new ExtractTextPlugin('main.css'),
 		new LiveReloadPlugin,
 	]
 }
