@@ -50,6 +50,7 @@
     "style-loader": "^0.18.2",
     "typescript": "^2.4.1",
     "webpack": "^3.0.0",
+    "webpack-livereload-plugin": "^0.11.0",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {

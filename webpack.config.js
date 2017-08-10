@@ -2,6 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const LiveReloadPlugin = require('webpack-livereload-plugin')
 const Visualizer = require('webpack-visualizer-plugin')
 
 const babelPresetEnvExclude = require('./config/babel-preset-env.exclude')
@@ -73,6 +74,7 @@ const server = {
 		// handle this, but I want to focus on other parts for now.
 		// @todo: make this less bad.
 		new ExtractTextPlugin('public/main.css'),
+		new LiveReloadPlugin,
 	]
 }
 
@@ -124,6 +126,7 @@ const browser = {
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 		}),
 		new ExtractTextPlugin('main.css'),
+		new LiveReloadPlugin,
 	]
 
 }
