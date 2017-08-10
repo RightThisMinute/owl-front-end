@@ -62224,7 +62224,9 @@ var StatsChart = function (_React$Component) {
             var min = Math.min.apply(Math, _toConsumableArray(totals));
             var max = Math.max.apply(Math, _toConsumableArray(totals));
             // Prevent small changes appearing the same as big changes.
-            if (max < this.props.scale * min) max = this.props.scale * min;
+            var scale = this.props.scale;
+
+            if (max < scale * min) max = scale * min;
             var yAxes = CHART_OPTS.scales.yAxes.map(function (axis) {
                 return Object.assign({}, axis, {
                     ticks: {
@@ -62243,11 +62245,11 @@ var StatsChart = function (_React$Component) {
         key: "data",
         get: function get() {
             var labels = [];
-            var datasets = [{ label: 'views', borderColor: '#bbb' }, { label: 'dislikes', borderColor: '#999' }, { label: 'likes', borderColor: '#777' }, { label: 'comments', borderColor: '#555' }, { label: 'favorites', borderColor: '#333' }];
+            var datasets = [{ label: 'views', borderColor: '#777' }, { label: 'dislikes', borderColor: '#999' }, { label: 'likes', borderColor: '#bbb' }, { label: 'comments', borderColor: '#555' }, { label: 'favorites', borderColor: '#333' }];
             datasets = datasets.map(function (dataset) {
-                dataset.backgroundColor = dataset.borderColor;
+                dataset.backgroundColor = dataset.backgroundColor || dataset.borderColor;
                 dataset.data = [];
-                dataset.pointRadius = 0;
+                dataset.pointRadius = 1;
                 return dataset;
             });
             var count = 0;

@@ -54,8 +54,9 @@ class StatsChart extends React.Component<Props, any> {
 		  let max = Math.max(...totals)
 
 		// Prevent small changes appearing the same as big changes.
-		if (max < this.props.scale*min)
-			max = (this.props.scale*min)
+		const { scale } = this.props
+		if (max < scale*min)
+			max = (scale*min)
 
 		const yAxes = CHART_OPTS.scales!.yAxes!.map(axis => {
 			return Object.assign({}, axis, {
@@ -83,17 +84,17 @@ class StatsChart extends React.Component<Props, any> {
 		const labels: string[] = []
 
 		let datasets: ChartDataSets[] = [
-			{ label: 'views',     borderColor: '#bbb', },
+			{ label: 'views',     borderColor: '#777', },
 			{ label: 'dislikes',  borderColor: '#999', },
-			{ label: 'likes',     borderColor: '#777', },
+			{ label: 'likes',     borderColor: '#bbb', },
 			{ label: 'comments',  borderColor: '#555', },
 			{ label: 'favorites', borderColor: '#333', },
 		]
 
 		datasets = datasets.map(dataset => {
-			dataset.backgroundColor = dataset.borderColor
+			dataset.backgroundColor = dataset.backgroundColor || dataset.borderColor
 			dataset.data = []
-			dataset.pointRadius = 0
+			dataset.pointRadius = 1
 
 			return dataset
 		})
