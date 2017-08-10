@@ -61973,39 +61973,39 @@ var StatsChart_1 = __webpack_require__(759);
 __webpack_require__(812);
 
 var Video = function (_React$Component) {
-  _inherits(Video, _React$Component);
+    _inherits(Video, _React$Component);
 
-  function Video() {
-    _classCallCheck(this, Video);
+    function Video() {
+        _classCallCheck(this, Video);
 
-    return _possibleConstructorReturn(this, (Video.__proto__ || Object.getPrototypeOf(Video)).apply(this, arguments));
-  }
-
-  _createClass(Video, [{
-    key: "render",
-    value: function render() {
-      var _props$video = this.props.video,
-          id = _props$video.id,
-          _props$video$snapshot = _props$video.snapshots,
-          snapshots = _props$video$snapshot === undefined ? [] : _props$video$snapshot;
-
-      var _ref = this.props.video.details || {},
-          _ref$title = _ref.title,
-          title = _ref$title === undefined ? "[" + id + "]" : _ref$title,
-          _ref$thumbnailURL = _ref.thumbnailURL,
-          thumbnailURL = _ref$thumbnailURL === undefined ? 'https://www.fillmurray.com/1920/1080' : _ref$thumbnailURL;
-
-      return React.createElement("article", { className: "video", id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots }), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+        return _possibleConstructorReturn(this, (Video.__proto__ || Object.getPrototypeOf(Video)).apply(this, arguments));
     }
-  }]);
 
-  return Video;
+    _createClass(Video, [{
+        key: "render",
+        value: function render() {
+            var _props$video = this.props.video,
+                id = _props$video.id,
+                _props$video$snapshot = _props$video.snapshots,
+                snapshots = _props$video$snapshot === undefined ? [] : _props$video$snapshot;
+
+            var _ref = this.props.video.details || {},
+                _ref$title = _ref.title,
+                title = _ref$title === undefined ? "[" + id + "]" : _ref$title,
+                _ref$thumbnailURL = _ref.thumbnailURL,
+                thumbnailURL = _ref$thumbnailURL === undefined ? 'https://www.fillmurray.com/1920/1080' : _ref$thumbnailURL;
+
+            return React.createElement("article", { className: "video", id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+        }
+    }]);
+
+    return Video;
 }(React.Component);
 
 exports.default = createFragmentContainer(Video, {
-  video: function video() {
-    return __webpack_require__(813);
-  }
+    video: function video() {
+        return __webpack_require__(813);
+    }
 });
 
 /***/ }),

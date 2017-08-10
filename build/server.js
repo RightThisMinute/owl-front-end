@@ -70041,16 +70041,16 @@ const StatsChange_1 = __webpack_require__(761);
 const StatsChart_1 = __webpack_require__(763);
 __webpack_require__(816);
 class Video extends React.Component {
-  render() {
-    const { id, snapshots = [] } = this.props.video;
-    const { title = `[${id}]`, thumbnailURL = 'https://www.fillmurray.com/1920/1080' } = this.props.video.details || {};
-    return React.createElement("article", { className: "video", id: `video-${id}` }, React.createElement("a", { href: `https://youtu.be/${id}` }, React.createElement("h1", null, title), React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots }), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
-  }
+    render() {
+        const { id, snapshots = [] } = this.props.video;
+        const { title = `[${id}]`, thumbnailURL = 'https://www.fillmurray.com/1920/1080' } = this.props.video.details || {};
+        return React.createElement("article", { className: "video", id: `video-${id}` }, React.createElement("a", { href: `https://youtu.be/${id}` }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+    }
 }
 exports.default = createFragmentContainer(Video, {
-  video: function () {
-    return __webpack_require__(817);
-  }
+    video: function () {
+        return __webpack_require__(817);
+    }
 });
 
 /***/ }),

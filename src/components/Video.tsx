@@ -35,8 +35,10 @@ class Video extends React.Component<Props, any> {
 			<article className="video" id={`video-${id}`}>
 				<a href={`https://youtu.be/${id}`}>
 					<h1>{title}</h1>
-					<img src={thumbnailURL} alt={title} />
-					<StatsChart snapshots={snapshots} />
+					<div className="graphics">
+						<img src={thumbnailURL} alt={title} />
+						<StatsChart snapshots={snapshots} />
+					</div>
 					<StatsChange snapshots={snapshots} />
 				</a>
 			</article>
