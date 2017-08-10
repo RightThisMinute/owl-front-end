@@ -1,0 +1,52 @@
+
+@import '../../variables.pcss';
+
+section.set-active-videos {
+
+	padding: 15px;
+
+	p, textarea, button {
+		margin: 15px 0;
+	}
+
+	p.note {
+		color: #999;
+		font-size: 0.85em;
+	}
+
+	p.error {
+		color: red;
+	}
+
+	p.success {
+		color: var(--neon-green);
+	}
+
+	textarea {
+		max-width: 100%;
+		padding: 3px 6px;
+		border: 2px solid var(--rtm-orange);
+		background-color: var(--dark-gray);
+		color: #fff;
+		font-size: 16px;
+		font-family: var(--default-font-family);
+	}
+
+	button {
+		padding: 4px 6px;
+		border: none;
+		background-color: var(--dark-gray);
+		box-shadow: 2px 2px 0 0 var(--rtm-pink);
+		color: #fff;
+		font-size: 16px;
+		font-family: var(--default-font-family);
+		font-weight: var(--font-weight-medium);
+		transition: box-shadow 0.3s ease;
+		cursor: pointer;
+
+		&:active {
+			box-shadow: 0 0 0 0 var(--rtm-pink);
+		}
+	}
+
+}

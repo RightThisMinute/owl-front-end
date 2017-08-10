@@ -80253,8 +80253,8 @@ var SetActiveVideosPage = function (_React$Component) {
                 messageClass = 'error';
                 message = "Failed setting active videos (" + this.props.error.message + ").";
             }
-            if (message) message = React.createElement("p", { className: messageClass }, message);
-            return React.createElement("section", { className: "set-active-videos" }, React.createElement("form", { onSubmit: this.handleSubmit }, React.createElement("p", null, "Put each URL on a separate line."), message, React.createElement("textarea", { name: "ids", value: this.state.ids, rows: 32, cols: 75, onChange: this.handleInputChange, disabled: disabled }), React.createElement("button", { disabled: disabled }, buttonText || 'Replace Active Videos')));
+            if (message) message = React.createElement("p", { className: "status " + messageClass }, message);
+            return React.createElement("section", { className: "set-active-videos" }, React.createElement("form", { onSubmit: this.handleSubmit }, React.createElement("p", null, "Put each URL on a separate line."), React.createElement("p", { className: "note" }, "Video IDs will be automatically extracted from pasted URLs and replace the URL. If a pasted URL isn't replaced, that likely means it wasn't copied correctly. Only YouTube video URLs are accepted."), React.createElement("textarea", { name: "ids", value: this.state.ids, rows: 32, cols: 75, onChange: this.handleInputChange, disabled: disabled }), message, React.createElement("button", { disabled: disabled }, buttonText || 'Set Active Videos')));
         }
     }]);
 

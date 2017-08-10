@@ -97,20 +97,21 @@ class SetActiveVideosPage extends React.Component<Props, State> {
 
 		if (message)
 			message = (
-				<p className={messageClass}>{message}</p>
+				<p className={`status ${messageClass}`}>{message}</p>
 			)
 
 		return (
 			<section className="set-active-videos">
 				<form onSubmit={this.handleSubmit}>
 					<p>Put each URL on a separate line.</p>
-					{message}
+					<p className="note">Video IDs will be automatically extracted from pasted URLs and replace the URL. If a pasted URL isn't replaced, that likely means it wasn't copied correctly. Only YouTube video URLs are accepted.</p>
 					<textarea name="ids" value={this.state.ids} rows={32} cols={75}
 					          onChange={this.handleInputChange} disabled={disabled}
 					/>
-					<button disabled={disabled}>{
-						buttonText || 'Replace Active Videos'
-					}</button>
+					{message}
+					<button disabled={disabled}>
+						{buttonText || 'Set Active Videos'}
+					</button>
 				</form>
 			</section>
 		)

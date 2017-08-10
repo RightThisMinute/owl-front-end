@@ -1,10 +1,17 @@
+
 * {
 	margin: 0; padding: 0;
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 }
 
-html, body {
+html {
+	background: black;
+	font-family: Rubik, Helvetica, Arial, sans-serif;
+	color: #fff;
+}
+
+body {
 	background: black;
 	font-family: Rubik, Helvetica, Arial, sans-serif;
 	color: #fff;
@@ -214,5 +221,60 @@ section.video-list {
 		margin: 15px;
 		max-width: 335px;
 	}
+
+section.set-active-videos {
+
+	padding: 15px;
+
+}
+
+section.set-active-videos p, section.set-active-videos textarea, section.set-active-videos button {
+		margin: 15px 0;
+	}
+
+section.set-active-videos p.note {
+		color: #999;
+		font-size: 0.85em;
+	}
+
+section.set-active-videos p.error {
+		color: red;
+	}
+
+section.set-active-videos p.success {
+		color: #a7ff46;
+	}
+
+section.set-active-videos textarea {
+		max-width: 100%;
+		padding: 3px 6px;
+		border: 2px solid #faa71b;
+		background-color: #333;
+		color: #fff;
+		font-size: 16px;
+		font-family: Rubik, Helvetica, Arial, sans-serif;
+	}
+
+section.set-active-videos button {
+		padding: 4px 6px;
+		border: none;
+		background-color: #333;
+		-webkit-box-shadow: 2px 2px 0 0 #ff7bb2;
+		        box-shadow: 2px 2px 0 0 #ff7bb2;
+		color: #fff;
+		font-size: 16px;
+		font-family: Rubik, Helvetica, Arial, sans-serif;
+		font-weight: 500;
+		-webkit-transition: -webkit-box-shadow 0.3s ease;
+		transition: -webkit-box-shadow 0.3s ease;
+		transition: box-shadow 0.3s ease;
+		transition: box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
+		cursor: pointer;
+	}
+
+section.set-active-videos button:active {
+			-webkit-box-shadow: 0 0 0 0 #ff7bb2;
+			        box-shadow: 0 0 0 0 #ff7bb2;
+		}
 
 /*# sourceMappingURL=main.css.map*/
