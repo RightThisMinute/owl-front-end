@@ -61827,6 +61827,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -61903,8 +61905,13 @@ var VideoList = function (_React$Component) {
 
                 return (a[field] || 0) - (b[field] || 0);
             });
+            var percents = scored.map(function (vid) {
+                return vid.percent;
+            });
+            var chartScale = Math.max.apply(Math, [0].concat(_toConsumableArray(percents))) / 100 + 1;
+            if (chartScale < 2) chartScale = 2;
             var videos = sorted.map(function (vid) {
-                return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video });
+                return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale });
             });
             return React.createElement("section", { className: "video-list" }, videos);
         }
@@ -61997,7 +62004,7 @@ var Video = function (_React$Component) {
                 _ref$thumbnailURL = _ref.thumbnailURL,
                 thumbnailURL = _ref$thumbnailURL === undefined ? 'https://www.fillmurray.com/1920/1080' : _ref$thumbnailURL;
 
-            return React.createElement("article", { className: "video", id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+            return React.createElement("article", { className: "video", id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
         }
     }]);
 
@@ -62217,7 +62224,7 @@ var StatsChart = function (_React$Component) {
             var min = Math.min.apply(Math, _toConsumableArray(totals));
             var max = Math.max.apply(Math, _toConsumableArray(totals));
             // Prevent small changes appearing the same as big changes.
-            if (max < 2 * min) max = 2 * min;
+            if (max < this.props.scale * min) max = this.props.scale * min;
             var yAxes = CHART_OPTS.scales.yAxes.map(function (axis) {
                 return Object.assign({}, axis, {
                     ticks: {

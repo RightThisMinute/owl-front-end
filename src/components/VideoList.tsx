@@ -69,8 +69,13 @@ class VideoList extends React.Component<Props, any> {
 			return (a[field] || 0) - (b[field] || 0)
 		})
 
+		const percents: number[] = scored.map(vid => vid.percent)
+		let chartScale = Math.max(0, ...percents) / 100 + 1
+		if (chartScale < 2)
+			chartScale = 2
+
 		const videos = sorted.map(vid => { return (
-			<Video key={vid.video.id} video={vid.video} />
+			<Video key={vid.video.id} video={vid.video} chartScale={chartScale} />
 		)})
 
 		return (

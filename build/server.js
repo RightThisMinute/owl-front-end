@@ -69987,8 +69987,11 @@ class VideoList extends React.Component {
             // Field values can be NaN. Prevents items without stats sorting weirdly.
             return (a[field] || 0) - (b[field] || 0);
         });
+        const percents = scored.map(vid => vid.percent);
+        let chartScale = Math.max(0, ...percents) / 100 + 1;
+        if (chartScale < 2) chartScale = 2;
         const videos = sorted.map(vid => {
-            return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video });
+            return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale });
         });
         return React.createElement("section", { className: "video-list" }, videos);
     }
@@ -70045,7 +70048,7 @@ class Video extends React.Component {
     render() {
         const { id, snapshots = [] } = this.props.video;
         const { title = `[${id}]`, thumbnailURL = 'https://www.fillmurray.com/1920/1080' } = this.props.video.details || {};
-        return React.createElement("article", { className: "video", id: `video-${id}` }, React.createElement("a", { href: `https://youtu.be/${id}` }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+        return React.createElement("article", { className: "video", id: `video-${id}` }, React.createElement("a", { href: `https://youtu.be/${id}` }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
     }
 }
 exports.default = createFragmentContainer(Video, {
@@ -70201,7 +70204,7 @@ class StatsChart extends React.Component {
         const min = Math.min(...totals);
         let max = Math.max(...totals);
         // Prevent small changes appearing the same as big changes.
-        if (max < 2 * min) max = 2 * min;
+        if (max < this.props.scale * min) max = this.props.scale * min;
         const yAxes = CHART_OPTS.scales.yAxes.map(axis => {
             return Object.assign({}, axis, {
                 ticks: {

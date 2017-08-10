@@ -16,6 +16,10 @@ export interface StatsChartProps {
 	}[]
 }
 
+interface Props extends StatsChartProps {
+	scale: number
+}
+
 const CHART_OPTS: ChartOptions = {
 	responsive: true,
 	legend: { display: false },
@@ -34,7 +38,7 @@ const CHART_OPTS: ChartOptions = {
 	},
 }
 
-class StatsChart extends React.Component<StatsChartProps, any> {
+class StatsChart extends React.Component<Props, any> {
 
 	render() {
 		const { data } = this
@@ -50,8 +54,8 @@ class StatsChart extends React.Component<StatsChartProps, any> {
 		  let max = Math.max(...totals)
 
 		// Prevent small changes appearing the same as big changes.
-		if (max < 2*min)
-			max = (2*min)
+		if (max < this.props.scale*min)
+			max = (this.props.scale*min)
 
 		const yAxes = CHART_OPTS.scales!.yAxes!.map(axis => {
 			return Object.assign({}, axis, {
