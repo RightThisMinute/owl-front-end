@@ -80256,7 +80256,7 @@ var SetActiveVideosPage = function (_React$Component) {
             var disabled = false;
             if (this.props.saved) {
                 messageClass = 'success';
-                message = 'Set active videos successfully.';
+                message = 'Active videos set successfully.';
             } else if (this.props.saving) {
                 disabled = true;
                 buttonText = 'Saving...';

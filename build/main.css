@@ -241,16 +241,27 @@ section.set-active-videos p.success {
 	}
 
 section.set-active-videos textarea {
+
 		max-width: 100%;
 		padding: 3px 6px;
-		border: 2px solid #faa71b;
+		border: none;
+		border-top: 3px solid #0080c5;
+		border-bottom: 1px solid #57bdea;
+		-webkit-box-shadow: 0 1px 0 0 rgb(17, 100, 136);
+		        box-shadow: 0 1px 0 0 rgb(17, 100, 136);
 		background-color: #333;
 		color: #fff;
 		font-size: 16px;
 		font-family: Rubik, Helvetica, Arial, sans-serif;
 	}
 
+section.set-active-videos textarea:focus {
+			outline: none;
+			background-color: rgb(77, 77, 77);
+		}
+
 section.set-active-videos button {
+
 		padding: 4px 6px;
 		border: none;
 		background-color: #333;
@@ -266,6 +277,11 @@ section.set-active-videos button {
 		transition: box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
 		cursor: pointer;
 	}
+
+section.set-active-videos button:focus {
+			outline: none;
+			background-color: rgb(77, 77, 77);
+		}
 
 section.set-active-videos button:active {
 			-webkit-box-shadow: 0 0 0 0 #ff7bb2;
