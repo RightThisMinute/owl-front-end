@@ -5,7 +5,11 @@ const { createFragmentContainer, graphql } = require('react-relay')
 
 import { store, StoreState } from '../store'
 import { Action } from '../reducer'
-import SetActiveVideosMutation from '../mutations/SetActiveVideos'
+import SetActiveVideosMutation
+	from './SetActiveVideosPage/SetActiveVideos.mutation'
+
+import '../../../src/components/SetActiveVideosPage/style.pcss'
+
 
 interface OwnProps {
 	activeVideos: { id: string }[]

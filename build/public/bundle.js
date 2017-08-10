@@ -23297,7 +23297,7 @@ var relay_runtime_1 = __webpack_require__(162);
 var Main_1 = __webpack_require__(744);
 var VideoList_1 = __webpack_require__(754);
 var SetActiveVideosPage_1 = __webpack_require__(816);
-var ErrorPage_1 = __webpack_require__(834);
+var ErrorPage_1 = __webpack_require__(835);
 
 var AppFrame = function (_React$Component) {
     _inherits(AppFrame, _React$Component);
@@ -23337,7 +23337,7 @@ exports.renderConfig = createRender({
     }
 });
 var ActiveVideosQuery = function ActiveVideosQuery() {
-    return __webpack_require__(835);
+    return __webpack_require__(836);
 };
 var aDay = 24 * 60 * 60;
 exports.routeConfig = makeRouteConfig(React.createElement(Route, { path: "/", Component: AppFrame }, React.createElement(Route, { Component: VideoList_1.default, query: ActiveVideosQuery, prepareVariables: function prepareVariables(params) {
@@ -36665,7 +36665,7 @@ var React = __webpack_require__(4);
 var ReactDOM = __webpack_require__(583);
 var Provider_1 = __webpack_require__(669);
 var App_1 = __webpack_require__(267);
-var fetcher_1 = __webpack_require__(836);
+var fetcher_1 = __webpack_require__(837);
 var store_1 = __webpack_require__(176);
 var store = store_1.genStore(new BrowserProtocol(), window['__PRELOADED_STATE__']);
 var matchContext = { store: store };
@@ -80109,10 +80109,6 @@ var fragment /*: ConcreteFragment*/ = {
     "name": "id",
     "storageKey": null
   }, {
-    "kind": "FragmentSpread",
-    "name": "Video_video",
-    "args": null
-  }, {
     "kind": "LinkedField",
     "alias": "snapshots",
     "args": [{
@@ -80156,6 +80152,10 @@ var fragment /*: ConcreteFragment*/ = {
       "storageKey": null
     }],
     "storageKey": null
+  }, {
+    "kind": "FragmentSpread",
+    "name": "Video_video",
+    "args": null
   }],
   "type": "Video"
 };
@@ -80189,7 +80189,8 @@ var _require = __webpack_require__(46),
 
 var store_1 = __webpack_require__(176);
 var reducer_1 = __webpack_require__(177);
-var SetActiveVideos_1 = __webpack_require__(831);
+var SetActiveVideos_mutation_1 = __webpack_require__(831);
+__webpack_require__(833);
 
 var SetActiveVideosPage = function (_React$Component) {
     _inherits(SetActiveVideosPage, _React$Component);
@@ -80228,7 +80229,7 @@ var SetActiveVideosPage = function (_React$Component) {
         value: function handleSubmit(event) {
             event.preventDefault();
             var ids = this.state.ids.trim().split("\n");
-            SetActiveVideos_1.default.commit(this.props.relay.environment, ids);
+            SetActiveVideos_mutation_1.default.commit(this.props.relay.environment, ids);
         }
     }, {
         key: "componentWillUnmount",
@@ -80272,7 +80273,7 @@ function mapStateToProps(storeState, props) {
 var ReduxSetActiveVideosPage = react_redux_1.connect(mapStateToProps)(SetActiveVideosPage);
 exports.default = createFragmentContainer(ReduxSetActiveVideosPage, {
     activeVideos: function activeVideos() {
-        return __webpack_require__(833);
+        return __webpack_require__(834);
     }
 });
 
@@ -81853,6 +81854,12 @@ module.exports = batch;
 
 /***/ }),
 /* 833 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 834 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81891,7 +81898,7 @@ var fragment /*: ConcreteFragment*/ = {
 module.exports = fragment;
 
 /***/ }),
-/* 834 */
+/* 835 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81930,13 +81937,13 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 835 */
+/* 836 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * @flow
- * @relayHash 7470ae465485371ddb16350c6683977f
+ * @relayHash af420e354c384eb7dbb3486e4f37ab46
  */
 
 /* eslint-disable */
@@ -81967,7 +81974,6 @@ fragment SetActiveVideosPage_activeVideos on Video {
 
 fragment VideoList_activeVideos on Video {
   id
-  ...Video_video
   snapshots: statsByAge(seconds: $statsAge) {
     views
     likes
@@ -81975,6 +81981,7 @@ fragment VideoList_activeVideos on Video {
     favorites
     comments
   }
+  ...Video_video
 }
 
 fragment Video_video on Video {
@@ -82069,27 +82076,6 @@ var batch /*: ConcreteBatch*/ = {
         "type": "Video",
         "selections": [{
           "kind": "LinkedField",
-          "alias": null,
-          "args": null,
-          "concreteType": "VideoDetails",
-          "name": "details",
-          "plural": false,
-          "selections": [{
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "title",
-            "storageKey": null
-          }, {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "thumbnailURL",
-            "storageKey": null
-          }],
-          "storageKey": null
-        }, {
-          "kind": "LinkedField",
           "alias": "snapshots",
           "args": [{
             "kind": "Variable",
@@ -82132,18 +82118,39 @@ var batch /*: ConcreteBatch*/ = {
             "storageKey": null
           }],
           "storageKey": null
+        }, {
+          "kind": "LinkedField",
+          "alias": null,
+          "args": null,
+          "concreteType": "VideoDetails",
+          "name": "details",
+          "plural": false,
+          "selections": [{
+            "kind": "ScalarField",
+            "alias": null,
+            "args": null,
+            "name": "title",
+            "storageKey": null
+          }, {
+            "kind": "ScalarField",
+            "alias": null,
+            "args": null,
+            "name": "thumbnailURL",
+            "storageKey": null
+          }],
+          "storageKey": null
         }]
       }],
       "storageKey": null
     }]
   },
-  "text": "query App_ActiveVideos_Query(\n  $statsAge: Int!\n) {\n  activeVideos {\n    ...SetActiveVideosPage_activeVideos\n    ...VideoList_activeVideos\n    id\n  }\n}\n\nfragment SetActiveVideosPage_activeVideos on Video {\n  id\n}\n\nfragment VideoList_activeVideos on Video {\n  id\n  ...Video_video\n  snapshots: statsByAge(seconds: $statsAge) {\n    views\n    likes\n    dislikes\n    favorites\n    comments\n  }\n}\n\nfragment Video_video on Video {\n  id\n  details {\n    title\n    thumbnailURL\n  }\n  snapshots: statsByAge(seconds: $statsAge) {\n    ...StatsChart_snapshots\n    ...StatsChange_snapshots\n  }\n}\n\nfragment StatsChart_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n\nfragment StatsChange_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n"
+  "text": "query App_ActiveVideos_Query(\n  $statsAge: Int!\n) {\n  activeVideos {\n    ...SetActiveVideosPage_activeVideos\n    ...VideoList_activeVideos\n    id\n  }\n}\n\nfragment SetActiveVideosPage_activeVideos on Video {\n  id\n}\n\nfragment VideoList_activeVideos on Video {\n  id\n  snapshots: statsByAge(seconds: $statsAge) {\n    views\n    likes\n    dislikes\n    favorites\n    comments\n  }\n  ...Video_video\n}\n\nfragment Video_video on Video {\n  id\n  details {\n    title\n    thumbnailURL\n  }\n  snapshots: statsByAge(seconds: $statsAge) {\n    ...StatsChart_snapshots\n    ...StatsChange_snapshots\n  }\n}\n\nfragment StatsChart_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n\nfragment StatsChange_snapshots on VideoStats {\n  views\n  likes\n  dislikes\n  favorites\n  comments\n}\n"
 };
 
 module.exports = batch;
 
 /***/ }),
-/* 836 */
+/* 837 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82184,7 +82191,7 @@ var __awaiter = undefined && undefined.__awaiter || function (thisArg, _argument
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(837);
+__webpack_require__(838);
 // TODO: Update this when someone releases a real, production-quality solution
 // for handling universal rendering with Relay Modern. For now, this is just
 // enough to get things working.
@@ -82350,19 +82357,19 @@ var ClientFetcher = function (_FetcherBase2) {
 exports.ClientFetcher = ClientFetcher;
 
 /***/ }),
-/* 837 */
+/* 838 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // the whatwg-fetch polyfill installs the fetch() function
 // on the global object (window or self)
 //
 // Return that as the export for use in Webpack, Browserify etc.
-__webpack_require__(838);
+__webpack_require__(839);
 module.exports = self.fetch.bind(self);
 
 
 /***/ }),
-/* 838 */
+/* 839 */
 /***/ (function(module, exports) {
 
 (function(self) {

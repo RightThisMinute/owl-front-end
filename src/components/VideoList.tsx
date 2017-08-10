@@ -85,13 +85,13 @@ class VideoList extends React.Component<Props, any> {
 export default createFragmentContainer(VideoList, graphql`
 	fragment VideoList_activeVideos on Video @relay(plural: true) {
 		id
-		...Video_video
-		snapshots: statsByAge(seconds: $statsAge) {
-			views
-			likes
-			dislikes
-			favorites
-			comments
+    snapshots: statsByAge(seconds: $statsAge) {
+      views
+      likes
+      dislikes
+      favorites
+      comments
     }
+		...Video_video
 	}
 `)

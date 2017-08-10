@@ -43,11 +43,6 @@ const fragment /*: ConcreteFragment*/ = {
       "storageKey": null
     },
     {
-      "kind": "FragmentSpread",
-      "name": "Video_video",
-      "args": null
-    },
-    {
       "kind": "LinkedField",
       "alias": "snapshots",
       "args": [
@@ -99,6 +94,11 @@ const fragment /*: ConcreteFragment*/ = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "kind": "FragmentSpread",
+      "name": "Video_video",
+      "args": null
     }
   ],
   "type": "Video"
