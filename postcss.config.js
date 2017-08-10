@@ -5,6 +5,7 @@ module.exports = {
 		require('postcss-nested'),
 		require('postcss-property-lookup'),
 		require('postcss-css-variables'),
+		require('postcss-color-function'),
 		require('autoprefixer'),
 	]
 }
