@@ -10,7 +10,9 @@ article.video {
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		box-shadow: 6px 6px 0 0 var(--rtm-pink);
+		border-top: 3px solid var(--rtm-blue);
+		border-bottom: 1px solid var(--rtm-light-blue);
+		box-shadow: 0 1px 0 0 color(var(--rtm-light-blue) lightness(30%));
 		background-color: var(--dark-gray);
 		color: #fff;
 		text-shadow: 1px 1px 0 #000;
@@ -39,7 +41,7 @@ article.video {
 		position: absolute; z-index: 2;
 		right: 0; bottom: 0;
 		width: 100%;
-		opacity: 0.82;
+		opacity: 0.52;
 	}
 
 	.stats-change {
@@ -58,8 +60,8 @@ article.video {
 			margin: 0 4px;
 		}
 
-		.start-end { color: #fff; }
-		.diff { color: var(--neon-green); }
+		.start-end { color: var(--rtm-orange); }
+		.diff { color: var(--rtm-pink); }
 
 	}
 
