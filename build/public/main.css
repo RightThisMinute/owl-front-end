@@ -189,27 +189,23 @@ article.video .stats-change .start-end { color: #faa71b; }
 
 article.video .stats-change .diff { color: #ff7bb2; }
 
-section.video-list {
+section.video-list .items  {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-wrap: wrap;
+		    flex-wrap: wrap;
+		-webkit-box-pack: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
+		-webkit-box-align: end;
+		    -ms-flex-align: end;
+		        align-items: flex-end;
 
-	display: -webkit-box;
+		margin: 15px 0;
+	}
 
-	display: -ms-flexbox;
-
-	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
-	-webkit-box-pack: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
-	-webkit-box-align: end;
-	    -ms-flex-align: end;
-	        align-items: flex-end;
-
-	margin: 15px 0;
-
-}
-
-	section.video-list > article {
+	section.video-list .items > article {
 		-webkit-box-flex: 1;
 		    -ms-flex-positive: 1;
 		        flex-grow: 1;
