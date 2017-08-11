@@ -70089,7 +70089,7 @@ class StatsChange extends React.Component {
         const startCount = start != null ? [start.views, start.likes, start.dislikes, start.favorites, start.comments].map(Number).reduce((sum, num) => sum + num, 0) : 0;
         const endCount = end != null ? [end.views, end.likes, end.dislikes, end.favorites, end.comments].map(Number).reduce((sum, num) => sum + num, 0) : 0;
         const change = endCount - startCount;
-        const percent = Math.round(endCount / startCount * 100 - 100);
+        const percent = Math.round(endCount / startCount * 100 - 100) || 0;
         const diff = Math.abs(change);
         const sign = change > 0 ? '+' : change < 0 ? '-' : '';
         const signClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'none';

@@ -62075,7 +62075,7 @@ var StatsChange = function (_React$Component) {
                 return sum + num;
             }, 0) : 0;
             var change = endCount - startCount;
-            var percent = Math.round(endCount / startCount * 100 - 100);
+            var percent = Math.round(endCount / startCount * 100 - 100) || 0;
             var diff = Math.abs(change);
             var sign = change > 0 ? '+' : change < 0 ? '-' : '';
             var signClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'none';

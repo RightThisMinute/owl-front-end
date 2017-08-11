@@ -38,7 +38,7 @@ class StatsChange extends React.Component<StatsChangeProps, any> {
 			: 0
 
 		const change  = endCount - startCount
-		const percent = Math.round((endCount / startCount * 100) - 100)
+		const percent = Math.round((endCount / startCount * 100) - 100) || 0
 		const diff    = Math.abs(change)
 		const sign = change > 0 ? '+' : change < 0 ? '-' : ''
 		const signClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'none'
