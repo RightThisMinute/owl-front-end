@@ -29,11 +29,11 @@ body {
 			transparent 111px
 		),
 		repeating-linear-gradient(125deg,
-			#faa71b, #faa71b 3px,
-			#ff7bb2 4px, #ff7bb2 7px,
-			#57bdea 8px, #57bdea 11px,
-			#0080c5 12px, #0080c5 16px,
-			#faa71b 17px
+			rgba(250, 167, 27, 0.8), rgba(250, 167, 27, 0.8) 3px,
+			rgba(255, 123, 178, 0.8) 4px, rgba(255, 123, 178, 0.8) 7px,
+			rgba(87, 189, 234, 0.8) 8px, rgba(87, 189, 234, 0.8) 11px,
+			rgba(0, 128, 197, 0.8) 12px, rgba(0, 128, 197, 0.8) 16px,
+			rgba(250, 167, 27, 0.8) 17px
 		);
 
 	overflow: hidden;
