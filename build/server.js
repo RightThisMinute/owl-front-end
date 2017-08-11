@@ -70041,7 +70041,7 @@ class VideoList extends React.Component {
             const startCount = start != null ? [start.views, start.likes, start.dislikes, start.favorites, start.comments].map(Number).reduce((sum, num) => sum + num, 0) : 0;
             const endCount = end != null ? [end.views, end.likes, end.dislikes, end.favorites, end.comments].map(Number).reduce((sum, num) => sum + num, 0) : 0;
             const change = endCount - startCount;
-            const ratio = endCount / startCount;
+            const ratio = endCount / startCount || 0;
             return {
                 video: vid,
                 score: change * Math.pow(ratio - 1, 2),

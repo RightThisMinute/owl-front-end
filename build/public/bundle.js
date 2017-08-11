@@ -61967,7 +61967,7 @@ var VideoList = function (_React$Component) {
                     return sum + num;
                 }, 0) : 0;
                 var change = endCount - startCount;
-                var ratio = endCount / startCount;
+                var ratio = endCount / startCount || 0;
                 return {
                     video: vid,
                     score: change * Math.pow(ratio - 1, 2),

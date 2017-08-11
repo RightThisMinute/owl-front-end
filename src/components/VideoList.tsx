@@ -161,7 +161,7 @@ class VideoList extends React.Component<Props, any> {
 				: 0
 
 			const change  = endCount - startCount
-			const ratio   = endCount / startCount
+			const ratio   = (endCount / startCount) || 0
 
 			return {
 				video: vid,
