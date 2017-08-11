@@ -69982,8 +69982,12 @@ class VideoList extends React.Component {
         const percents = sorted.map(vid => vid.percent);
         let chartScale = Math.max(0, ...percents) / 100 + 1;
         if (chartScale < 2) chartScale = 2;
+        const snapshotCounts = sorted.map(vid => {
+            return vid.video.snapshots.length;
+        });
+        const maxSnapshotCount = Math.max(0, ...snapshotCounts);
         const videos = sorted.map(vid => {
-            return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale });
+            return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
         });
         return React.createElement("section", { className: "video-list" }, React.createElement("nav", null, React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
     }
@@ -70107,7 +70111,7 @@ class Video extends React.Component {
     render() {
         const { id, snapshots = [] } = this.props.video;
         const { title = `[${id}]`, thumbnailURL = 'https://www.fillmurray.com/1920/1080' } = this.props.video.details || {};
-        return React.createElement("article", { className: "video", id: `video-${id}` }, React.createElement("a", { href: `https://youtu.be/${id}` }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+        return React.createElement("article", { className: "video", id: `video-${id}` }, React.createElement("a", { href: `https://youtu.be/${id}` }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale, dataPointCount: this.props.chartDataPountCount })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
     }
 }
 exports.default = createFragmentContainer(Video, {
@@ -70280,7 +70284,7 @@ class StatsChart extends React.Component {
         return React.createElement("div", { className: "chart-box" }, React.createElement(react_chartjs_2_1.Line, { data: data, options: opts }));
     }
     get data() {
-        const labels = [];
+        const labels = new Array(this.props.dataPointCount).map((_, index) => `${index}`);
         let datasets = [{ label: 'views', borderColor: '#777' }, { label: 'dislikes', borderColor: '#999' }, { label: 'likes', borderColor: '#bbb' }, { label: 'comments', borderColor: '#555' }, { label: 'favorites', borderColor: '#333' }];
         datasets = datasets.map(dataset => {
             dataset.backgroundColor = dataset.backgroundColor || dataset.borderColor;
@@ -70288,9 +70292,7 @@ class StatsChart extends React.Component {
             dataset.pointRadius = 1;
             return dataset;
         });
-        let count = 0;
         this.props.snapshots.forEach(snapshot => {
-            labels.push(`${count++}`);
             datasets.forEach(({ label = '[ERROR]', data = [] }) => {
                 data.push(Number(snapshot[label]));
             });

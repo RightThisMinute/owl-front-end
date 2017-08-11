@@ -61889,8 +61889,12 @@ var VideoList = function (_React$Component) {
             });
             var chartScale = Math.max.apply(Math, [0].concat(_toConsumableArray(percents))) / 100 + 1;
             if (chartScale < 2) chartScale = 2;
+            var snapshotCounts = sorted.map(function (vid) {
+                return vid.video.snapshots.length;
+            });
+            var maxSnapshotCount = Math.max.apply(Math, [0].concat(_toConsumableArray(snapshotCounts)));
             var videos = sorted.map(function (vid) {
-                return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale });
+                return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
             });
             return React.createElement("section", { className: "video-list" }, React.createElement("nav", null, React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
         }
@@ -62081,7 +62085,7 @@ var Video = function (_React$Component) {
                 _ref$thumbnailURL = _ref.thumbnailURL,
                 thumbnailURL = _ref$thumbnailURL === undefined ? 'https://www.fillmurray.com/1920/1080' : _ref$thumbnailURL;
 
-            return React.createElement("article", { className: "video", id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+            return React.createElement("article", { className: "video", id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale, dataPointCount: this.props.chartDataPountCount })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
         }
     }]);
 
@@ -62321,7 +62325,9 @@ var StatsChart = function (_React$Component) {
     }, {
         key: "data",
         get: function get() {
-            var labels = [];
+            var labels = new Array(this.props.dataPointCount).map(function (_, index) {
+                return "" + index;
+            });
             var datasets = [{ label: 'views', borderColor: '#777' }, { label: 'dislikes', borderColor: '#999' }, { label: 'likes', borderColor: '#bbb' }, { label: 'comments', borderColor: '#555' }, { label: 'favorites', borderColor: '#333' }];
             datasets = datasets.map(function (dataset) {
                 dataset.backgroundColor = dataset.backgroundColor || dataset.borderColor;
@@ -62329,9 +62335,7 @@ var StatsChart = function (_React$Component) {
                 dataset.pointRadius = 1;
                 return dataset;
             });
-            var count = 0;
             this.props.snapshots.forEach(function (snapshot) {
-                labels.push("" + count++);
                 datasets.forEach(function (_ref2) {
                     var _ref2$label = _ref2.label,
                         label = _ref2$label === undefined ? '[ERROR]' : _ref2$label,

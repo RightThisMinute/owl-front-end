@@ -17,7 +17,8 @@ export interface StatsChartProps {
 }
 
 interface Props extends StatsChartProps {
-	scale: number
+	scale: number,
+	dataPointCount: number,
 }
 
 const CHART_OPTS: ChartOptions = {
@@ -81,7 +82,8 @@ class StatsChart extends React.Component<Props, any> {
 	}
 
 	private get data(): ChartData {
-		const labels: string[] = []
+		const labels: string[] = (new Array(this.props.dataPointCount)
+			.map((_, index) => `${index}`))
 
 		let datasets: ChartDataSets[] = [
 			{ label: 'views',     borderColor: '#777', },
@@ -99,11 +101,7 @@ class StatsChart extends React.Component<Props, any> {
 			return dataset
 		})
 
-		let count = 0
-
 		this.props.snapshots.forEach(snapshot => {
-			labels.push(`${count++}`)
-			
 			datasets.forEach(({ label='[ERROR]', data=[] }) => {
 				(data as number[]).push(Number(snapshot[label]))
 			})

@@ -50,8 +50,14 @@ class VideoList extends React.Component<Props, any> {
 		if (chartScale < 2)
 			chartScale = 2
 
+		const snapshotCounts = sorted.map(vid => {
+			return vid.video.snapshots.length
+		})
+		const maxSnapshotCount = Math.max(0, ...snapshotCounts)
+
 		const videos = sorted.map(vid => { return (
-			<Video key={vid.video.id} video={vid.video} chartScale={chartScale} />
+			<Video key={vid.video.id} video={vid.video}
+			       chartScale={chartScale} chartDataPountCount={maxSnapshotCount} />
 		)})
 
 		return (

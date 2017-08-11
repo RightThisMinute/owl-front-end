@@ -21,6 +21,7 @@ export interface VideoProps extends SnapshotProps {
 interface Props {
 	video: VideoProps
 	chartScale: number
+	chartDataPountCount: number
 }
 
 class Video extends React.Component<Props, any> {
@@ -38,7 +39,8 @@ class Video extends React.Component<Props, any> {
 					<h1>{title}</h1>
 					<div className="graphics">
 						<img src={thumbnailURL} alt={title} />
-						<StatsChart snapshots={snapshots} scale={this.props.chartScale} />
+						<StatsChart snapshots={snapshots} scale={this.props.chartScale}
+						            dataPointCount={this.props.chartDataPountCount} />
 					</div>
 					<StatsChange snapshots={snapshots} />
 				</a>
