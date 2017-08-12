@@ -61896,7 +61896,7 @@ var VideoList = function (_React$Component) {
             var videos = sorted.map(function (vid) {
                 return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
             });
-            return React.createElement("section", { className: "video-list" }, React.createElement("nav", null, React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
+            return React.createElement("section", { className: "video-list" }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
         }
     }, {
         key: "getParams",

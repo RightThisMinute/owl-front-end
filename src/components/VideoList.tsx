@@ -28,7 +28,6 @@ enum SortDirection {
 
 interface Props {
 	activeVideos: VideoProps2[]
-	sort?: { field: SortField, direction?: SortDirection }
 	location: {
 		action: string,
 		delta?: number,
@@ -63,6 +62,7 @@ class VideoList extends React.Component<Props, any> {
 		return (
 			<section className="video-list">
 				<nav>
+					<h1>Order:</h1>
 					<ul>
 						{this.sortLinks}
 					</ul>
