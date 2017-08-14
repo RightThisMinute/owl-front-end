@@ -23,7 +23,7 @@ section.set-active-videos {
 	}
 
 	textarea {
-		--bg-color: var(--dark-gray);
+		--bg-color: #fff;
 
 		display: block;
 		max-width: 100%;
@@ -31,26 +31,27 @@ section.set-active-videos {
 		border: none;
 		border-top: 3px solid var(--rtm-blue);
 		border-bottom: 1px solid var(--rtm-light-blue);
-		box-shadow: 0 1px 0 0 color(var(--rtm-light-blue) lightness(30%));
+		box-shadow: 0 1px 3px 0 color(#000 alpha(25%));
 		background-color: var(--bg-color);
-		color: #fff;
+		color: #000;
 		font-size: 16px;
 		font-family: var(--default-font-family);
+		transition: box-shadow 0.3s ease;
 
 		&:focus {
 			outline: none;
-			background-color: color(var(--bg-color) lightness(30%));
+			box-shadow: 0 1px 5px 1px color(#000 alpha(25%));
 		}
 	}
 
 	button {
-		--bg-color: var(--dark-gray);
+		--bg-color: #fff;
 
 		padding: 4px 6px;
 		border: none;
 		background-color: var(--bg-color);
-		box-shadow: 2px 2px 0 0 var(--rtm-pink);
-		color: #fff;
+		box-shadow: 0 2px 2px 0 color(var(--rtm-pink) alpha(35%));
+		color: #000;
 		font-size: 16px;
 		font-family: var(--default-font-family);
 		font-weight: var(--font-weight-medium);
@@ -59,7 +60,7 @@ section.set-active-videos {
 
 		&:focus {
 			outline: none;
-			background-color: color(var(--bg-color) lightness(30%));
+			box-shadow: 0 1px 3px 1px color(var(--rtm-pink) alpha(75%));
 		}
 
 		&:active {

@@ -338,27 +338,32 @@ section.set-active-videos textarea {
 		border: none;
 		border-top: 3px solid #0080c5;
 		border-bottom: 1px solid #57bdea;
-		-webkit-box-shadow: 0 1px 0 0 rgb(17, 100, 136);
-		        box-shadow: 0 1px 0 0 rgb(17, 100, 136);
-		background-color: #333;
-		color: #fff;
+		-webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+		        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+		background-color: #fff;
+		color: #000;
 		font-size: 16px;
 		font-family: Rubik, Helvetica, Arial, sans-serif;
+		-webkit-transition: -webkit-box-shadow 0.3s ease;
+		transition: -webkit-box-shadow 0.3s ease;
+		transition: box-shadow 0.3s ease;
+		transition: box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
 	}
 
 section.set-active-videos textarea:focus {
 			outline: none;
-			background-color: rgb(77, 77, 77);
+			-webkit-box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.25);
+			        box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.25);
 		}
 
 section.set-active-videos button {
 
 		padding: 4px 6px;
 		border: none;
-		background-color: #333;
-		-webkit-box-shadow: 2px 2px 0 0 #ff7bb2;
-		        box-shadow: 2px 2px 0 0 #ff7bb2;
-		color: #fff;
+		background-color: #fff;
+		-webkit-box-shadow: 0 2px 2px 0 rgba(255, 123, 178, 0.35);
+		        box-shadow: 0 2px 2px 0 rgba(255, 123, 178, 0.35);
+		color: #000;
 		font-size: 16px;
 		font-family: Rubik, Helvetica, Arial, sans-serif;
 		font-weight: 500;
@@ -371,7 +376,8 @@ section.set-active-videos button {
 
 section.set-active-videos button:focus {
 			outline: none;
-			background-color: rgb(77, 77, 77);
+			-webkit-box-shadow: 0 1px 3px 1px rgba(255, 123, 178, 0.75);
+			        box-shadow: 0 1px 3px 1px rgba(255, 123, 178, 0.75);
 		}
 
 section.set-active-videos button:active {
