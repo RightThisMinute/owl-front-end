@@ -29363,7 +29363,7 @@ exports.renderConfig = createRender({
 const ActiveVideosQuery = function () {
     return __webpack_require__(826);
 };
-const aDay = 24 * 60 * 60;
+const aDay = 4 * 24 * 60 * 60;
 exports.routeConfig = makeRouteConfig(React.createElement(Route, { path: "/", Component: AppFrame }, React.createElement(Route, { Component: VideoList_1.default, query: ActiveVideosQuery, prepareVariables: params => Object.assign({}, params, { statsAge: aDay }) }), React.createElement(Route, { path: "videos/forms/set_active", Component: SetActiveVideosPage_1.default, query: ActiveVideosQuery, prepareVariables: params => Object.assign({}, params, { statsAge: aDay }) })));
 
 /***/ }),
@@ -92200,8 +92200,9 @@ function render(element, state, fetcher) {
 <head>
 	<meta charset="utf-8">
 	<title>RTM Owl</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/main.css">
-	<link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700" 
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700" 
 	      rel="stylesheet">
 </head>
 

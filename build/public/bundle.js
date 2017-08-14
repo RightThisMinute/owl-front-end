@@ -23351,7 +23351,7 @@ exports.renderConfig = createRender({
 var ActiveVideosQuery = function ActiveVideosQuery() {
     return __webpack_require__(836);
 };
-var aDay = 24 * 60 * 60;
+var aDay = 4 * 24 * 60 * 60;
 exports.routeConfig = makeRouteConfig(React.createElement(Route, { path: "/", Component: AppFrame }, React.createElement(Route, { Component: VideoList_1.default, query: ActiveVideosQuery, prepareVariables: function prepareVariables(params) {
         return Object.assign({}, params, { statsAge: aDay });
     } }), React.createElement(Route, { path: "videos/forms/set_active", Component: SetActiveVideosPage_1.default, query: ActiveVideosQuery, prepareVariables: function prepareVariables(params) {

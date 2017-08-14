@@ -57,7 +57,7 @@ const ActiveVideosQuery = graphql`
 	}
 `
 
-const aDay = 24 * 60 * 60
+const aDay = 4 * 24 * 60 * 60
 
 export const routeConfig = makeRouteConfig(
 	<Route path="/" Component={AppFrame}>
