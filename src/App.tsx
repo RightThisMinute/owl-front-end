@@ -14,7 +14,6 @@ import VideoList from './components/VideoList'
 import SetActiveVideosPage from './components/SetActiveVideosPage'
 import ErrorPage from './components/ErrorPage'
 
-
 class AppFrame extends React.Component<RouteComponentProps, any> {
 
 	render() { return (

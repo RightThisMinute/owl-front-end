@@ -2,40 +2,17 @@
 @import '../../variables.pcss';
 
 .doc > header {
-	--logo-offset: 5px;
 	--logo-width: 118px;
 	--logo-height: 58px;
 	--border-bottom-height: 2px;
 
 	position: relative;
+	display: flex;
+	justify-content: center;
 
 	height: calc(var(--logo-height) + 2px);
 	padding-bottom: var(--border-bottom-height);
-	background:
-		linear-gradient(125deg,
-			#fff, #fff 110px, var(--rtm-light-blue) 110px,
-			transparent 111px
-		),
-		repeating-linear-gradient(125deg,
-			color(var(--rtm-orange) a(35%)), color(var(--rtm-orange) a(35%)) 3px,
-			color(var(--rtm-pink) a(35%)) 4px, color(var(--rtm-pink) a(35%)) 7px,
-			color(var(--rtm-light-blue) a(35%)) 8px, color(var(--rtm-light-blue) a(35%)) 11px,
-			color(var(--rtm-blue) a(35%)) 12px, color(var(--rtm-blue) a(35%)) 16px,
-			color(var(--rtm-orange) a(35%)) 17px
-		)
-	;
-
-	overflow: hidden;
-
-	&::before {
-		display: none;
-		content: ' ';
-		position: absolute; z-index: 1;
-		top: -60px; left: -150px;
-		width: 330px; height: 163px;
-		background-color: #fff;
-		transform: rotate(-56deg);
-	}
+	background-color: #fff;
 
 	&::after {
 		content: ' ';
@@ -47,7 +24,7 @@
 
 	h1 {
 		position: relative; z-index: 2;
-		bottom: -7px; left: var(--logo-offset);
+		bottom: -7px;
 		width: var(--logo-width); height: var(--logo-height);
 		background: url('logo.svg') no-repeat left top;
 
@@ -62,8 +39,11 @@
 	nav {
 		position: absolute; z-index: 2;
 		padding: 2px 4px 2px 17px;
-		bottom: -1px; right: 0;
-		background: url('nav-bg.svg') left bottom no-repeat;
+		bottom: 2px; right: 0;
+		//background: url('nav-bg.svg') left bottom no-repeat;
+		background: linear-gradient(125deg,
+			transparent, transparent 14px, var(--rtm-blue) 15px
+		);
 
 		ul {
 			list-style: none;
@@ -80,7 +60,7 @@
 			font-weight: var(--font-weight-bold);
 			text-transform: uppercase;
 			text-decoration: none;
-			text-shadow: var(--dark-gray) 0 0 2px;
+			//text-shadow: var(--dark-gray) 0 0 2px;
 
 			&:hover {
 				text-decoration: underline;

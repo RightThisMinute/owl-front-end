@@ -20,35 +20,17 @@ body {
 .doc > header {
 
 	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
 
 	height: calc(58px + 2px);
 	padding-bottom: 2px;
-	background:
-		linear-gradient(125deg,
-			#fff, #fff 110px, #57bdea 110px,
-			transparent 111px
-		),
-		repeating-linear-gradient(125deg,
-			rgba(250, 167, 27, 0.35), rgba(250, 167, 27, 0.35) 3px,
-			rgba(255, 123, 178, 0.35) 4px, rgba(255, 123, 178, 0.35) 7px,
-			rgba(87, 189, 234, 0.35) 8px, rgba(87, 189, 234, 0.35) 11px,
-			rgba(0, 128, 197, 0.35) 12px, rgba(0, 128, 197, 0.35) 16px,
-			rgba(250, 167, 27, 0.35) 17px
-		);
-
-	overflow: hidden;
+	background-color: #fff;
 }
-
-.doc > header::before {
-		display: none;
-		content: ' ';
-		position: absolute; z-index: 1;
-		top: -60px; left: -150px;
-		width: 330px; height: 163px;
-		background-color: #fff;
-		-webkit-transform: rotate(-56deg);
-		        transform: rotate(-56deg);
-	}
 
 .doc > header::after {
 		content: ' ';
@@ -60,7 +42,7 @@ body {
 
 .doc > header h1 {
 		position: relative; z-index: 2;
-		bottom: -7px; left: 5px;
+		bottom: -7px;
 		width: 118px; height: 58px;
 		background: url(48233f4edd1ea42210b9b67f62058104.svg) no-repeat left top;
 	}
@@ -75,8 +57,11 @@ body {
 .doc > header nav {
 		position: absolute; z-index: 2;
 		padding: 2px 4px 2px 17px;
-		bottom: -1px; right: 0;
-		background: url(a89120dbcd6f2b13f94490be78579c78.svg) left bottom no-repeat;
+		bottom: 2px; right: 0;
+		/*background: url('nav-bg.svg') left bottom no-repeat;*/
+		background: linear-gradient(125deg,
+			transparent, transparent 14px, #0080c5 15px
+		);
 
 	}
 
@@ -95,8 +80,9 @@ body {
 			font-weight: 700;
 			text-transform: uppercase;
 			text-decoration: none;
-			text-shadow: #333 0 0 2px;
 		}
+
+/*text-shadow: var(--dark-gray) 0 0 2px;*/
 
 .doc > header nav a:hover {
 				text-decoration: underline;
@@ -234,6 +220,15 @@ section.video-list .items > article {
 	}
 
 
+section.video-list nav {
+	position: relative;
+	left: -11px;
+	-ms-flex-item-align: start;
+	    align-self: flex-start;
+
+}
+
+
 section.video-list nav h1, section.video-list nav ul, section.video-list nav li {
 		display: inline-block;
 	}
@@ -242,12 +237,8 @@ section.video-list nav h1, section.video-list nav ul, section.video-list nav li 
 section.video-list nav h1 {
 		position: relative;
 		left: 11px;
-		padding: 3px 26px;
+		padding: 3px 26px 3px 8px;
 		background:
-			linear-gradient(55deg,
-				hsl(0, 0%, 96%), hsl(0, 0%, 96%) 15px,
-				#57bdea 16px, transparent 12px
-			),
 			linear-gradient(-55deg,
 				hsl(0, 0%, 96%), hsl(0, 0%, 96%) 15px,
 				#57bdea 16px, transparent 12px
