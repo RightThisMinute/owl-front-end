@@ -13,15 +13,15 @@
 	padding-bottom: var(--border-bottom-height);
 	background:
 		linear-gradient(125deg,
-			var(--dark-gray), var(--dark-gray) 110px, var(--rtm-light-blue) 110px,
+			#fff, #fff 110px, var(--rtm-light-blue) 110px,
 			transparent 111px
 		),
 		repeating-linear-gradient(125deg,
-			color(var(--rtm-orange) a(80%)), color(var(--rtm-orange) a(80%)) 3px,
-			color(var(--rtm-pink) a(80%)) 4px, color(var(--rtm-pink) a(80%)) 7px,
-			color(var(--rtm-light-blue) a(80%)) 8px, color(var(--rtm-light-blue) a(80%)) 11px,
-			color(var(--rtm-blue) a(80%)) 12px, color(var(--rtm-blue) a(80%)) 16px,
-			color(var(--rtm-orange) a(80%)) 17px
+			color(var(--rtm-orange) a(35%)), color(var(--rtm-orange) a(35%)) 3px,
+			color(var(--rtm-pink) a(35%)) 4px, color(var(--rtm-pink) a(35%)) 7px,
+			color(var(--rtm-light-blue) a(35%)) 8px, color(var(--rtm-light-blue) a(35%)) 11px,
+			color(var(--rtm-blue) a(35%)) 12px, color(var(--rtm-blue) a(35%)) 16px,
+			color(var(--rtm-orange) a(35%)) 17px
 		)
 	;
 
@@ -33,7 +33,7 @@
 		position: absolute; z-index: 1;
 		top: -60px; left: -150px;
 		width: 330px; height: 163px;
-		background-color: var(--dark-gray);
+		background-color: #fff;
 		transform: rotate(-56deg);
 	}
 
@@ -47,7 +47,7 @@
 
 	h1 {
 		position: relative; z-index: 2;
-		bottom: -2px; left: var(--logo-offset);
+		bottom: -7px; left: var(--logo-offset);
 		width: var(--logo-width); height: var(--logo-height);
 		background: url('logo.svg') no-repeat left top;
 
@@ -80,7 +80,7 @@
 			font-weight: var(--font-weight-bold);
 			text-transform: uppercase;
 			text-decoration: none;
-			text-shadow: var(--dark-gray) 0 0 4px;
+			text-shadow: var(--dark-gray) 0 0 2px;
 
 			&:hover {
 				text-decoration: underline;

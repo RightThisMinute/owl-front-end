@@ -6,15 +6,15 @@
 }
 
 html {
-	background: black;
+	background: hsl(0, 0%, 96%);
 	font-family: Rubik, Helvetica, Arial, sans-serif;
-	color: #fff;
+	color: #000;
 }
 
 body {
-	background: black;
+	background: hsl(0, 0%, 96%);
 	font-family: Rubik, Helvetica, Arial, sans-serif;
-	color: #fff;
+	color: #000;
 }
 
 .doc > header {
@@ -25,15 +25,15 @@ body {
 	padding-bottom: 2px;
 	background:
 		linear-gradient(125deg,
-			#333, #333 110px, #57bdea 110px,
+			#fff, #fff 110px, #57bdea 110px,
 			transparent 111px
 		),
 		repeating-linear-gradient(125deg,
-			rgba(250, 167, 27, 0.8), rgba(250, 167, 27, 0.8) 3px,
-			rgba(255, 123, 178, 0.8) 4px, rgba(255, 123, 178, 0.8) 7px,
-			rgba(87, 189, 234, 0.8) 8px, rgba(87, 189, 234, 0.8) 11px,
-			rgba(0, 128, 197, 0.8) 12px, rgba(0, 128, 197, 0.8) 16px,
-			rgba(250, 167, 27, 0.8) 17px
+			rgba(250, 167, 27, 0.35), rgba(250, 167, 27, 0.35) 3px,
+			rgba(255, 123, 178, 0.35) 4px, rgba(255, 123, 178, 0.35) 7px,
+			rgba(87, 189, 234, 0.35) 8px, rgba(87, 189, 234, 0.35) 11px,
+			rgba(0, 128, 197, 0.35) 12px, rgba(0, 128, 197, 0.35) 16px,
+			rgba(250, 167, 27, 0.35) 17px
 		);
 
 	overflow: hidden;
@@ -45,7 +45,7 @@ body {
 		position: absolute; z-index: 1;
 		top: -60px; left: -150px;
 		width: 330px; height: 163px;
-		background-color: #333;
+		background-color: #fff;
 		-webkit-transform: rotate(-56deg);
 		        transform: rotate(-56deg);
 	}
@@ -60,9 +60,9 @@ body {
 
 .doc > header h1 {
 		position: relative; z-index: 2;
-		bottom: -2px; left: 5px;
+		bottom: -7px; left: 5px;
 		width: 118px; height: 58px;
-		background: url(8b7537b2a118de5564ce7e7a4993505c.svg) no-repeat left top;
+		background: url(48233f4edd1ea42210b9b67f62058104.svg) no-repeat left top;
 	}
 
 .doc > header h1 a {
@@ -95,7 +95,7 @@ body {
 			font-weight: 700;
 			text-transform: uppercase;
 			text-decoration: none;
-			text-shadow: #333 0 0 4px;
+			text-shadow: #333 0 0 2px;
 		}
 
 .doc > header nav a:hover {
@@ -119,11 +119,11 @@ article.video a {
 		    -ms-flex-direction: column;
 		        flex-direction: column;
 		border-top: 3px solid #0080c5;
-		border-bottom: 1px solid #57bdea;
-		-webkit-box-shadow: 0 1px 0 0 rgb(17, 100, 136);
-		        box-shadow: 0 1px 0 0 rgb(17, 100, 136);
-		background-color: #333;
-		color: #fff;
+		border-bottom: 2px solid #57bdea;
+		-webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+		        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+		background-color: #fff;
+		color: #000;
 		text-transform: uppercase;
 		text-decoration: none;
 	}
@@ -203,6 +203,7 @@ section.video-list {
 	        align-items: center;
 }
 
+
 section.video-list .items {
 
 	display: -webkit-box;
@@ -223,6 +224,7 @@ section.video-list .items {
 
 }
 
+
 section.video-list .items > article {
 		-webkit-box-flex: 1;
 		    -ms-flex-positive: 1;
@@ -231,9 +233,11 @@ section.video-list .items > article {
 		max-width: 335px;
 	}
 
+
 section.video-list nav h1, section.video-list nav ul, section.video-list nav li {
 		display: inline-block;
 	}
+
 
 section.video-list nav h1 {
 		position: relative;
@@ -241,14 +245,18 @@ section.video-list nav h1 {
 		padding: 3px 26px;
 		background:
 			linear-gradient(55deg,
-				#000, #000 15px, #57bdea 16px, transparent 12px
+				hsl(0, 0%, 96%), hsl(0, 0%, 96%) 15px,
+				#57bdea 16px, transparent 12px
 			),
 			linear-gradient(-55deg,
-				#000, #000 15px, #57bdea 16px, transparent 12px
+				hsl(0, 0%, 96%), hsl(0, 0%, 96%) 15px,
+				#57bdea 16px, transparent 12px
 			);
 		background-color: #57bdea;
+		color: #fff;
 		text-transform: uppercase;
 	}
+
 
 section.video-list nav a {
 		color: #fff;
@@ -256,6 +264,7 @@ section.video-list nav a {
 		font-weight: 500;
 		text-decoration: none;
 	}
+
 
 section.video-list nav ul {
 		position: relative;
@@ -271,24 +280,30 @@ section.video-list nav ul {
 		line-height: 1em;
 	}
 
+
 section.video-list nav li {
 		margin: 0 12px;
 	}
+
 
 section.video-list nav li:first-child {
 			margin-left: 0;
 		}
 
+
 section.video-list nav li.active {
 		position: relative;
 	}
+
 
 section.video-list nav li.active::before {
 			position: absolute;
 			bottom: 0; left: -1.1em;
 			content: '\25B2';
 			font-size: 0.6em;
+			color: #fff;
 		}
+
 
 section.video-list nav li.active.asc::before {
 			content: '\25BC';

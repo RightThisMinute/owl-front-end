@@ -1,6 +1,7 @@
 
 @import '../../variables.pcss';
 
+
 section.video-list {
 	display: flex;
 	flex-direction: column;
@@ -37,13 +38,16 @@ section.video-list nav {
 		padding: 3px 26px;
 		background:
 			linear-gradient(55deg,
-				#000, #000 15px, var(--rtm-light-blue) 16px, transparent 12px
+				var(--main-bg-color), var(--main-bg-color) 15px,
+				var(--rtm-light-blue) 16px, transparent 12px
 			),
 			linear-gradient(-55deg,
-				#000, #000 15px, var(--rtm-light-blue) 16px, transparent 12px
+				var(--main-bg-color), var(--main-bg-color) 15px,
+				var(--rtm-light-blue) 16px, transparent 12px
 			)
 		;
 		background-color: var(--rtm-light-blue);
+		color: #fff;
 		text-transform: uppercase;
 	}
 
@@ -85,6 +89,7 @@ section.video-list nav {
 			bottom: 0; left: -1.1em;
 			content: '▲';
 			font-size: 0.6em;
+			color: #fff;
 		}
 		&.asc::before {
 			content: '▼';
