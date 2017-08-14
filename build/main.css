@@ -252,7 +252,7 @@ section.video-list nav h1 {
 section.video-list nav a {
 		color: #fff;
 		font-size: 0.75em;
-		font-weight: 400;
+		font-weight: 500;
 		text-decoration: none;
 	}
 
@@ -281,10 +281,6 @@ section.video-list nav li:first-child {
 section.video-list nav li.active {
 		position: relative;
 	}
-
-section.video-list nav li.active a {
-			font-weight: 700;
-		}
 
 section.video-list nav li.active::before {
 			position: absolute;
