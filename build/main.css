@@ -88,6 +88,13 @@ body {
 				text-decoration: underline;
 			}
 
+.doc > section.footer {
+	margin: 30px;
+	color: rgb(102, 102, 102);
+	font-size: 0.85em;
+	font-weight: 300;
+}
+
 article.video {
 
 	margin: 0 6px 6px 0;

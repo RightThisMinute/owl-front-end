@@ -10,6 +10,7 @@ import RouteComponentProps from '../props/RouteComponent'
 import '../../../src/components/main/general.pcss'
 import '../../../src/components/main/frame.pcss'
 import '../../../src/components/main/header.pcss'
+import '../../../src/components/main/footer.pcss'
 
 
 export default class Main extends React.Component<RouteComponentProps, any> {
@@ -31,6 +32,9 @@ export default class Main extends React.Component<RouteComponentProps, any> {
 			</header>
 			<section className="page">
 				{this.props.children}
+			</section>
+			<section className="footer">
+				Vector graphics by <a href="http://www.vecteezy.com/">Vecteezy!</a>.
 			</section>
 		</section>
 	) }
