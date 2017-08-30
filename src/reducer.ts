@@ -10,6 +10,8 @@ export enum Action {
 	SettingActiveVideos = 'currently setting active videos',
 	SetActiveVideosFailed = 'failed setting active videos',
 	ResetSetActiveVideosFlags = 'reset flags related to set active videos page',
+	ViewportResizeStarted = 'viewport resize started',
+	ViewportResizeEnded = 'viewport resize ended',
 }
 
 const defaultState: RTMOwlStoreState = {
@@ -18,6 +20,9 @@ const defaultState: RTMOwlStoreState = {
 		setSuccessfully: false,
 		currentlyBeingSet: false,
 		error: null,
+	},
+	viewport: {
+		resizeInProgress: false,
 	},
 }
 
@@ -68,6 +73,17 @@ export const reducer: Reducer<RTMOwlStoreState> = (prevState, action) => {
 				},
 			})
 
+		case Action.ViewportResizeStarted:
+			console.debug('resize started')
+			return Object.assign({}, prevState, {
+				viewport: { resizeInProgress: true }
+			})
+
+		case Action.ViewportResizeEnded:
+			console.debug('resize ended')
+			return Object.assign({}, prevState, {
+				viewport: { resizeInProgress: false }
+			})
 	}
 
 	return prevState

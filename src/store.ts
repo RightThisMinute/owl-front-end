@@ -16,16 +16,19 @@ interface Store<S> extends ReduxStore<S> {
 }
 
 export interface StoreState {
-	rtmOwl: RTMOwlStoreState,
-	found?: any,
+	rtmOwl: RTMOwlStoreState
+	found?: any
 }
 
 export interface RTMOwlStoreState {
-	relayStateRebuildCount: number,
+	relayStateRebuildCount: number
 	setActiveVideos: {
-		setSuccessfully: boolean,
-		currentlyBeingSet: boolean,
-		error: Error|null,
+		setSuccessfully: boolean
+		currentlyBeingSet: boolean
+		error: Error|null
+	}
+	viewport: {
+		resizeInProgress: boolean
 	}
 }
 

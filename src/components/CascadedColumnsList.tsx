@@ -2,8 +2,9 @@
 import last = require('lodash/last')
 import isEqual = require('lodash/isEqual')
 import * as React from 'react'
+import { connect } from 'react-redux'
 
-import { VideoProps } from './Video'
+import { StoreState } from '../store'
 
 
 interface ChildProps {
@@ -14,9 +15,18 @@ interface ChildProps {
 type Child = React.ReactElement<ChildProps>
 type OffsetList = { [key: string]: number }
 
-interface Props {
+interface OwnProps {
 	children: Child[]
 }
+
+interface StateProps {
+	viewportResizeInProgress: boolean
+}
+
+interface DispatchProps {}
+
+
+type Props = OwnProps & StateProps & DispatchProps
 
 interface State {
 	offsets: OffsetList
@@ -29,7 +39,7 @@ interface Item {
 }
 
 
-export default class CascadedColumnsList extends React.Component<Props, State> {
+class CascadedColumnsList extends React.Component<Props, State> {
 
 	private el: HTMLElement|null
 	private offsetParentTop: number
@@ -46,7 +56,14 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 		this.imageLoadHandler = this.updateOffsets.bind(this)
 	}
 
-	componentWillReceiveProps({ children: nextChildren }: Props) {
+	componentWillReceiveProps(props: Props) {
+		console.debug('resize in prog', props.viewportResizeInProgress)
+		if (props.viewportResizeInProgress) {
+			this.setState({ offsets: {} })
+			return;
+		}
+
+		const { children: nextChildren } = props
 		const { children } = this.props
 
 		const getID = (child: Child) => child.props.id
@@ -66,15 +83,19 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 
 	componentDidMount() {
 		console.debug('did mount')
-		this.setUpdateOnImageLoadListeners()
-		this.updateOffsets()
+		if (!this.props.viewportResizeInProgress) {
+			this.setUpdateOnImageLoadListeners()
+			this.updateOffsets()
+		}
 	}
 
 	componentDidUpdate() {
 		console.debug('did update')
-		this.setUpdateOnImageLoadListeners()
-		if (Object.keys(this.state.offsets).length === 0)
-			this.updateOffsets()
+		if (!this.props.viewportResizeInProgress) {
+			this.setUpdateOnImageLoadListeners()
+			if (Object.keys(this.state.offsets).length === 0)
+				this.updateOffsets()
+		}
 	}
 
 	componentWillUnmount() {
@@ -140,7 +161,7 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 		if (elements.length === 0)
 			return {};
 
-		// `this.elementToItem()` requires this.
+		// `this.elementToItem()` requires this to be set.
 		this.offsetParentTop = elements.item(0).getBoundingClientRect().top
 
 		const items: Item[] = []
@@ -149,6 +170,8 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 		})
 
 		const columns = this.splitIntoColumns(items)
+		if (columns.length === 1)
+			return {}
 
 		const offsets: OffsetList[] =
 			columns.map(this.computeColumnOffsets.bind(this))
@@ -219,3 +242,16 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 	}
 
 }
+
+
+function mapStateToProps(storeState: StoreState, props: Props): StateProps {
+	const { rtmOwl: { viewport: { resizeInProgress } } } = storeState
+
+	return Object.assign({}, props, {
+		viewportResizeInProgress: resizeInProgress
+	})
+}
+
+export default connect<StateProps, DispatchProps, OwnProps>(
+	mapStateToProps
+)(CascadedColumnsList)
