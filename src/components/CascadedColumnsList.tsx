@@ -33,6 +33,8 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 
 	private el: HTMLElement|null
 	private offsetParentTop: number
+	private images: HTMLImageElement[]|undefined
+	private imageLoadHandler: () => void
 
 	constructor(props) {
 		super(props)
@@ -40,6 +42,8 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 		this.state = {
 			offsets: {}
 		}
+
+		this.imageLoadHandler = this.updateOffsets.bind(this)
 	}
 
 	componentWillReceiveProps({ children: nextChildren }: Props) {
@@ -56,20 +60,25 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 		}
 	}
 
+	componentWillUpdate() {
+		this.unsetUpdateOnImageLoadListeners()
+	}
+
 	componentDidMount() {
 		console.debug('did mount')
-		this.setState({
-			offsets: this.computeOffsets()
-		})
-
+		this.setUpdateOnImageLoadListeners()
+		this.updateOffsets()
 	}
 
 	componentDidUpdate() {
 		console.debug('did update')
+		this.setUpdateOnImageLoadListeners()
 		if (Object.keys(this.state.offsets).length === 0)
-			this.setState({
-				offsets: this.computeOffsets()
-			})
+			this.updateOffsets()
+	}
+
+	componentWillUnmount() {
+		this.unsetUpdateOnImageLoadListeners()
 	}
 
 	render() {
@@ -91,6 +100,35 @@ export default class CascadedColumnsList extends React.Component<Props, State> {
 				{children}
 			</div>
 		)
+	}
+
+	private setUpdateOnImageLoadListeners(): void {
+		if (!this.el)
+			return;
+
+		this.images = []
+		const images = this.el.getElementsByTagName('img')
+		for (let i = 0; i < images.length; i++)
+			this.images.push(images.item(i))
+
+		this.images.forEach(img => {
+			img.addEventListener('load', this.imageLoadHandler)
+		})
+	}
+
+	private unsetUpdateOnImageLoadListeners(): void {
+		if (this.images === undefined)
+			return;
+
+		this.images.forEach(img => {
+			img.addEventListener('load', this.imageLoadHandler)
+		})
+	}
+
+	private updateOffsets(): void {
+		const offsets = this.computeOffsets()
+		if (!isEqual(offsets, this.state.offsets))
+			this.setState({ offsets })
 	}
 
 	private computeOffsets(): OffsetList {

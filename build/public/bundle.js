@@ -81431,6 +81431,7 @@ var CascadedColumnsList = function (_React$Component) {
         _this.state = {
             offsets: {}
         };
+        _this.imageLoadHandler = _this.updateOffsets.bind(_this);
         return _this;
     }
 
@@ -81451,20 +81452,28 @@ var CascadedColumnsList = function (_React$Component) {
             }
         }
     }, {
+        key: "componentWillUpdate",
+        value: function componentWillUpdate() {
+            this.unsetUpdateOnImageLoadListeners();
+        }
+    }, {
         key: "componentDidMount",
         value: function componentDidMount() {
             console.debug('did mount');
-            this.setState({
-                offsets: this.computeOffsets()
-            });
+            this.setUpdateOnImageLoadListeners();
+            this.updateOffsets();
         }
     }, {
         key: "componentDidUpdate",
         value: function componentDidUpdate() {
             console.debug('did update');
-            if (Object.keys(this.state.offsets).length === 0) this.setState({
-                offsets: this.computeOffsets()
-            });
+            this.setUpdateOnImageLoadListeners();
+            if (Object.keys(this.state.offsets).length === 0) this.updateOffsets();
+        }
+    }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+            this.unsetUpdateOnImageLoadListeners();
         }
     }, {
         key: "render",
@@ -81483,9 +81492,39 @@ var CascadedColumnsList = function (_React$Component) {
                 } }, children);
         }
     }, {
+        key: "setUpdateOnImageLoadListeners",
+        value: function setUpdateOnImageLoadListeners() {
+            var _this3 = this;
+
+            if (!this.el) return;
+            this.images = [];
+            var images = this.el.getElementsByTagName('img');
+            for (var i = 0; i < images.length; i++) {
+                this.images.push(images.item(i));
+            }this.images.forEach(function (img) {
+                img.addEventListener('load', _this3.imageLoadHandler);
+            });
+        }
+    }, {
+        key: "unsetUpdateOnImageLoadListeners",
+        value: function unsetUpdateOnImageLoadListeners() {
+            var _this4 = this;
+
+            if (this.images === undefined) return;
+            this.images.forEach(function (img) {
+                img.addEventListener('load', _this4.imageLoadHandler);
+            });
+        }
+    }, {
+        key: "updateOffsets",
+        value: function updateOffsets() {
+            var offsets = this.computeOffsets();
+            if (!isEqual(offsets, this.state.offsets)) this.setState({ offsets: offsets });
+        }
+    }, {
         key: "computeOffsets",
         value: function computeOffsets() {
-            var _this3 = this;
+            var _this5 = this;
 
             console.debug('scooching');
             if (!this.el) return {};
@@ -81495,7 +81534,7 @@ var CascadedColumnsList = function (_React$Component) {
             this.offsetParentTop = elements.item(0).getBoundingClientRect().top;
             var items = [];
             elements.forEach(function (el) {
-                items.push(_this3.elementToItem(el));
+                items.push(_this5.elementToItem(el));
             });
             var columns = this.splitIntoColumns(items);
             var offsets = columns.map(this.computeColumnOffsets.bind(this));

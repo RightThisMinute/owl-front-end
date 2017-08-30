@@ -100340,6 +100340,7 @@ class CascadedColumnsList extends React.Component {
         this.state = {
             offsets: {}
         };
+        this.imageLoadHandler = this.updateOffsets.bind(this);
     }
     componentWillReceiveProps({ children: nextChildren }) {
         const { children } = this.props;
@@ -100351,17 +100352,21 @@ class CascadedColumnsList extends React.Component {
             this.setState({ offsets: {} });
         }
     }
+    componentWillUpdate() {
+        this.unsetUpdateOnImageLoadListeners();
+    }
     componentDidMount() {
         console.debug('did mount');
-        this.setState({
-            offsets: this.computeOffsets()
-        });
+        this.setUpdateOnImageLoadListeners();
+        this.updateOffsets();
     }
     componentDidUpdate() {
         console.debug('did update');
-        if (Object.keys(this.state.offsets).length === 0) this.setState({
-            offsets: this.computeOffsets()
-        });
+        this.setUpdateOnImageLoadListeners();
+        if (Object.keys(this.state.offsets).length === 0) this.updateOffsets();
+    }
+    componentWillUnmount() {
+        this.unsetUpdateOnImageLoadListeners();
     }
     render() {
         const children = React.Children.map(this.props.children, child => {
@@ -100372,6 +100377,25 @@ class CascadedColumnsList extends React.Component {
             return React.cloneElement(child, { style });
         });
         return React.createElement("div", { className: "items cascaded-column-list", ref: ref => this.el = ref }, children);
+    }
+    setUpdateOnImageLoadListeners() {
+        if (!this.el) return;
+        this.images = [];
+        const images = this.el.getElementsByTagName('img');
+        for (let i = 0; i < images.length; i++) this.images.push(images.item(i));
+        this.images.forEach(img => {
+            img.addEventListener('load', this.imageLoadHandler);
+        });
+    }
+    unsetUpdateOnImageLoadListeners() {
+        if (this.images === undefined) return;
+        this.images.forEach(img => {
+            img.addEventListener('load', this.imageLoadHandler);
+        });
+    }
+    updateOffsets() {
+        const offsets = this.computeOffsets();
+        if (!isEqual(offsets, this.state.offsets)) this.setState({ offsets });
     }
     computeOffsets() {
         console.debug('scooching');
