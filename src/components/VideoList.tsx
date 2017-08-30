@@ -6,6 +6,7 @@ import * as React from 'react'
 const Relay = require('react-relay')
 const { createFragmentContainer, graphql } = Relay
 
+import CascadedColumnsList from './CascadedColumnsList'
 import Video, { VideoProps } from './Video'
 
 import '../../../src/components/VideoList/style.pcss'
@@ -39,9 +40,7 @@ interface Props {
 	}
 }
 
-interface State {
-	videoOffsets: { [key: string]: number }
-}
+interface State {}
 
 class VideoList extends React.Component<Props, State> {
 
@@ -49,30 +48,6 @@ class VideoList extends React.Component<Props, State> {
 
 	constructor(props) {
 		super(props)
-		this.state = {
-			videoOffsets: {}
-		}
-	}
-
-	componentWillReceiveProps(nextProps: Props) {
-		const { search: nextSearch } = nextProps.location
-		const { search } = this.props.location
-
-		if (search !== nextSearch)
-			this.setState({
-				videoOffsets: {}
-			})
-	}
-
-	componentDidMount() {
-		console.debug('did mount')
-		this.scoochItems()
-	}
-
-	componentDidUpdate() {
-		console.debug('did update')
-		if (Object.keys(this.state.videoOffsets).length === 0)
-			this.scoochItems()
 	}
 
 	render() {
@@ -88,21 +63,12 @@ class VideoList extends React.Component<Props, State> {
 		})
 		const maxSnapshotCount = Math.max(0, ...snapshotCounts)
 
-		const videos = sorted.map(vid => {
-			let style: React.CSSProperties = {}
-
-			const offset = this.state.videoOffsets[vid.video.id]
-			if (offset)
-				style.transform = `translateY(${offset}px)`
-
-			const id = `video-${vid.video.id}`
-
-			return (
-				<Video key={vid.video.id} id={id} video={vid.video} style={style}
-				       chartScale={chartScale}
-				       chartDataPountCount={maxSnapshotCount} />
-			)
-		})
+		const videos = sorted.map(vid => { return (
+			<Video key={vid.video.id} id={`video-${vid.video.id}`}
+						 video={vid.video}
+						 chartScale={chartScale}
+						 chartDataPountCount={maxSnapshotCount} />
+		) })
 
 		return (
 			<section className="video-list" ref={ref => this.el = ref}>
@@ -112,9 +78,9 @@ class VideoList extends React.Component<Props, State> {
 						{this.sortLinks}
 					</ul>
 				</nav>
-				<div className="items">
+				<CascadedColumnsList>
 					{videos}
-				</div>
+				</CascadedColumnsList>
 			</section>
 		)
 	}
@@ -227,77 +193,6 @@ class VideoList extends React.Component<Props, State> {
 			// Field values can be NaN. Prevents items without stats sorting weirdly.
 			return (a[field] || 0) - (b[field] || 0)
 		})
-	}
-
-
-	private scoochItems(): void {
-		console.debug('scooching')
-		if (!this.el)
-			return;
-
-		interface Item { el: Element, top: number, height: number }
-
-		const itemElements = this.el.querySelectorAll(
-			':scope > .items > *'
-		)
-
-		const items: Item[] = []
-		itemElements.forEach(el => {
-			let { top, height } = el.getBoundingClientRect()
-			const styles = window.getComputedStyle(el)
-
-			height += (parseInt(styles.marginTop    || '0', 10) || 0)
-			        + (parseInt(styles.marginBottom || '0', 10) || 0)
-
-			items.push({ el, top, height })
-		})
-
-		let prevCol: number
-		const columns = items.reduce((columns, item, index) => {
-			let col: number|undefined
-
-			if (columns.length === 0)
-				col = 0
-			else if (columns.length === index) {
-				// Potentially need to add another column.
-				const prevItem = last(columns[prevCol]) as Item
-				if (item.top === prevItem.top)
-					col = columns.length
-			}
-
-			if (col === undefined)
-				col = index % columns.length
-
-			if (!columns[col])
-				columns[col] = []
-
-			columns[col].push(item)
-			prevCol = col
-
-			return columns
-		}, [] as Item[][])
-
-		const videoOffsets: { [key: string]: number } = {}
-		columns.forEach((items) => {
-			let prevOffset = 0
-			items.forEach((item, index, list) => {
-				const id = item.el.getAttribute('id')
-				if (id === null)
-					return;
-				const key = id.replace(/^video-/, '')
-
-				if (index === 0) {
-					videoOffsets[key] = 0
-					return;
-				}
-
-				const prevItem = list[index-1]
-				const y = prevItem.top + prevOffset + prevItem.height
-				videoOffsets[key] = prevOffset = y - item.top
-			})
-		})
-
-		this.setState({ videoOffsets })
 	}
 
 }

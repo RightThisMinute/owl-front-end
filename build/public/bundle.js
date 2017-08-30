@@ -63669,6 +63669,7 @@ var Relay = __webpack_require__(47);
 var createFragmentContainer = Relay.createFragmentContainer,
     graphql = Relay.graphql;
 
+var CascadedColumnsList_1 = __webpack_require__(887);
 var Video_1 = __webpack_require__(769);
 __webpack_require__(850);
 var SortField;
@@ -63689,37 +63690,10 @@ var VideoList = function (_React$Component) {
     function VideoList(props) {
         _classCallCheck(this, VideoList);
 
-        var _this = _possibleConstructorReturn(this, (VideoList.__proto__ || Object.getPrototypeOf(VideoList)).call(this, props));
-
-        _this.state = {
-            videoOffsets: {}
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (VideoList.__proto__ || Object.getPrototypeOf(VideoList)).call(this, props));
     }
 
     _createClass(VideoList, [{
-        key: "componentWillReceiveProps",
-        value: function componentWillReceiveProps(nextProps) {
-            var nextSearch = nextProps.location.search;
-            var search = this.props.location.search;
-
-            if (search !== nextSearch) this.setState({
-                videoOffsets: {}
-            });
-        }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            console.debug('did mount');
-            this.scoochItems();
-        }
-    }, {
-        key: "componentDidUpdate",
-        value: function componentDidUpdate() {
-            console.debug('did update');
-            if (Object.keys(this.state.videoOffsets).length === 0) this.scoochItems();
-        }
-    }, {
         key: "render",
         value: function render() {
             var _this2 = this;
@@ -63736,63 +63710,11 @@ var VideoList = function (_React$Component) {
             });
             var maxSnapshotCount = Math.max.apply(Math, [0].concat(_toConsumableArray(snapshotCounts)));
             var videos = sorted.map(function (vid) {
-                var style = {};
-                var offset = _this2.state.videoOffsets[vid.video.id];
-                if (offset) style.transform = "translateY(" + offset + "px)";
-                var id = "video-" + vid.video.id;
-                return React.createElement(Video_1.default, { key: vid.video.id, id: id, video: vid.video, style: style, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
+                return React.createElement(Video_1.default, { key: vid.video.id, id: "video-" + vid.video.id, video: vid.video, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
             });
             return React.createElement("section", { className: "video-list", ref: function ref(_ref) {
                     return _this2.el = _ref;
-                } }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
-        }
-    }, {
-        key: "scoochItems",
-        value: function scoochItems() {
-            console.debug('scooching');
-            if (!this.el) return;
-            var itemElements = this.el.querySelectorAll(':scope > .items > *');
-            var items = [];
-            itemElements.forEach(function (el) {
-                var _el$getBoundingClient = el.getBoundingClientRect(),
-                    top = _el$getBoundingClient.top,
-                    height = _el$getBoundingClient.height;
-
-                var styles = window.getComputedStyle(el);
-                height += (parseInt(styles.marginTop || '0', 10) || 0) + (parseInt(styles.marginBottom || '0', 10) || 0);
-                items.push({ el: el, top: top, height: height });
-            });
-            var prevCol = void 0;
-            var columns = items.reduce(function (columns, item, index) {
-                var col = void 0;
-                if (columns.length === 0) col = 0;else if (columns.length === index) {
-                    // Potentially need to add another column.
-                    var prevItem = last(columns[prevCol]);
-                    if (item.top === prevItem.top) col = columns.length;
-                }
-                if (col === undefined) col = index % columns.length;
-                if (!columns[col]) columns[col] = [];
-                columns[col].push(item);
-                prevCol = col;
-                return columns;
-            }, []);
-            var videoOffsets = {};
-            columns.forEach(function (items) {
-                var prevOffset = 0;
-                items.forEach(function (item, index, list) {
-                    var id = item.el.getAttribute('id');
-                    if (id === null) return;
-                    var key = id.replace(/^video-/, '');
-                    if (index === 0) {
-                        videoOffsets[key] = 0;
-                        return;
-                    }
-                    var prevItem = list[index - 1];
-                    var y = prevItem.top + prevOffset + prevItem.height;
-                    videoOffsets[key] = prevOffset = y - item.top;
-                });
-            });
-            this.setState({ videoOffsets: videoOffsets });
+                } }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement(CascadedColumnsList_1.default, null, videos));
         }
     }, {
         key: "getParams",
@@ -81464,6 +81386,176 @@ module.exports = self.fetch.bind(self);
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
 
+
+/***/ }),
+/* 876 */,
+/* 877 */,
+/* 878 */,
+/* 879 */,
+/* 880 */,
+/* 881 */,
+/* 882 */,
+/* 883 */,
+/* 884 */,
+/* 885 */,
+/* 886 */,
+/* 887 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var last = __webpack_require__(295);
+var isEqual = __webpack_require__(97);
+var React = __webpack_require__(4);
+
+var CascadedColumnsList = function (_React$Component) {
+    _inherits(CascadedColumnsList, _React$Component);
+
+    function CascadedColumnsList(props) {
+        _classCallCheck(this, CascadedColumnsList);
+
+        var _this = _possibleConstructorReturn(this, (CascadedColumnsList.__proto__ || Object.getPrototypeOf(CascadedColumnsList)).call(this, props));
+
+        _this.state = {
+            offsets: {}
+        };
+        return _this;
+    }
+
+    _createClass(CascadedColumnsList, [{
+        key: "componentWillReceiveProps",
+        value: function componentWillReceiveProps(_ref) {
+            var nextChildren = _ref.children;
+            var children = this.props.children;
+
+            var getID = function getID(child) {
+                return child.props.id;
+            };
+            var ids = React.Children.map(children, getID);
+            var nextIDs = React.Children.map(nextChildren, getID);
+            if (!isEqual(ids, nextIDs)) {
+                console.debug('reset');
+                this.setState({ offsets: {} });
+            }
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            console.debug('did mount');
+            this.setState({
+                offsets: this.computeOffsets()
+            });
+        }
+    }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate() {
+            console.debug('did update');
+            if (Object.keys(this.state.offsets).length === 0) this.setState({
+                offsets: this.computeOffsets()
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            var children = React.Children.map(this.props.children, function (child) {
+                var style = {};
+                var offset = _this2.state.offsets[child.props.id];
+                if (offset === undefined) return child;
+                style.transform = "translateY(" + offset + "px)";
+                return React.cloneElement(child, { style: style });
+            });
+            return React.createElement("div", { className: "items cascaded-column-list", ref: function ref(_ref2) {
+                    return _this2.el = _ref2;
+                } }, children);
+        }
+    }, {
+        key: "computeOffsets",
+        value: function computeOffsets() {
+            var _this3 = this;
+
+            console.debug('scooching');
+            if (!this.el) return {};
+            var elements = this.el.querySelectorAll(':scope > *');
+            if (elements.length === 0) return {};
+            // `this.elementToItem()` requires this.
+            this.offsetParentTop = elements.item(0).getBoundingClientRect().top;
+            var items = [];
+            elements.forEach(function (el) {
+                items.push(_this3.elementToItem(el));
+            });
+            var columns = this.splitIntoColumns(items);
+            var offsets = columns.map(this.computeColumnOffsets.bind(this));
+            return Object.assign.apply(Object, [{}].concat(_toConsumableArray(offsets)));
+        }
+    }, {
+        key: "elementToItem",
+        value: function elementToItem(element) {
+            var top = this.offsetParentTop + element.offsetTop;
+            // Get the true top position relative to the document root, unaffected by
+            // any transforms.
+            var styles = window.getComputedStyle(element);
+
+            var _element$getBoundingC = element.getBoundingClientRect(),
+                height = _element$getBoundingC.height;
+
+            height += (parseInt(styles.marginTop || '0', 10) || 0) + (parseInt(styles.marginBottom || '0', 10) || 0);
+            return { el: element, top: top, height: height };
+        }
+    }, {
+        key: "splitIntoColumns",
+        value: function splitIntoColumns(items) {
+            var prevCol = void 0;
+            return items.reduce(function (columns, item, index) {
+                var col = void 0;
+                if (columns.length === 0) col = 0;else if (columns.length === index) {
+                    // Potentially need to add another column.
+                    var prevItem = last(columns[prevCol]);
+                    if (item.top === prevItem.top) col = columns.length;
+                }
+                if (col === undefined) col = index % columns.length;
+                if (!columns[col]) columns[col] = [];
+                columns[col].push(item);
+                prevCol = col;
+                return columns;
+            }, []);
+        }
+    }, {
+        key: "computeColumnOffsets",
+        value: function computeColumnOffsets(items) {
+            var prevOffset = 0;
+            return items.reduce(function (offsets, item, index, list) {
+                var id = item.el.getAttribute('id');
+                if (id === null) return offsets;
+                if (index === 0) {
+                    offsets[id] = 0;
+                    return offsets;
+                }
+                var prevItem = list[index - 1];
+                var y = prevItem.top + prevOffset + prevItem.height;
+                offsets[id] = prevOffset = y - item.top;
+                return offsets;
+            }, {});
+        }
+    }]);
+
+    return CascadedColumnsList;
+}(React.Component);
+
+exports.default = CascadedColumnsList;
 
 /***/ })
 /******/ ]);

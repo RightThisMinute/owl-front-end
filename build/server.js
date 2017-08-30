@@ -71043,6 +71043,7 @@ const last = __webpack_require__(328);
 const React = __webpack_require__(4);
 const Relay = __webpack_require__(55);
 const { createFragmentContainer, graphql } = Relay;
+const CascadedColumnsList_1 = __webpack_require__(993);
 const Video_1 = __webpack_require__(772);
 __webpack_require__(853);
 var SortField;
@@ -71059,24 +71060,6 @@ var SortDirection;
 class VideoList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            videoOffsets: {}
-        };
-    }
-    componentWillReceiveProps(nextProps) {
-        const { search: nextSearch } = nextProps.location;
-        const { search } = this.props.location;
-        if (search !== nextSearch) this.setState({
-            videoOffsets: {}
-        });
-    }
-    componentDidMount() {
-        console.debug('did mount');
-        this.scoochItems();
-    }
-    componentDidUpdate() {
-        console.debug('did update');
-        if (Object.keys(this.state.videoOffsets).length === 0) this.scoochItems();
     }
     render() {
         const { sorted } = this;
@@ -71088,13 +71071,9 @@ class VideoList extends React.Component {
         });
         const maxSnapshotCount = Math.max(0, ...snapshotCounts);
         const videos = sorted.map(vid => {
-            let style = {};
-            const offset = this.state.videoOffsets[vid.video.id];
-            if (offset) style.transform = `translateY(${offset}px)`;
-            const id = `video-${vid.video.id}`;
-            return React.createElement(Video_1.default, { key: vid.video.id, id: id, video: vid.video, style: style, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
+            return React.createElement(Video_1.default, { key: vid.video.id, id: `video-${vid.video.id}`, video: vid.video, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
         });
-        return React.createElement("section", { className: "video-list", ref: ref => this.el = ref }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
+        return React.createElement("section", { className: "video-list", ref: ref => this.el = ref }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement(CascadedColumnsList_1.default, null, videos));
     }
     get getParams() {
         const { search } = this.props.location;
@@ -71162,49 +71141,6 @@ class VideoList extends React.Component {
             // Field values can be NaN. Prevents items without stats sorting weirdly.
             return (a[field] || 0) - (b[field] || 0);
         });
-    }
-    scoochItems() {
-        console.debug('scooching');
-        if (!this.el) return;
-        const itemElements = this.el.querySelectorAll(':scope > .items > *');
-        const items = [];
-        itemElements.forEach(el => {
-            let { top, height } = el.getBoundingClientRect();
-            const styles = window.getComputedStyle(el);
-            height += (parseInt(styles.marginTop || '0', 10) || 0) + (parseInt(styles.marginBottom || '0', 10) || 0);
-            items.push({ el, top, height });
-        });
-        let prevCol;
-        const columns = items.reduce((columns, item, index) => {
-            let col;
-            if (columns.length === 0) col = 0;else if (columns.length === index) {
-                // Potentially need to add another column.
-                const prevItem = last(columns[prevCol]);
-                if (item.top === prevItem.top) col = columns.length;
-            }
-            if (col === undefined) col = index % columns.length;
-            if (!columns[col]) columns[col] = [];
-            columns[col].push(item);
-            prevCol = col;
-            return columns;
-        }, []);
-        const videoOffsets = {};
-        columns.forEach(items => {
-            let prevOffset = 0;
-            items.forEach((item, index, list) => {
-                const id = item.el.getAttribute('id');
-                if (id === null) return;
-                const key = id.replace(/^video-/, '');
-                if (index === 0) {
-                    videoOffsets[key] = 0;
-                    return;
-                }
-                const prevItem = list[index - 1];
-                const y = prevItem.top + prevOffset + prevItem.height;
-                videoOffsets[key] = prevOffset = y - item.top;
-            });
-        });
-        this.setState({ videoOffsets });
     }
 }
 exports.default = createFragmentContainer(VideoList, {
@@ -100375,6 +100311,125 @@ module.exports = function (flag, argv) {
 	return pos !== -1 && (terminatorPos === -1 ? true : pos < terminatorPos);
 };
 
+
+/***/ }),
+/* 982 */,
+/* 983 */,
+/* 984 */,
+/* 985 */,
+/* 986 */,
+/* 987 */,
+/* 988 */,
+/* 989 */,
+/* 990 */,
+/* 991 */,
+/* 992 */,
+/* 993 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const last = __webpack_require__(328);
+const isEqual = __webpack_require__(114);
+const React = __webpack_require__(4);
+class CascadedColumnsList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            offsets: {}
+        };
+    }
+    componentWillReceiveProps({ children: nextChildren }) {
+        const { children } = this.props;
+        const getID = child => child.props.id;
+        const ids = React.Children.map(children, getID);
+        const nextIDs = React.Children.map(nextChildren, getID);
+        if (!isEqual(ids, nextIDs)) {
+            console.debug('reset');
+            this.setState({ offsets: {} });
+        }
+    }
+    componentDidMount() {
+        console.debug('did mount');
+        this.setState({
+            offsets: this.computeOffsets()
+        });
+    }
+    componentDidUpdate() {
+        console.debug('did update');
+        if (Object.keys(this.state.offsets).length === 0) this.setState({
+            offsets: this.computeOffsets()
+        });
+    }
+    render() {
+        const children = React.Children.map(this.props.children, child => {
+            let style = {};
+            const offset = this.state.offsets[child.props.id];
+            if (offset === undefined) return child;
+            style.transform = `translateY(${offset}px)`;
+            return React.cloneElement(child, { style });
+        });
+        return React.createElement("div", { className: "items cascaded-column-list", ref: ref => this.el = ref }, children);
+    }
+    computeOffsets() {
+        console.debug('scooching');
+        if (!this.el) return {};
+        const elements = this.el.querySelectorAll(':scope > *');
+        if (elements.length === 0) return {};
+        // `this.elementToItem()` requires this.
+        this.offsetParentTop = elements.item(0).getBoundingClientRect().top;
+        const items = [];
+        elements.forEach(el => {
+            items.push(this.elementToItem(el));
+        });
+        const columns = this.splitIntoColumns(items);
+        const offsets = columns.map(this.computeColumnOffsets.bind(this));
+        return Object.assign({}, ...offsets);
+    }
+    elementToItem(element) {
+        const top = this.offsetParentTop + element.offsetTop;
+        // Get the true top position relative to the document root, unaffected by
+        // any transforms.
+        const styles = window.getComputedStyle(element);
+        let { height } = element.getBoundingClientRect();
+        height += (parseInt(styles.marginTop || '0', 10) || 0) + (parseInt(styles.marginBottom || '0', 10) || 0);
+        return { el: element, top, height };
+    }
+    splitIntoColumns(items) {
+        let prevCol;
+        return items.reduce((columns, item, index) => {
+            let col;
+            if (columns.length === 0) col = 0;else if (columns.length === index) {
+                // Potentially need to add another column.
+                const prevItem = last(columns[prevCol]);
+                if (item.top === prevItem.top) col = columns.length;
+            }
+            if (col === undefined) col = index % columns.length;
+            if (!columns[col]) columns[col] = [];
+            columns[col].push(item);
+            prevCol = col;
+            return columns;
+        }, []);
+    }
+    computeColumnOffsets(items) {
+        let prevOffset = 0;
+        return items.reduce((offsets, item, index, list) => {
+            const id = item.el.getAttribute('id');
+            if (id === null) return offsets;
+            if (index === 0) {
+                offsets[id] = 0;
+                return offsets;
+            }
+            const prevItem = list[index - 1];
+            const y = prevItem.top + prevOffset + prevItem.height;
+            offsets[id] = prevOffset = y - item.top;
+            return offsets;
+        }, {});
+    }
+}
+exports.default = CascadedColumnsList;
 
 /***/ })
 /******/ ]);
