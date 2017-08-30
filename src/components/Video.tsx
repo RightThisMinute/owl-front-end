@@ -22,19 +22,22 @@ interface Props {
 	video: VideoProps
 	chartScale: number
 	chartDataPountCount: number
+	id: string
+	style?: React.CSSProperties
 }
 
 class Video extends React.Component<Props, any> {
 
 	render() {
-		const { id, snapshots=[] } = this.props.video
+		const { video, style={} } = this.props
+		const { id, snapshots=[] } = video
 		const {
 			title = `[${id}]`,
 			thumbnailURL = 'https://www.fillmurray.com/1920/1080'
-		} = this.props.video.details || {}
+		} = video.details || {}
 
 		return (
-			<article className="video" id={`video-${id}`}>
+			<article className="video" id={this.props.id} style={style}>
 				<a href={`https://youtu.be/${id}`}>
 					<h1>{title}</h1>
 					<div className="graphics">

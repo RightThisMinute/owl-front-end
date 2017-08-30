@@ -71057,6 +71057,27 @@ var SortDirection;
     SortDirection["Descending"] = "desc";
 })(SortDirection || (SortDirection = {}));
 class VideoList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            videoOffsets: {}
+        };
+    }
+    componentWillReceiveProps(nextProps) {
+        const { search: nextSearch } = nextProps.location;
+        const { search } = this.props.location;
+        if (search !== nextSearch) this.setState({
+            videoOffsets: {}
+        });
+    }
+    componentDidMount() {
+        console.debug('did mount');
+        this.scoochItems();
+    }
+    componentDidUpdate() {
+        console.debug('did update');
+        if (Object.keys(this.state.videoOffsets).length === 0) this.scoochItems();
+    }
     render() {
         const { sorted } = this;
         const percents = sorted.map(vid => vid.percent);
@@ -71067,9 +71088,13 @@ class VideoList extends React.Component {
         });
         const maxSnapshotCount = Math.max(0, ...snapshotCounts);
         const videos = sorted.map(vid => {
-            return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
+            let style = {};
+            const offset = this.state.videoOffsets[vid.video.id];
+            if (offset) style.transform = `translateY(${offset}px)`;
+            const id = `video-${vid.video.id}`;
+            return React.createElement(Video_1.default, { key: vid.video.id, id: id, video: vid.video, style: style, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
         });
-        return React.createElement("section", { className: "video-list" }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
+        return React.createElement("section", { className: "video-list", ref: ref => this.el = ref }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
     }
     get getParams() {
         const { search } = this.props.location;
@@ -71138,6 +71163,49 @@ class VideoList extends React.Component {
             return (a[field] || 0) - (b[field] || 0);
         });
     }
+    scoochItems() {
+        console.debug('scooching');
+        if (!this.el) return;
+        const itemElements = this.el.querySelectorAll(':scope > .items > *');
+        const items = [];
+        itemElements.forEach(el => {
+            let { top, height } = el.getBoundingClientRect();
+            const styles = window.getComputedStyle(el);
+            height += (parseInt(styles.marginTop || '0', 10) || 0) + (parseInt(styles.marginBottom || '0', 10) || 0);
+            items.push({ el, top, height });
+        });
+        let prevCol;
+        const columns = items.reduce((columns, item, index) => {
+            let col;
+            if (columns.length === 0) col = 0;else if (columns.length === index) {
+                // Potentially need to add another column.
+                const prevItem = last(columns[prevCol]);
+                if (item.top === prevItem.top) col = columns.length;
+            }
+            if (col === undefined) col = index % columns.length;
+            if (!columns[col]) columns[col] = [];
+            columns[col].push(item);
+            prevCol = col;
+            return columns;
+        }, []);
+        const videoOffsets = {};
+        columns.forEach(items => {
+            let prevOffset = 0;
+            items.forEach((item, index, list) => {
+                const id = item.el.getAttribute('id');
+                if (id === null) return;
+                const key = id.replace(/^video-/, '');
+                if (index === 0) {
+                    videoOffsets[key] = 0;
+                    return;
+                }
+                const prevItem = list[index - 1];
+                const y = prevItem.top + prevOffset + prevItem.height;
+                videoOffsets[key] = prevOffset = y - item.top;
+            });
+        });
+        this.setState({ videoOffsets });
+    }
 }
 exports.default = createFragmentContainer(VideoList, {
     activeVideos: function () {
@@ -71189,9 +71257,10 @@ const StatsChart_1 = __webpack_require__(775);
 __webpack_require__(851);
 class Video extends React.Component {
     render() {
-        const { id, snapshots = [] } = this.props.video;
-        const { title = `[${id}]`, thumbnailURL = 'https://www.fillmurray.com/1920/1080' } = this.props.video.details || {};
-        return React.createElement("article", { className: "video", id: `video-${id}` }, React.createElement("a", { href: `https://youtu.be/${id}` }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale, dataPointCount: this.props.chartDataPountCount })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+        const { video, style = {} } = this.props;
+        const { id, snapshots = [] } = video;
+        const { title = `[${id}]`, thumbnailURL = 'https://www.fillmurray.com/1920/1080' } = video.details || {};
+        return React.createElement("article", { className: "video", id: this.props.id, style: style }, React.createElement("a", { href: `https://youtu.be/${id}` }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale, dataPointCount: this.props.chartDataPountCount })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
     }
 }
 exports.default = createFragmentContainer(Video, {

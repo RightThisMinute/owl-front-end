@@ -63686,15 +63686,44 @@ var SortDirection;
 var VideoList = function (_React$Component) {
     _inherits(VideoList, _React$Component);
 
-    function VideoList() {
+    function VideoList(props) {
         _classCallCheck(this, VideoList);
 
-        return _possibleConstructorReturn(this, (VideoList.__proto__ || Object.getPrototypeOf(VideoList)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (VideoList.__proto__ || Object.getPrototypeOf(VideoList)).call(this, props));
+
+        _this.state = {
+            videoOffsets: {}
+        };
+        return _this;
     }
 
     _createClass(VideoList, [{
+        key: "componentWillReceiveProps",
+        value: function componentWillReceiveProps(nextProps) {
+            var nextSearch = nextProps.location.search;
+            var search = this.props.location.search;
+
+            if (search !== nextSearch) this.setState({
+                videoOffsets: {}
+            });
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            console.debug('did mount');
+            this.scoochItems();
+        }
+    }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate() {
+            console.debug('did update');
+            if (Object.keys(this.state.videoOffsets).length === 0) this.scoochItems();
+        }
+    }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             var sorted = this.sorted;
 
             var percents = sorted.map(function (vid) {
@@ -63707,9 +63736,63 @@ var VideoList = function (_React$Component) {
             });
             var maxSnapshotCount = Math.max.apply(Math, [0].concat(_toConsumableArray(snapshotCounts)));
             var videos = sorted.map(function (vid) {
-                return React.createElement(Video_1.default, { key: vid.video.id, video: vid.video, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
+                var style = {};
+                var offset = _this2.state.videoOffsets[vid.video.id];
+                if (offset) style.transform = "translateY(" + offset + "px)";
+                var id = "video-" + vid.video.id;
+                return React.createElement(Video_1.default, { key: vid.video.id, id: id, video: vid.video, style: style, chartScale: chartScale, chartDataPountCount: maxSnapshotCount });
             });
-            return React.createElement("section", { className: "video-list" }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
+            return React.createElement("section", { className: "video-list", ref: function ref(_ref) {
+                    return _this2.el = _ref;
+                } }, React.createElement("nav", null, React.createElement("h1", null, "Order:"), React.createElement("ul", null, this.sortLinks)), React.createElement("div", { className: "items" }, videos));
+        }
+    }, {
+        key: "scoochItems",
+        value: function scoochItems() {
+            console.debug('scooching');
+            if (!this.el) return;
+            var itemElements = this.el.querySelectorAll(':scope > .items > *');
+            var items = [];
+            itemElements.forEach(function (el) {
+                var _el$getBoundingClient = el.getBoundingClientRect(),
+                    top = _el$getBoundingClient.top,
+                    height = _el$getBoundingClient.height;
+
+                var styles = window.getComputedStyle(el);
+                height += (parseInt(styles.marginTop || '0', 10) || 0) + (parseInt(styles.marginBottom || '0', 10) || 0);
+                items.push({ el: el, top: top, height: height });
+            });
+            var prevCol = void 0;
+            var columns = items.reduce(function (columns, item, index) {
+                var col = void 0;
+                if (columns.length === 0) col = 0;else if (columns.length === index) {
+                    // Potentially need to add another column.
+                    var prevItem = last(columns[prevCol]);
+                    if (item.top === prevItem.top) col = columns.length;
+                }
+                if (col === undefined) col = index % columns.length;
+                if (!columns[col]) columns[col] = [];
+                columns[col].push(item);
+                prevCol = col;
+                return columns;
+            }, []);
+            var videoOffsets = {};
+            columns.forEach(function (items) {
+                var prevOffset = 0;
+                items.forEach(function (item, index, list) {
+                    var id = item.el.getAttribute('id');
+                    if (id === null) return;
+                    var key = id.replace(/^video-/, '');
+                    if (index === 0) {
+                        videoOffsets[key] = 0;
+                        return;
+                    }
+                    var prevItem = list[index - 1];
+                    var y = prevItem.top + prevOffset + prevItem.height;
+                    videoOffsets[key] = prevOffset = y - item.top;
+                });
+            });
+            this.setState({ videoOffsets: videoOffsets });
         }
     }, {
         key: "getParams",
@@ -63748,21 +63831,21 @@ var VideoList = function (_React$Component) {
         key: "sortLinks",
         get: function get() {
             var _sorts,
-                _this2 = this;
+                _this3 = this;
 
             var sorts = (_sorts = {}, _defineProperty(_sorts, SortField.TheOwl, 'As the Owl Flies'), _defineProperty(_sorts, SortField.ChangeCount, 'Count'), _defineProperty(_sorts, SortField.PercentChange, 'Percent'), _sorts);
             return Object.keys(sorts).map(function (field) {
-                var isActive = field === _this2.sort.field;
+                var isActive = field === _this3.sort.field;
                 var classes = [];
                 if (isActive) classes.push('active');
-                var sortDirection = isActive && _this2.sort.direction === SortDirection.Descending ? SortDirection.Ascending : SortDirection.Descending;
+                var sortDirection = isActive && _this3.sort.direction === SortDirection.Descending ? SortDirection.Ascending : SortDirection.Descending;
                 classes.push(sortDirection);
                 var params = { sortField: field, sortDirection: sortDirection };
                 var search = Object.keys(params).map(function (key) {
                     return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
                 });
                 return React.createElement("li", { key: field, className: classes.join(' ') }, React.createElement(Link, { to: {
-                        pathname: _this2.props.location.pathname,
+                        pathname: _this3.props.location.pathname,
                         search: '?' + search.join('&')
                     } }, sorts[field]));
             });
@@ -63792,17 +63875,17 @@ var VideoList = function (_React$Component) {
     }, {
         key: "sorted",
         get: function get() {
-            var _this3 = this;
+            var _this4 = this;
 
             return this.scored.sort(function (vid1, vid2) {
-                var _sort = _this3.sort,
+                var _sort = _this4.sort,
                     field = _sort.field,
                     direction = _sort.direction;
 
-                var _ref = direction === SortDirection.Descending ? [vid2, vid1] : [vid1, vid2],
-                    _ref2 = _slicedToArray(_ref, 2),
-                    a = _ref2[0],
-                    b = _ref2[1];
+                var _ref2 = direction === SortDirection.Descending ? [vid2, vid1] : [vid1, vid2],
+                    _ref3 = _slicedToArray(_ref2, 2),
+                    a = _ref3[0],
+                    b = _ref3[1];
                 // Field values can be NaN. Prevents items without stats sorting weirdly.
 
 
@@ -63887,18 +63970,21 @@ var Video = function (_React$Component) {
     _createClass(Video, [{
         key: "render",
         value: function render() {
-            var _props$video = this.props.video,
-                id = _props$video.id,
-                _props$video$snapshot = _props$video.snapshots,
-                snapshots = _props$video$snapshot === undefined ? [] : _props$video$snapshot;
+            var _props = this.props,
+                video = _props.video,
+                _props$style = _props.style,
+                style = _props$style === undefined ? {} : _props$style;
+            var id = video.id,
+                _video$snapshots = video.snapshots,
+                snapshots = _video$snapshots === undefined ? [] : _video$snapshots;
 
-            var _ref = this.props.video.details || {},
+            var _ref = video.details || {},
                 _ref$title = _ref.title,
                 title = _ref$title === undefined ? "[" + id + "]" : _ref$title,
                 _ref$thumbnailURL = _ref.thumbnailURL,
                 thumbnailURL = _ref$thumbnailURL === undefined ? 'https://www.fillmurray.com/1920/1080' : _ref$thumbnailURL;
 
-            return React.createElement("article", { className: "video", id: "video-" + id }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale, dataPointCount: this.props.chartDataPountCount })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
+            return React.createElement("article", { className: "video", id: this.props.id, style: style }, React.createElement("a", { href: "https://youtu.be/" + id }, React.createElement("h1", null, title), React.createElement("div", { className: "graphics" }, React.createElement("img", { src: thumbnailURL, alt: title }), React.createElement(StatsChart_1.default, { snapshots: snapshots, scale: this.props.chartScale, dataPointCount: this.props.chartDataPountCount })), React.createElement(StatsChange_1.default, { snapshots: snapshots })));
         }
     }]);
 
