@@ -65568,7 +65568,6 @@ var CascadedColumnsList = function (_React$Component) {
     _createClass(CascadedColumnsList, [{
         key: "componentWillReceiveProps",
         value: function componentWillReceiveProps(props) {
-            console.debug('resize in prog', props.viewportResizeInProgress);
             if (props.viewportResizeInProgress) {
                 this.setState({ offsets: {} });
                 return;
@@ -65581,10 +65580,7 @@ var CascadedColumnsList = function (_React$Component) {
             };
             var ids = React.Children.map(children, getID);
             var nextIDs = React.Children.map(nextChildren, getID);
-            if (!isEqual(ids, nextIDs)) {
-                console.debug('reset');
-                this.setState({ offsets: {} });
-            }
+            if (!isEqual(ids, nextIDs)) this.setState({ offsets: {} });
         }
     }, {
         key: "componentWillUpdate",
@@ -65594,7 +65590,6 @@ var CascadedColumnsList = function (_React$Component) {
     }, {
         key: "componentDidMount",
         value: function componentDidMount() {
-            console.debug('did mount');
             if (!this.props.viewportResizeInProgress) {
                 this.setUpdateOnImageLoadListeners();
                 this.updateOffsets();
@@ -65603,7 +65598,6 @@ var CascadedColumnsList = function (_React$Component) {
     }, {
         key: "componentDidUpdate",
         value: function componentDidUpdate() {
-            console.debug('did update');
             if (!this.props.viewportResizeInProgress) {
                 this.setUpdateOnImageLoadListeners();
                 if (Object.keys(this.state.offsets).length === 0) this.updateOffsets();
@@ -65665,7 +65659,6 @@ var CascadedColumnsList = function (_React$Component) {
         value: function computeOffsets() {
             var _this5 = this;
 
-            console.debug('scooching');
             if (!this.el) return {};
             var elements = this.el.querySelectorAll(':scope > *');
             if (elements.length === 0) return {};

@@ -57,7 +57,6 @@ class CascadedColumnsList extends React.Component<Props, State> {
 	}
 
 	componentWillReceiveProps(props: Props) {
-		console.debug('resize in prog', props.viewportResizeInProgress)
 		if (props.viewportResizeInProgress) {
 			this.setState({ offsets: {} })
 			return;
@@ -71,10 +70,8 @@ class CascadedColumnsList extends React.Component<Props, State> {
 		const ids     = React.Children.map(children, getID)
 		const nextIDs = React.Children.map(nextChildren, getID)
 
-		if (!isEqual(ids, nextIDs)) {
-			console.debug('reset')
+		if (!isEqual(ids, nextIDs))
 			this.setState({ offsets: {} })
-		}
 	}
 
 	componentWillUpdate() {
@@ -82,7 +79,6 @@ class CascadedColumnsList extends React.Component<Props, State> {
 	}
 
 	componentDidMount() {
-		console.debug('did mount')
 		if (!this.props.viewportResizeInProgress) {
 			this.setUpdateOnImageLoadListeners()
 			this.updateOffsets()
@@ -90,7 +86,6 @@ class CascadedColumnsList extends React.Component<Props, State> {
 	}
 
 	componentDidUpdate() {
-		console.debug('did update')
 		if (!this.props.viewportResizeInProgress) {
 			this.setUpdateOnImageLoadListeners()
 			if (Object.keys(this.state.offsets).length === 0)
@@ -153,7 +148,6 @@ class CascadedColumnsList extends React.Component<Props, State> {
 	}
 
 	private computeOffsets(): OffsetList {
-		console.debug('scooching')
 		if (!this.el)
 			return {};
 

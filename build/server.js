@@ -71450,7 +71450,6 @@ class CascadedColumnsList extends React.Component {
         this.imageLoadHandler = this.updateOffsets.bind(this);
     }
     componentWillReceiveProps(props) {
-        console.debug('resize in prog', props.viewportResizeInProgress);
         if (props.viewportResizeInProgress) {
             this.setState({ offsets: {} });
             return;
@@ -71460,23 +71459,18 @@ class CascadedColumnsList extends React.Component {
         const getID = child => child.props.id;
         const ids = React.Children.map(children, getID);
         const nextIDs = React.Children.map(nextChildren, getID);
-        if (!isEqual(ids, nextIDs)) {
-            console.debug('reset');
-            this.setState({ offsets: {} });
-        }
+        if (!isEqual(ids, nextIDs)) this.setState({ offsets: {} });
     }
     componentWillUpdate() {
         this.unsetUpdateOnImageLoadListeners();
     }
     componentDidMount() {
-        console.debug('did mount');
         if (!this.props.viewportResizeInProgress) {
             this.setUpdateOnImageLoadListeners();
             this.updateOffsets();
         }
     }
     componentDidUpdate() {
-        console.debug('did update');
         if (!this.props.viewportResizeInProgress) {
             this.setUpdateOnImageLoadListeners();
             if (Object.keys(this.state.offsets).length === 0) this.updateOffsets();
@@ -71515,7 +71509,6 @@ class CascadedColumnsList extends React.Component {
         if (!isEqual(offsets, this.state.offsets)) this.setState({ offsets });
     }
     computeOffsets() {
-        console.debug('scooching');
         if (!this.el) return {};
         const elements = this.el.querySelectorAll(':scope > *');
         if (elements.length === 0) return {};
