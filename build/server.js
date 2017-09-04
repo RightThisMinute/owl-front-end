@@ -71612,6 +71612,7 @@ const React = __webpack_require__(4);
 // normal `import first from 'lodash/first'` statement, but this works
 // to avoid bloat.
 const first = __webpack_require__(328);
+const find = __webpack_require__(826);
 const last = __webpack_require__(197);
 const { createFragmentContainer, graphql } = __webpack_require__(57);
 class StatsChange extends React.Component {
@@ -71625,13 +71626,26 @@ class StatsChange extends React.Component {
         const diff = Math.abs(change);
         const sign = change > 0 ? '+' : change < 0 ? '-' : '';
         const signClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'none';
+        const s = suffixNumber;
         const f = formatNumber;
         const className = `stats-change ${signClass}`;
-        return React.createElement("div", { className: className }, React.createElement("span", { className: "start-end" }, React.createElement("span", { className: "start" }, f(startCount)), React.createElement("span", { className: "separator" }, "\u25BA"), React.createElement("span", { className: "end" }, f(endCount))), React.createElement("span", { className: "diff" }, React.createElement("span", { className: "sign" }, sign), React.createElement("span", { className: "count" }, f(diff)), React.createElement("span", { className: "separator" }, "/"), React.createElement("span", { className: "percent" }, React.createElement("em", null, f(percent)), "%")));
+        return React.createElement("div", { className: className }, React.createElement("span", { className: "start-end" }, React.createElement("span", { className: "start" }, s(startCount)), React.createElement("span", { className: "separator" }, "\u25BA"), React.createElement("span", { className: "end" }, s(endCount))), React.createElement("span", { className: "diff" }, React.createElement("span", { className: "sign" }, sign), React.createElement("span", { className: "count" }, s(diff)), React.createElement("span", { className: "separator" }, "/"), React.createElement("span", { className: "percent" }, React.createElement("em", null, f(percent)), "%")));
     }
 }
 function formatNumber(number) {
-    return Math.round(number).toString().split('').reverse().map((num, nx) => (nx + 1) % 3 === 0 ? ',' + num : num).reverse().join('').replace(/^,/, '');
+    if (Math.abs(number) >= 10) return Math.round(number).toString().split('').reverse().map((num, nx) => (nx + 1) % 3 === 0 ? ',' + num : num).reverse().join('').replace(/^,/, '');
+    const [whole, partial = null] = number.toString().split('.');
+    if (partial === null) return whole;
+    const decimal = Math.floor(Number(partial) / Math.pow(10, partial.length - 1)).toString();
+    return whole + '.' + decimal;
+}
+function suffixNumber(number) {
+    const suffixes = [['K', 1000], ['M', 1000000], ['B', 1000000000], ['T', 1000000000000]].reverse();
+    const [suffix = '', divisor = 1] = find(suffixes, ([_, divisor]) => {
+        return number / divisor >= 1;
+    });
+    const reduced = number / divisor;
+    return `${formatNumber(reduced)}${suffix}`;
 }
 exports.default = createFragmentContainer(StatsChange, {
     snapshots: function () {

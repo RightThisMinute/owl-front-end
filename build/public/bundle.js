@@ -65808,6 +65808,8 @@ exports.default = createFragmentContainer(Video, {
 "use strict";
 
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65822,6 +65824,7 @@ var React = __webpack_require__(4);
 // normal `import first from 'lodash/first'` statement, but this works
 // to avoid bloat.
 var first = __webpack_require__(295);
+var find = __webpack_require__(837);
 var last = __webpack_require__(186);
 
 var _require = __webpack_require__(48),
@@ -65853,9 +65856,10 @@ var StatsChange = function (_React$Component) {
             var diff = Math.abs(change);
             var sign = change > 0 ? '+' : change < 0 ? '-' : '';
             var signClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'none';
+            var s = suffixNumber;
             var f = formatNumber;
             var className = "stats-change " + signClass;
-            return React.createElement("div", { className: className }, React.createElement("span", { className: "start-end" }, React.createElement("span", { className: "start" }, f(startCount)), React.createElement("span", { className: "separator" }, "\u25BA"), React.createElement("span", { className: "end" }, f(endCount))), React.createElement("span", { className: "diff" }, React.createElement("span", { className: "sign" }, sign), React.createElement("span", { className: "count" }, f(diff)), React.createElement("span", { className: "separator" }, "/"), React.createElement("span", { className: "percent" }, React.createElement("em", null, f(percent)), "%")));
+            return React.createElement("div", { className: className }, React.createElement("span", { className: "start-end" }, React.createElement("span", { className: "start" }, s(startCount)), React.createElement("span", { className: "separator" }, "\u25BA"), React.createElement("span", { className: "end" }, s(endCount))), React.createElement("span", { className: "diff" }, React.createElement("span", { className: "sign" }, sign), React.createElement("span", { className: "count" }, s(diff)), React.createElement("span", { className: "separator" }, "/"), React.createElement("span", { className: "percent" }, React.createElement("em", null, f(percent)), "%")));
         }
     }]);
 
@@ -65863,9 +65867,38 @@ var StatsChange = function (_React$Component) {
 }(React.Component);
 
 function formatNumber(number) {
-    return Math.round(number).toString().split('').reverse().map(function (num, nx) {
+    if (Math.abs(number) >= 10) return Math.round(number).toString().split('').reverse().map(function (num, nx) {
         return (nx + 1) % 3 === 0 ? ',' + num : num;
     }).reverse().join('').replace(/^,/, '');
+
+    var _number$toString$spli = number.toString().split('.'),
+        _number$toString$spli2 = _slicedToArray(_number$toString$spli, 2),
+        whole = _number$toString$spli2[0],
+        _number$toString$spli3 = _number$toString$spli2[1],
+        partial = _number$toString$spli3 === undefined ? null : _number$toString$spli3;
+
+    if (partial === null) return whole;
+    var decimal = Math.floor(Number(partial) / Math.pow(10, partial.length - 1)).toString();
+    return whole + '.' + decimal;
+}
+function suffixNumber(number) {
+    var suffixes = [['K', 1000], ['M', 1000000], ['B', 1000000000], ['T', 1000000000000]].reverse();
+
+    var _find = find(suffixes, function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            _ = _ref2[0],
+            divisor = _ref2[1];
+
+        return number / divisor >= 1;
+    }),
+        _find2 = _slicedToArray(_find, 2),
+        _find2$ = _find2[0],
+        suffix = _find2$ === undefined ? '' : _find2$,
+        _find2$2 = _find2[1],
+        divisor = _find2$2 === undefined ? 1 : _find2$2;
+
+    var reduced = number / divisor;
+    return "" + formatNumber(reduced) + suffix;
 }
 exports.default = createFragmentContainer(StatsChange, {
     snapshots: function snapshots() {
