@@ -2,31 +2,31 @@
 @import '../../variables.pcss';
 
 .doc > header {
-	--logo-width: 118px;
-	--logo-height: 58px;
-	--border-bottom-height: 2px;
+	--height: 33px;
+	--logo-width: 24px;
+	--logo-height: 31px;
 
 	position: relative;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
+	align-items: flex-end;
 
-	height: calc(var(--logo-height) + 2px);
-	padding-bottom: var(--border-bottom-height);
-	background-color: #fff;
-
-	&::after {
-		content: ' ';
-		position: absolute; z-index: 1;
-		bottom: 0; left: 0;
-		width: 100%; height: var(--border-bottom-height);
-		background-color: var(--rtm-light-blue);
-	}
+	height: var(--height);
+	padding: 0 18px;
+	background-color: hsl(0, 0%, 95%);
 
 	h1 {
-		position: relative; z-index: 2;
-		bottom: -7px;
+		position: relative;
 		width: var(--logo-width); height: var(--logo-height);
-		background: url('logo.svg') no-repeat left top;
+		background: url('owl@1x.png') no-repeat left top;
+		background-size: 100%;
+
+		@media screen and (min-resolution: 2dppx) {
+			background-image: url('owl@2x.png');
+		}
+		@media screen and (min-resolution: 3dppx) {
+			background-image: url('owl@3x.png');
+		}
 
 		a {
 			position: absolute;
@@ -37,13 +37,11 @@
 	}
 
 	nav {
-		position: absolute; z-index: 2;
-		padding: 2px 4px 2px 17px;
-		bottom: 2px; right: 0;
-		//background: url('nav-bg.svg') left bottom no-repeat;
-		background: linear-gradient(125deg,
-			transparent, transparent 14px, var(--rtm-blue) 15px
-		);
+
+		margin-bottom: 8px;
+		font-size: 13px;
+		font-weight: var(--font-weight-light);
+		text-transform: uppercase;
 
 		ul {
 			list-style: none;
@@ -51,16 +49,15 @@
 
 		li {
 			display: inline-block;
-			margin: 0 10px;
+			margin: 0 14px;
+
+			&:first-child { margin-left:  0; }
+			&:last-child  { margin-right: 0; }
 		}
 
 		a {
-			color: #fff;
-			font-size: 14px;
-			font-weight: var(--font-weight-bold);
-			text-transform: uppercase;
+			color: var(--rtm-blue);
 			text-decoration: none;
-			//text-shadow: var(--dark-gray) 0 0 2px;
 
 			&:hover {
 				text-decoration: underline;

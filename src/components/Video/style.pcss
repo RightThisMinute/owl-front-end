@@ -3,25 +3,31 @@
 
 
 article.video {
-
-	margin: 0 6px 6px 0;
+	--flare-height: 3px;
+	--side-padding: 16px;
 
 	a {
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		border-top: 3px solid var(--rtm-blue);
-		border-bottom: 2px solid var(--rtm-light-blue);
-		box-shadow: 0 1px 3px 0 color(#000 alpha(25%));
-		background-color: #fff;
+		border: 1px solid hsl(0, 0%, 86%);
 		color: #000;
-		text-transform: uppercase;
 		text-decoration: none;
 	}
 
+	a::before {
+		content: ' ';
+		display: block;
+		position: absolute;
+		top: calc(var(--flare-height) * -1);
+		left: 9%;
+		width: calc(100% - 2*@left); height: var(--flare-height);
+		background: #000;
+	}
+
 	h1 {
-		padding: 5px 8px 6px;
 		max-width: 100%;
+		margin: 10px var(--side-padding);
 		font-size: 17px;
 		font-weight: var(--font-weight-light);
 		line-height: 1.3em;
@@ -45,23 +51,69 @@ article.video {
 	}
 
 	.stats-change {
+		--height: 46px;
 
 		display: flex;
-		justify-content: space-between;
-		padding: 7px 8px 6px;
-		text-align: center;
-		font-size: 14px;
-		font-weight: var(--font-weight-light);
+		justify-content: flex-start;
+		align-items: center;
+		height: var(--height);
+		padding: 0 var(--side-padding);
+		font-weight: var(--font-weight-medium);
 
 		em { font-style: normal; }
+		.separator { display: none; }
 
-		.separator {
-			display: inline-block;
-			margin: 0 4px;
+		.start-end {
+
+			position: relative; z-index: 2;
+			align-self: flex-end;
+			display: flex;
+			flex-direction: column-reverse;
+			justify-content: flex-start;
+			align-items: center;
+			width: 79px; height: 65px;
+			padding-top: calc(@height - var(--height));
+			background: url('change-up-arrow.svg') center bottom no-repeat;
+			background-size: 100%;
+			color: hsl(0, 0%, 100%);
+			font-weight: var(--font-weight-normal);
+
+			> * {
+				position: relative; top: -2px;
+			}
+
+			.end { font-size: 17px; }
+			.start { font-size: 15px; }
+
+			.start::before {
+				content: '▲';
+				display: block;
+				font-size: 5px;
+				text-align: center;
+				transform: scaleX(2);
+			}
 		}
 
-		.start-end { color: var(--rtm-orange); }
-		.diff { color: var(--rtm-pink); }
+		.diff {
+
+			flex: 1;
+			display: flex;
+			justify-content: flex-start;
+			margin-left: 4px;
+			align-items: center;
+
+			.sign, .count {
+				color: var(--rtm-pink);
+				font-size: 15px;
+			}
+
+			.percent {
+				flex-grow: 1;
+				font-size: 24px;
+				text-align: right;
+			}
+
+		}
 
 	}
 
