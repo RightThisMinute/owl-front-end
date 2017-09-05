@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "relay": "relay-compiler --src ./build/unbundled --schema data/schema.graphqls",
-    "clean": "(for f in build/*; do [ -e \"$f\" ] && echo \"$f\"; done)",
+    "clean": "(for f in build/*; do [ -e \"$f\" ] && rm -r \"$f\"; done) || echo 'Already clean.'",
     "build": "npm run clean && tsc --pretty && npm run relay && webpack --progress",
     "debug": "npm run build && node --inspect build/server.js",
     "debug-brk": "npm run build && node --inspect-brk build/server.js",
