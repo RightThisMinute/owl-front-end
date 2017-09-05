@@ -48,23 +48,17 @@ section.set-active-videos {
 		--bg-color: #fff;
 
 		padding: 4px 6px;
-		border: none;
 		background-color: var(--bg-color);
-		box-shadow: 0 2px 2px 0 color(var(--rtm-pink) alpha(35%));
 		color: #000;
 		font-size: 16px;
 		font-family: var(--default-font-family);
 		font-weight: var(--font-weight-medium);
+		border: 1px solid hsl(0, 0%, 86%);
 		transition: box-shadow 0.3s ease;
 		cursor: pointer;
 
 		&:focus {
-			outline: none;
-			box-shadow: 0 1px 3px 1px color(var(--rtm-pink) alpha(75%));
-		}
-
-		&:active {
-			box-shadow: 0 0 0 0 var(--rtm-pink);
+			border-color: var(--rtm-orange);
 		}
 	}
 

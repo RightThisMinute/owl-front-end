@@ -66,3 +66,50 @@
 
 	}
 }
+
+@media screen and (min-width: 850px) {
+
+	.doc > header {
+
+		position: relative;
+		width: 100%; height: auto;
+		padding: 23px 0 0 66px;
+		background-color: #fff;
+
+		&::before {
+			content: ' ';
+			position: absolute;
+			top: 0; left: 0;
+			width: 104px; height: 75px;
+			background: url('small-triangle-group.svg') left top no-repeat;
+		}
+
+		&::after {
+			content: ' ';
+			position: absolute;
+			top: 0; right: 0;
+			width: 132px; height: 112px;
+			background: url('large-triangle-group.svg') right top no-repeat;
+		}
+
+		h1 {
+			left: 19px;
+			width: 149px; height: 76px;
+			background-image: url('logo.svg');
+		}
+
+		nav {
+			flex: 1;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			height: 57px;
+			padding-right: 118px;
+			border-top: 1px solid hsl(0, 0%, 87%);
+			border-bottom: @border-top;
+			margin-top: 1px;
+		}
+
+	}
+
+}

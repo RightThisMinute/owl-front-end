@@ -17,6 +17,20 @@ body {
 	color: #000;
 }
 
+#root > section.doc {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: start;
+	    -ms-flex-pack: start;
+	        justify-content: flex-start;
+	min-height: 100vh;
+}
+
 .doc > header {
 
 	position: relative;
@@ -94,12 +108,83 @@ body {
 				text-decoration: underline;
 			}
 
+@media screen and (min-width: 850px) {
+
+	.doc > header {
+
+		position: relative;
+		width: 100%; height: auto;
+		padding: 23px 0 0 66px;
+		background-color: #fff;
+
+	}
+
+		.doc > header::before {
+			content: ' ';
+			position: absolute;
+			top: 0; left: 0;
+			width: 104px; height: 75px;
+			background: url(a3d782386b26e336bdd7e5c4e4ea6298.svg) left top no-repeat;
+		}
+
+		.doc > header::after {
+			content: ' ';
+			position: absolute;
+			top: 0; right: 0;
+			width: 132px; height: 112px;
+			background: url(d9ceb7eb60c0aa7463d432938f185615.svg) right top no-repeat;
+		}
+
+		.doc > header h1 {
+			left: 19px;
+			width: 149px; height: 76px;
+			background-image: url(48233f4edd1ea42210b9b67f62058104.svg);
+		}
+
+		.doc > header nav {
+			-webkit-box-flex: 1;
+			    -ms-flex: 1;
+			        flex: 1;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-pack: end;
+			    -ms-flex-pack: end;
+			        justify-content: flex-end;
+			-webkit-box-align: center;
+			    -ms-flex-align: center;
+			        align-items: center;
+			height: 57px;
+			padding-right: 118px;
+			border-top: 1px solid hsl(0, 0%, 87%);
+			border-bottom: 1px solid hsl(0, 0%, 87%);
+			margin-top: 1px;
+		}
+
+}
+
 .doc > section.footer {
+	-webkit-box-flex: 2;
+	    -ms-flex: 2;
+	        flex: 2;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: start;
+	    -ms-flex-pack: start;
+	        justify-content: flex-start;
+	-webkit-box-align: end;
+	    -ms-flex-align: end;
+	        align-items: flex-end;
 	margin: 30px;
 	color: rgb(102, 102, 102);
 	font-size: 0.85em;
 	font-weight: 300;
 }
+
+	.doc > section.footer a {
+		margin-left: 0.3em;
+	}
 
 article.video a {
 		position: relative;
@@ -284,58 +369,58 @@ section.video-list .items {
 	    -ms-flex-align: start;
 	        align-items: flex-start;
 
-	max-width: 335px;
+	max-width: 362px;
 
 	margin: 15px 0;
 
 }
 
 
-@media only screen and (min-width: 730px) {
+@media only screen and (min-width: 784px) {
 
 
 section.video-list .items {
-		max-width: calc(335px * 2 + 15px * 4)
+		max-width: calc(2*(362px + 2*15px))
 
 }
 	}
 
 
-@media only screen and (min-width: 1095px) {
+@media only screen and (min-width: 1176px) {
 
 
 section.video-list .items {
-		max-width: calc(335px * 3 + 15px * 6)
+		max-width: calc(3*(362px + 2*15px))
 
 }
 	}
 
 
-@media only screen and (min-width: 1460px) {
+@media only screen and (min-width: 1568px) {
 
 
 section.video-list .items {
-		max-width: calc(335px * 4 + 15px * 8)
+		max-width: calc(4*(362px + 2*15px))
 
 }
 	}
 
 
-@media only screen and (min-width: 1825px) {
+@media only screen and (min-width: 1960px) {
 
 
 section.video-list .items {
-		max-width: calc(335px * 5 + 15px * 10)
+		max-width: calc(5*(362px + 2*15px))
 
 }
 	}
 
 
-@media only screen and (min-width: 2190px) {
+@media only screen and (min-width: 2352px) {
 
 
 section.video-list .items {
-		max-width: calc(335px * 6 + 15px * 12)
+		max-width: calc(6*(362px + 2*15px))
 
 }
 	}
@@ -346,7 +431,7 @@ section.video-list .items > article {
 		    -ms-flex-positive: 1;
 		        flex-grow: 1;
 		margin: 15px;
-		max-width: 335px;
+		max-width: 362px;
 	}
 
 
@@ -415,6 +500,76 @@ section.video-list nav li.active.asc::after {
 			content: '\25BC';
 		}
 
+
+@media screen and (min-width: 850px) {
+
+	section.video-list nav {
+
+		position: absolute;
+		top: 35px; left: 236px;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-pack: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		    -ms-flex-align: center;
+		        align-items: center;
+		width: calc(100% - 236px - 253px);
+		height: 55px;
+		max-width: none;
+		margin: 0;
+
+	}
+
+		@media screen and (min-width: 975px) {
+
+	section.video-list nav {
+			top: 34px;
+			font-size: 17px
+
+	}
+		}
+
+		section.video-list nav ul {
+			width: 90%;
+		}
+			@media screen and (min-width:  900px) {
+
+		section.video-list nav ul { width: 80%
+		} }
+			@media screen and (min-width: 1070px) {
+
+		section.video-list nav ul { width: 464px
+		} }
+
+		section.video-list nav li {
+			display: block;
+		}
+
+		section.video-list nav li::after {
+			content: '\25BC';
+			position: relative;
+			top: -1px;
+			display: inline-block;
+			margin-left: 4px;
+			font-size: 0.75em;
+			opacity: 0;
+		}
+
+		section.video-list nav li.active {
+			font-weight: inherit;
+		}
+
+			section.video-list nav li.active::after {
+				opacity: 1;
+				-webkit-transform: scaleX(1.2) scaleY(0.8);
+				        transform: scaleX(1.2) scaleY(0.8);
+			}
+
+}
+
 section.set-active-videos {
 
 	padding: 15px;
@@ -467,14 +622,12 @@ section.set-active-videos {
 	section.set-active-videos button {
 
 		padding: 4px 6px;
-		border: none;
 		background-color: #fff;
-		-webkit-box-shadow: 0 2px 2px 0 rgba(255, 122, 178, 0.35);
-		        box-shadow: 0 2px 2px 0 rgba(255, 122, 178, 0.35);
 		color: #000;
 		font-size: 16px;
 		font-family: Rubik, Helvetica, Arial, sans-serif;
 		font-weight: 500;
+		border: 1px solid hsl(0, 0%, 86%);
 		-webkit-transition: -webkit-box-shadow 0.3s ease;
 		transition: -webkit-box-shadow 0.3s ease;
 		transition: box-shadow 0.3s ease;
@@ -483,14 +636,7 @@ section.set-active-videos {
 	}
 
 	section.set-active-videos button:focus {
-			outline: none;
-			-webkit-box-shadow: 0 1px 3px 1px rgba(255, 122, 178, 0.75);
-			        box-shadow: 0 1px 3px 1px rgba(255, 122, 178, 0.75);
-		}
-
-	section.set-active-videos button:active {
-			-webkit-box-shadow: 0 0 0 0 hsl(335, 100%, 74%);
-			        box-shadow: 0 0 0 0 hsl(335, 100%, 74%);
+			border-color: hsl( 38,  96%, 54%);
 		}
 
 /*# sourceMappingURL=main.css.map*/
