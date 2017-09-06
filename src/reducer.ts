@@ -74,13 +74,11 @@ export const reducer: Reducer<RTMOwlStoreState> = (prevState, action) => {
 			})
 
 		case Action.ViewportResizeStarted:
-			console.debug('resize started')
 			return Object.assign({}, prevState, {
 				viewport: { resizeInProgress: true }
 			})
 
 		case Action.ViewportResizeEnded:
-			console.debug('resize ended')
 			return Object.assign({}, prevState, {
 				viewport: { resizeInProgress: false }
 			})
