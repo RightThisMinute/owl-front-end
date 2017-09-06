@@ -103,10 +103,8 @@ class CascadedColumnsList extends React.Component<Props, State> {
 			let style: React.CSSProperties = {}
 
 			const offset: number|undefined = this.state.offsets[child.props.id]
-			if (offset === undefined)
-				return child
-
-			style.transform = `translateY(${offset}px)`
+			style.transform = offset ? `translateY(${offset}px)` : ''
+			
 			return React.cloneElement(child, { style })
 		})
 
