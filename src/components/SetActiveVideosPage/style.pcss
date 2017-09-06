@@ -3,39 +3,63 @@
 
 section.set-active-videos {
 
+	display: flex;
+	justify-content: center;
 	padding: 15px;
 
-	p, textarea, button {
+	form {
+		max-width: 850px;
+	}
+
+	p {
 		margin: 15px 0;
 	}
 
 	p.note {
 		color: #999;
 		font-size: 0.85em;
+		line-height: 1.35em;
+	}
+
+	p.status {
+		padding: 5px 10px;
+		border-left: 3px solid hsl(0, 0%, 0%);
+		margin-left: calc(50% + 15px);
+		background-color: hsl(0, 0%, 96%);
+		font-size: 0.8em;
 	}
 
 	p.error {
-		color: red;
+		border-color: red;
 	}
 
 	p.success {
-		color: var(--neon-green);
+		border-color: var(--rtm-light-blue);
 	}
 
 	textarea {
-		--bg-color: #fff;
+		--line-height: 1.6em;
 
 		display: block;
-		max-width: 100%;
-		padding: 3px 6px;
+		float: left;
+		width: 50%;
+		min-height: 50vw; max-height: 100vw;
+		padding: 0 6px;
 		border: none;
-		border-top: 3px solid var(--rtm-blue);
-		border-bottom: 1px solid var(--rtm-light-blue);
+		border-top: 3px solid #000;
+		border-bottom: 1px solid #000;
+		margin: 0 15px 0 0;
 		box-shadow: 0 1px 3px 0 color(#000 alpha(25%));
-		background-color: var(--bg-color);
+		background: repeating-linear-gradient(to bottom,
+			#fff, #fff calc(var(--line-height) - 1px),
+			hsl(0, 0%, 96%) var(--line-height),
+			hsl(0, 0%, 96%) calc(2 * var(--line-height) - 1px)
+		);
 		color: #000;
-		font-size: 16px;
+		font-size: 14px;
 		font-family: var(--default-font-family);
+		font-weight: var(--font-weight-normal);
+		line-height: var(--line-height);
 		transition: box-shadow 0.3s ease;
 
 		&:focus {
@@ -49,15 +73,17 @@ section.set-active-videos {
 
 		padding: 4px 6px;
 		background-color: var(--bg-color);
-		color: #000;
-		font-size: 16px;
+		color: #fff;
+		font-size: 13px;
 		font-family: var(--default-font-family);
 		font-weight: var(--font-weight-medium);
-		border: 1px solid hsl(0, 0%, 86%);
+		border: 1px solid transparent;
+		background: var(--rtm-blue);
 		transition: box-shadow 0.3s ease;
 		cursor: pointer;
 
 		&:focus {
+			outline: none;
 			border-color: var(--rtm-orange);
 		}
 	}

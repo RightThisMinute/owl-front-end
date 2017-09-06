@@ -108,10 +108,10 @@ class SetActiveVideosPage extends React.Component<Props, State> {
 					<textarea name="ids" value={this.state.ids} rows={32} cols={75}
 					          onChange={this.handleInputChange} disabled={disabled}
 					/>
-					{message}
 					<button disabled={disabled}>
 						{buttonText || 'Set Active Videos'}
 					</button>
+					{message}
 				</form>
 			</section>
 		)
