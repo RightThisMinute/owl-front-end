@@ -67,6 +67,9 @@ class StatsChange extends React.Component<StatsChangeProps, any> {
 }
 
 function formatNumber(number: number): string {
+	if (isNaN(number))
+		return number.toString()
+
 	if (Math.abs(number) >= 10)
 		return Math.round(number)
 			.toString().split('').reverse()
@@ -86,13 +89,16 @@ function formatNumber(number: number): string {
 }
 
 function suffixNumber(number: number): string {
+	if (isNaN(number))
+		return number.toString()
+
 	const suffixes = [
 		['K', 1000], ['M', 1000000], ['B', 1000000000], ['T', 1000000000000]
 	].reverse()
 
 	const [suffix='', divisor=1] = find(suffixes, ([_, divisor]) => {
 		return (number / (divisor as number)) >= 1
-	}) as [string, number]
+	}) as [string, number] || ['', 1]
 
 	const reduced = number / divisor
 	return `${formatNumber(reduced)}${suffix}`

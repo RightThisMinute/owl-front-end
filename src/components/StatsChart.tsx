@@ -51,8 +51,8 @@ class StatsChart extends React.Component<Props, any> {
 			return accl
 		}, [])
 
-		const min = Math.min(...totals)
-		  let max = Math.max(...totals)
+		const min = totals.length > 0 ? Math.min(...totals) : 0
+		  let max = totals.length > 0 ? Math.max(...totals) : 1
 
 		// Prevent small changes appearing the same as big changes.
 		const { scale } = this.props
