@@ -22,6 +22,8 @@ const debug = createDebug('server')
 const server = express()
 server.use(logger('dev'))
 
+server.use('/favicon.ico',
+           express.static(path.resolve(__dirname,'../favicon.ico')))
 server.use(express.static(path.resolve(__dirname, 'public')))
 
 server.use(async (req, res) => {
