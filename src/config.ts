@@ -8,6 +8,7 @@ const debug = createDebug('config')
 export interface Config {
 
 	server: {
+		port: number
 		graphqlURL: string
 	}
 

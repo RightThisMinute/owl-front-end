@@ -61,7 +61,7 @@ server.use(async (req, res) => {
 		))
 })
 
-const port = normalizePort(process.env.PORT || 3001)
+const port = normalizePort(process.env.PORT || config.server.port)
 server.set('port', port)
 
 const httpServer = http.createServer(server)
