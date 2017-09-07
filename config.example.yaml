@@ -1,4 +1,7 @@
 
 server:
-  port: 3001
+  graphqlURL: http://localhost:3000/graphql
+
+client:
+  graphqlURL: https://example.com/graphql
 

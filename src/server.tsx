@@ -26,7 +26,7 @@ server.use(async (req, res) => {
 	const store = genStore(new ServerProtocol(req.url))
 	store.dispatch(FarceActions.init())
 	const matchContext = { store }
-	const fetcher = new ServerFetcher('http://localhost:3000/graphql')
+	const fetcher = new ServerFetcher(config.server.graphqlURL)
 
 	let renderArgs
 

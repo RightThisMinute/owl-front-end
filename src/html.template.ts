@@ -2,6 +2,8 @@
 import * as ReactDOMServer from 'react-dom/server'
 import * as serialize from 'serialize-javascript'
 
+import config from './config'
+
 export default function render(element, state, fetcher): string {
 	return `
 <!DOCTYPE html>
@@ -22,6 +24,7 @@ export default function render(element, state, fetcher): string {
 	<script>
 		window.__PRELOADED_STATE__ = ${serialize(state, { isJSON: true })}
 		window.__RELAY_PAYLOADS__ = ${serialize(fetcher, { isJSON: true })}
+		window.__CONFIG__ = ${serialize(config.client, { isJSON: true })}
 	</script>
 	<script src="/bundle.js"></script>
 </body>

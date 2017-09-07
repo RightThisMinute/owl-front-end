@@ -8,6 +8,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import Provider from 'react-redux/lib/components/Provider'
 
+import { Config } from './config'
 import { createResolver, renderConfig } from './App'
 import { ClientFetcher } from './fetcher'
 import { genStore } from './store'
@@ -17,9 +18,10 @@ const store = genStore(new BrowserProtocol(), window['__PRELOADED_STATE__'])
 const matchContext = { store }
 const ConnectedRouter = createConnectedRouter({ render: renderConfig })
 
+const config = window['__CONFIG__'] as Config['client']
 
 async function buildRelayState(): Promise<State> {
-	const fetcher = new ClientFetcher('http://localhost:3000/graphql',
+	const fetcher = new ClientFetcher(config.graphqlURL,
 	                                  window['__RELAY_PAYLOADS__'])
 	const resolver = createResolver(fetcher)
 
