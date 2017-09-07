@@ -34,6 +34,10 @@ const server = {
 
 	target: 'node',
 	entry: './build/unbundled/server.js',
+	node: {
+		__dirname: false,
+		__filename: false,
+	},
 
 	output: {
 		filename: 'server.js',
