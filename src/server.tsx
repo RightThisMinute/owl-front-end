@@ -1,4 +1,5 @@
 
+import * as path from 'path'
 import * as express from 'express'
 const { Actions: FarceActions, ServerProtocol } = require('farce')
 const { getStoreRenderArgs, RedirectException } = require('found')
@@ -8,6 +9,7 @@ import * as logger from 'morgan'
 import * as React from 'react'
 import { Provider } from 'react-redux'
 
+import config from './config'
 import { createResolver, renderConfig } from './App'
 import { ServerFetcher } from './fetcher'
 import renderTemplate from './html.template'
@@ -20,7 +22,7 @@ const debug = createDebug('server')
 const server = express()
 server.use(logger('dev'))
 
-server.use(express.static('build/public'))
+server.use(express.static(path.resolve(__dirname, 'public')))
 
 server.use(async (req, res) => {
 	const store = genStore(new ServerProtocol(req.url))
