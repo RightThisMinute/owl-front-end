@@ -7,10 +7,10 @@ import RouteComponentProps from '../props/RouteComponent'
 // Relative to [PROJECT_ROOT/build/unbundled] since we compile TypeScript
 // directly with `tsc` instead of working through Webpack. Unfortunately,
 // we need this setup to support relay-compiler.
-import '../../../src/components/main/general.pcss'
-import '../../../src/components/main/frame.pcss'
-import '../../../src/components/main/header.pcss'
-import '../../../src/components/main/footer.pcss'
+import '../../../src/components/Main/general.pcss'
+import '../../../src/components/Main/frame.pcss'
+import '../../../src/components/Main/header.pcss'
+import '../../../src/components/Main/footer.pcss'
 
 
 export default class Main extends React.Component<RouteComponentProps, any> {
