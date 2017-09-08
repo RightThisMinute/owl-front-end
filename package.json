@@ -8,7 +8,7 @@
     "relay": "relay-compiler --src ./build/unbundled --schema data/schema.graphqls",
     "clean": "(for f in build/*; do rm -r build; break; done) || echo 'Already clean.'",
     "symlink-data": "node scripts/symlink-data.js",
-    "build": "npm run clean && tsc --pretty && npm run symlink-data && npm run relay && webpack --progress",
+    "build": "tsc --pretty && npm run symlink-data && npm run relay && webpack --progress",
     "debug": "npm run build && node --inspect build/server.js",
     "debug-brk": "npm run build && node --inspect-brk build/server.js",
     "start": "node build/server.js",
