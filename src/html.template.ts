@@ -8,6 +8,7 @@ import config from './config'
 
 export default function render(element, state, fetcher): string {
 	const bundleStats = statSync(resolve(__dirname, 'public/bundle.js'))
+	const bundleMTime = encodeURIComponent(bundleStats.mtime.toString())
 
 	return `
 <!DOCTYPE html>
@@ -30,7 +31,7 @@ export default function render(element, state, fetcher): string {
 		window.__RELAY_PAYLOADS__ = ${serialize(fetcher, { isJSON: true })}
 		window.__CONFIG__ = ${serialize(config.client, { isJSON: true })}
 	</script>
-	<script src="/bundle.js?mtime=${bundleStats.mtime}"></script>
+	<script src="/bundle.js?mtime=${bundleMTime}"></script>
 </body>
 
 </html>
