@@ -32,6 +32,17 @@ server.use(async (req, res) => {
 	const matchContext = { store }
 	const fetcher = new ServerFetcher(config.server.graphqlURL)
 
+	if (req.headers.authorization) {
+		config.client.graphqlRequestHeaders
+			= config.client.graphqlRequestHeaders || {}
+
+		let { authorization: auth } = req.headers
+		if (Array.isArray(auth))
+			auth = auth[0]
+		
+		config.client.graphqlRequestHeaders['authorization'] = auth
+	}
+
 	let renderArgs
 
 	try {

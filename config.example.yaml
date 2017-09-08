@@ -5,4 +5,9 @@ server:
 
 client:
   graphqlURL: https://example.com/graphql
+  # (optional) Specify extra headers to send with GraphQL requests.
+  graphqlRequestHeaders:
+    authorization: Basic abc123==
+
+
 

@@ -22,7 +22,8 @@ const config = window['__CONFIG__'] as Config['client']
 
 async function buildRelayState(): Promise<State> {
 	const fetcher = new ClientFetcher(config.graphqlURL,
-	                                  window['__RELAY_PAYLOADS__'])
+	                                  window['__RELAY_PAYLOADS__'],
+	                                  config.graphqlRequestHeaders || {})
 	const resolver = createResolver(fetcher)
 
 	const initialRenderArgs = await getStoreRenderArgs({

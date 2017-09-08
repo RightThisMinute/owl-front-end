@@ -6,28 +6,35 @@ import 'isomorphic-fetch';
 
 class FetcherBase {
 	private url: string
+	private headers: { [key: string]: string }
 	protected payloads: (object|null)[]
 
-	constructor(url: string) {
+	constructor(url: string, headers: FetcherBase['headers'] = {}) {
 		this.url = url;
+		this.headers = headers
 	}
 
 	async fetch(operation, variables) {
+		const headers = {
+			'Content-Type': 'application/json',
+		}
+
+		Object.assign(headers, this.headers)
+
 		const response = await fetch(this.url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers,
 			body: JSON.stringify({ query: operation.text, variables }),
-		});
+		})
+
 		return response.json();
 	}
 }
 
 export class ServerFetcher extends FetcherBase {
 
-	constructor(url) {
-		super(url);
+	constructor(url: string, headers: FetcherBase['headers'] = {}) {
+		super(url, headers);
 
 		this.payloads = [];
 	}
@@ -46,8 +53,11 @@ export class ServerFetcher extends FetcherBase {
 }
 
 export class ClientFetcher extends FetcherBase {
-	constructor(url, payloads) {
-		super(url);
+
+	constructor(url: string, payloads: FetcherBase['payloads'],
+	            headers: FetcherBase['headers'] = {})
+	{
+		super(url, headers);
 
 		this.payloads = payloads;
 	}

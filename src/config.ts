@@ -14,6 +14,7 @@ export interface Config {
 
 	client: {
 		graphqlURL: string
+		graphqlRequestHeaders?: { [key: string]: string }
 	}
 
 }
