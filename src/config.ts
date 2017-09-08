@@ -7,6 +7,8 @@ const debug = createDebug('config')
 
 export interface Config {
 
+	dataSourcePath: string
+
 	server: {
 		port: number
 		graphqlURL: string

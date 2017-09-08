@@ -1,7 +1,8 @@
 
 config.*yaml
 !config.example.yaml
-build
+/build
+/data
 /work
 
 # vim

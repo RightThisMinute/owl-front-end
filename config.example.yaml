@@ -1,4 +1,8 @@
 
+# Path to data folder of the Owl API server. If it doesn't already exist, will
+# be symlinked by `npm build` to [<project root>/data].
+dataSourcePath: ../owl-server/data
+
 server:
   port: 3001
   graphqlURL: http://localhost:3000/graphql
