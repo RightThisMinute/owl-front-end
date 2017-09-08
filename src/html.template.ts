@@ -30,7 +30,7 @@ export default function render(element, state, fetcher): string {
 		window.__RELAY_PAYLOADS__ = ${serialize(fetcher, { isJSON: true })}
 		window.__CONFIG__ = ${serialize(config.client, { isJSON: true })}
 	</script>
-	<script src="/bundle.js?mtime=${bundleStats.mtimeMs}"></script>
+	<script src="/bundle.js?mtime=${bundleStats.mtime}"></script>
 </body>
 
 </html>
