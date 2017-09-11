@@ -39,6 +39,8 @@ const CHART_OPTS: ChartOptions = {
 	},
 }
 
+const MAX_POINTS = 100
+
 class StatsChart extends React.Component<Props, any> {
 
 	render() {
@@ -82,7 +84,11 @@ class StatsChart extends React.Component<Props, any> {
 	}
 
 	private get data(): ChartData {
-		const labels: string[] = (new Array(this.props.dataPointCount)
+		let { snapshots } = this.props
+		const { dataPointCount: trueDataPointCount } = this.props
+		const dataPointCount = Math.min(MAX_POINTS, trueDataPointCount)
+
+		const labels: string[] = (new Array(dataPointCount)
 			.map((_, index) => `${index}`))
 
 		let datasets: ChartDataSets[] = [
@@ -101,7 +107,23 @@ class StatsChart extends React.Component<Props, any> {
 			return dataset
 		})
 
-		this.props.snapshots.forEach(snapshot => {
+		if (MAX_POINTS < trueDataPointCount) {
+			const ratio = trueDataPointCount / (MAX_POINTS - 1)
+
+			snapshots = snapshots.filter((_, index) => {
+				if (index === 0 || index === snapshots.length - 1)
+					return true
+
+				const remainder = index % ratio
+
+				if (remainder < 1)
+					return true
+
+				return false
+			})
+		}
+
+		snapshots.forEach(snapshot => {
 			datasets.forEach(({ label='[ERROR]', data=[] }) => {
 				(data as number[]).push(Number(snapshot[label]))
 			})
