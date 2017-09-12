@@ -37,6 +37,10 @@ const CHART_OPTS: ChartOptions = {
 		}],
 		gridLines: { display: false },
 	},
+	elements: { line: { tension: 0 } },
+	animation: { duration: 0 },
+	hover: { animationDuration: 0 },
+	responsiveAnimationDuration: 0,
 }
 
 const MAX_POINTS = 100
