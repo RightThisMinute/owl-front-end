@@ -3,15 +3,17 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 const { createFragmentContainer, graphql } = require('react-relay')
 
-import { store, StoreState } from '../store'
+import ContextProps from '../props/Context'
+import { StoreState } from '../store'
 import { Action } from '../reducer'
 import SetActiveVideosMutation
 	from './SetActiveVideosPage/SetActiveVideos.mutation'
 
 import '../../../src/components/SetActiveVideosPage/style.pcss'
+import {Context} from 'vm'
 
 
-interface OwnProps {
+interface OwnProps extends ContextProps {
 	activeVideos: { id: string }[]
 	relay: { environment: any }
 }
@@ -32,7 +34,7 @@ interface State {
 
 class SetActiveVideosPage extends React.Component<Props, State> {
 
-	constructor(props) {
+	constructor(props: Props) {
 		super(props)
 
 		this.state = {
@@ -68,11 +70,13 @@ class SetActiveVideosPage extends React.Component<Props, State> {
 		event.preventDefault()
 
 		const ids = this.state.ids.trim().split("\n")
+		const { relay: { environment }, context: { store } } = this.props
 
-		SetActiveVideosMutation.commit(this.props.relay.environment, ids)
+		SetActiveVideosMutation.commit(environment, store, ids)
 	}
 
 	componentWillUnmount(): void {
+		const { context: { store } } = this.props
 		store.dispatch({ type: Action.ResetSetActiveVideosFlags })
 	}
 

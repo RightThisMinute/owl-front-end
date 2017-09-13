@@ -2,7 +2,7 @@
 const { commitMutation, graphql } = require('react-relay')
 
 import { Action } from '../../reducer'
-import { store } from '../../store'
+import { Store } from '../../store'
 
 
 const mutation = graphql`
@@ -15,7 +15,7 @@ const mutation = graphql`
 
 let nextClientMutationId = 0
 
-function commit(environment, ids: string[]) {
+function commit(environment, store: Store, ids: string[]) {
 	const clientMutationId = nextClientMutationId++
 
 	store.dispatch({ type: Action.SettingActiveVideos })

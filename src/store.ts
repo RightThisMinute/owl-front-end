@@ -11,9 +11,11 @@ import { historyMiddlewares, routeConfig } from './App'
 import { reducer } from './reducer'
 
 
-interface Store<S> extends ReduxStore<S> {
+interface _Store<S> extends ReduxStore<S> {
 	farce: any // Added by `createHistoryEnhancer()`
 }
+
+export type Store = _Store<StoreState>
 
 export interface StoreState {
 	rtmOwl: RTMOwlStoreState
@@ -32,14 +34,8 @@ export interface RTMOwlStoreState {
 	}
 }
 
-
-export let store: Store<any>
-
-export function genStore(historyProtocol, preloadedState?) {
-	if (typeof store !== 'undefined')
-		return store
-
-	store = createStore(
+export function genStore(historyProtocol, preloadedState?): Store {
+	 return createStore(
 		combineReducers({
 			found: foundReducer,
 			rtmOwl: reducer,
@@ -52,7 +48,5 @@ export function genStore(historyProtocol, preloadedState?) {
 			}),
 			createMatchEnhancer(new Matcher(routeConfig)),
 		),
-	) as Store<any>
-
-	return store
+	) as Store
 }

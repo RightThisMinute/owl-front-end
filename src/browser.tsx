@@ -12,6 +12,7 @@ import { Config } from './config'
 import { createResolver, renderConfig } from './App'
 import { ClientFetcher } from './fetcher'
 import { genStore } from './store'
+import * as viewport from './viewport'
 
 
 const store = genStore(new BrowserProtocol(), window['__PRELOADED_STATE__'])
@@ -52,12 +53,14 @@ class Wrap extends React.Component<Props, State> {
 
 	private relayStateRebuildCount: number
 
-	constructor(props) {
+	constructor(props: Props) {
 		super(props)
 
 		this.state = this.props.initialState
 		this.relayStateRebuildCount = store.getState().rtmOwl.relayStateRebuildCount
 		store.subscribe(this.rebuildRelayState.bind(this))
+
+		viewport.init(store)
 	}
 
 	async rebuildRelayState(): Promise<void> {

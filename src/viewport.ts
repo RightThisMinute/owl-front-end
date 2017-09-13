@@ -1,21 +1,22 @@
 
 import { Action } from './reducer'
-import { store } from './store'
+import { Store } from './store'
 
 
 let initialized = false
 let settledTimeout: any
 
-export function init(): void {
+export function init(store: Store): void {
 	if (initialized || typeof window === 'undefined')
 		return;
 	initialized = true
 
-	window.addEventListener('resize', handleResize)
+	window.addEventListener('resize',
+	                        handleResize.bind(null, store))
 }
 
 
-function handleResize(): void {
+function handleResize(store: Store): void {
 	clearTimeout(settledTimeout)
 
 	store.dispatch({ type: Action.ViewportResizeStarted })

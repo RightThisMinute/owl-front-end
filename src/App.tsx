@@ -8,18 +8,17 @@ const { graphql } = require('react-relay')
 import { Resolver } from 'found-relay'
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 
-import * as viewport from './viewport'
 import RouteComponentProps from './props/RouteComponent'
 import Main from './components/Main'
 import VideoList from './components/VideoList'
 import SetActiveVideosPage from './components/SetActiveVideosPage'
 import ErrorPage from './components/ErrorPage'
+import {Context} from 'vm'
+
 
 class AppFrame extends React.Component<RouteComponentProps, any> {
-
 	constructor(props) {
 		super(props)
-		viewport.init()
 	}
 
 	render() { return (
